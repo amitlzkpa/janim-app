@@ -1,23 +1,29 @@
 <template>
-  <vs-navbar>
-    <template #left>
-      <router-link
-        :to="isLoggedIn ? '/home' : '/'"
-        style="text-decoration: none"
-      >
-        <h3>vyrall</h3>
-      </router-link>
-    </template>
-    <template #right>
-      <span v-if="isLoggedIn">
-        <vs-button flat to="/settings">Settings</vs-button>
-        <vs-button border @click="logout()">Logout</vs-button>
-      </span>
-      <span v-else>
-        <vs-button to="/login">Login</vs-button>
-      </span>
-    </template>
-  </vs-navbar>
+  <div>
+    <vs-navbar class="pa-20">
+      <div slot="title">
+        <router-link
+          :to="isLoggedIn ? '/home' : '/'"
+          style="text-decoration: none"
+        >
+          <vs-navbar-title>
+            <h1>vyrall</h1>
+          </vs-navbar-title>
+        </router-link>
+      </div>
+
+      <vs-navbar-item v-if="isLoggedIn" class="mx-4">
+        <vs-button type="flat" to="/settings">Settings</vs-button>
+      </vs-navbar-item>
+      <vs-navbar-item v-if="isLoggedIn" class="mx-4">
+        <vs-button type="border" @click="logout()">Logout</vs-button>
+      </vs-navbar-item>
+
+      <vs-navbar-item v-if="!isLoggedIn" class="mx-4">
+        <vs-button type="filled" to="/login">Login</vs-button>
+      </vs-navbar-item>
+    </vs-navbar>
+  </div>
 </template>
 
 <script>

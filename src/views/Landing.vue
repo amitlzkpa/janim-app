@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b>vyrall</b>
-    <br />
-    <span>Starter app.</span>
-    <br />
+    <vs-row>
+      <vs-col w="10" offset="1"> Hello </vs-col>
+      <vs-input-number v-model="number" />
+    </vs-row>
   </div>
 </template>
 
@@ -11,6 +11,11 @@
 import { mapState } from "vuex";
 
 export default {
+  data() {
+    return {
+      number: 4,
+    };
+  },
   computed: {
     ...mapState(["userProfile"]),
     isLoggedIn() {
