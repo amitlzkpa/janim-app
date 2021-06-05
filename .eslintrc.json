@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "plugin:vue/base"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "vue/no-unused-components": "off",
+    "no-plusplus": "off",
+    "no-debugger": "off",
+    "no-unused-vars": "off",
+    "no-empty": "off",
+    "no-unreachable": "off"
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "globals": {
+    "browser": true,
+    "$": true,
+    "document": true
+  }
+}
