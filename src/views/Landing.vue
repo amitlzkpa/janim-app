@@ -2,7 +2,7 @@
   <div>
     <b>vyrall</b>
     <br />
-    <span>An instagram clone app.</span>
+    <span>Starter app.</span>
     <br />
   </div>
 </template>
