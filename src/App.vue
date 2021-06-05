@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Navbar />
-    <div style="height: 100px" />
     <router-view />
   </div>
 </template>
@@ -24,7 +23,7 @@ body {
 }
 
 h1 {
-  font-family: "Roboto" sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 200;
 }
 

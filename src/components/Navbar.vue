@@ -16,11 +16,11 @@
         <vs-button type="flat" to="/settings">Settings</vs-button>
       </vs-navbar-item>
       <vs-navbar-item v-if="isLoggedIn" class="mx-4">
-        <vs-button type="border" @click="logout()">Logout</vs-button>
+        <vs-button type="flat" @click="logout()">Logout</vs-button>
       </vs-navbar-item>
 
       <vs-navbar-item v-if="!isLoggedIn" class="mx-4">
-        <vs-button type="filled" to="/login">Login</vs-button>
+        <vs-button type="flat" to="/login">Login</vs-button>
       </vs-navbar-item>
     </vs-navbar>
   </div>

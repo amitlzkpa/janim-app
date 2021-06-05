@@ -1,9 +1,18 @@
 <template>
   <div>
-    <vs-row>
-      <vs-col w="10" offset="1"> Hello </vs-col>
-      <vs-input-number v-model="number" />
+    <vs-row style="height: 400px">
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="6">
+        -
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="left" vs-align="center" vs-w="6">
+        <div style="display: flex; flex-direction: column">
+          <h1>vyrall</h1>
+          <p>The gig economy for influencers.</p>
+        </div>
+      </vs-col>
     </vs-row>
+
+    <vs-divider />
   </div>
 </template>
 
