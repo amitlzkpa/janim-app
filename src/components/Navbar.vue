@@ -1,24 +1,23 @@
 <template>
-  <div>
-    <router-link :to="isLoggedIn ? '/home' : '/'" style="text-decoration: none">
-      <b>vyrall</b>
-    </router-link>
-
-    <span style="float: right">
+  <vs-navbar>
+    <template #left>
+      <router-link
+        :to="isLoggedIn ? '/home' : '/'"
+        style="text-decoration: none"
+      >
+        <h3>vyrall</h3>
+      </router-link>
+    </template>
+    <template #right>
       <span v-if="isLoggedIn">
-        <router-link to="/settings">Settings</router-link>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a
-          style="cursor: pointer; color: blue; text-decoration: underline"
-          @click="logout()"
-          >Logout</a
-        >
+        <vs-button flat to="/settings">Settings</vs-button>
+        <vs-button border @click="logout()">Logout</vs-button>
       </span>
-      <router-link v-else to="/login"> Login </router-link>
-    </span>
-
-    <hr />
-  </div>
+      <span v-else>
+        <vs-button to="/login">Login</vs-button>
+      </span>
+    </template>
+  </vs-navbar>
 </template>
 
 <script>
