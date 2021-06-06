@@ -1,7 +1,7 @@
 <template>
   <div>
     <vs-row class="px-10">
-      <vs-col vs-w="3">
+      <vs-col vs-lg="3" vs-sm="5" vs-xs="12">
         <div class="mt-20 pa-10">
           <vs-card>
             <div slot="header">
@@ -24,7 +24,7 @@
         </div>
       </vs-col>
 
-      <vs-col vs-w="5">
+      <vs-col vs-lg="6" vs-sm="7" vs-xs="12">
         <div class="mt-20 pa-10">
           <div v-if="posts.length">
             <vs-card v-for="post in posts" :key="post.id">
