@@ -34,6 +34,12 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/campaign/view",
+    name: "Campaign",
+    component: () =>
+      import(/* webpackChunkName: "campaign-view */ "@/views/CampaignView.vue"),
+  },
 ];
 
 const router = new VueRouter({

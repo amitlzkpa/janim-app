@@ -40,7 +40,7 @@ h6 {
   font-weight: 400;
 }
 
-$spaceamounts: (2, 4, 6, 8, 10, 12, 20, 24, 48);
+$spaceamounts: (2, 4, 6, 8, 10, 12, 16, 20, 24, 48);
 
 $sides: (top, bottom, left, right);
 @each $space in $spaceamounts {
@@ -96,5 +96,13 @@ $textColors: ("grey", "darkgrey");
 
 .full-width {
   width: 100% !important;
+}
+
+.half-width {
+  width: 48.5% !important;
+}
+
+.third-width {
+  width: 32% !important;
 }
 </style>
