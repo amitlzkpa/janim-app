@@ -30,45 +30,46 @@
         <div class="mt-20 pa-10">
           <vs-row>
             <vs-col vs-w="12">
-              <p
-                style="
+              <ContentEditable
+                tag="span"
+                v-model="campaign.title"
+                styleText="
+                  cursor: select;
+                  border: 1px dashed grey;
+                  border-radius: 8px;
                   color: grey;
                   font-family: 'Roboto', sans-serif;
-                  border: 1px dashed grey;
+                  font-size: 60px;
+                  font-weight: 100;
+                  min-height: 70px;
                   width: 100%;
-                  cursor: select;
-                  border-radius: 8px;
+                  display: inline-block;
                 "
-              >
-                <ContentEditable
-                  tag="span"
-                  styleText="font-size: 60px; font-weight: 100; min-height: 70px; width: 100%; display: inline-block;"
-                  v-model="campaign.title"
-                />
-              </p>
+              />
             </vs-col>
           </vs-row>
 
           <vs-row>
             <vs-col vs-w="12">
-              <p
-                style="
+              <ContentEditable
+                tag="span"
+                v-model="campaign.description"
+                styleText="
+                  cursor: select;
+                  border: 1px dashed grey;
+                  border-radius: 8px;
+                  color: #4d4d4d;
                   font-family: 'Lato', sand-serif;
                   font-size: 20px;
-                  color: #4d4d4d;
-                  border: 1px dashed grey;
+                  height: 80px;
                   width: 100%;
-                  cursor: select;
-                  border-radius: 8px;
+                  display: inline-block;
+                  resize: vertical;
+                  overflow-x: hidden;
+                  overflow-y: auto;
                   margin-top: 2px;
                 "
-              >
-                Vestibulum pellentesque arcu a orci elementum, sed fermentum
-                enim fringilla. Quisque tristique odio ac ligula pulvinar
-                viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend
-                quam. Integer et enim non ante consequat fermentum eu eget
-                lacus. Maecenas sit amet ipsum.
-              </p>
+              />
             </vs-col>
           </vs-row>
 
@@ -279,7 +280,9 @@ export default {
   data() {
     return {
       campaign: {
-        title: "fooo",
+        title: "Probana Boost",
+        description:
+          "Vestibulum pellentesque arcu a orci elementum, sed fermentum enim fringilla. Quisque tristique odio ac ligula pulvinar viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend quam. Integer et enim non ante consequat fermentum eu eget lacus. Maecenas sit amet ipsum.",
       },
       activityItems: [
         {
