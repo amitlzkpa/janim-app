@@ -12,15 +12,15 @@
         </router-link>
       </div>
 
-      <vs-navbar-item v-if="isLoggedIn" class="mx-4">
-        <vs-button type="flat" to="/settings">Settings</vs-button>
+      <vs-navbar-item v-if="isLoggedIn">
+        <vs-button type="flat" to="/settings" class="mx-4">Settings</vs-button>
       </vs-navbar-item>
-      <vs-navbar-item v-if="isLoggedIn" class="mx-4">
-        <vs-button type="flat" @click="logout()">Logout</vs-button>
+      <vs-navbar-item v-if="isLoggedIn">
+        <vs-button type="flat" @click="logout()" class="mx-4">Logout</vs-button>
       </vs-navbar-item>
 
-      <vs-navbar-item v-if="!isLoggedIn" class="mx-4">
-        <vs-button type="flat" to="/login">Login</vs-button>
+      <vs-navbar-item v-if="!isLoggedIn">
+        <vs-button type="flat" to="/login" class="mx-4">Login</vs-button>
       </vs-navbar-item>
     </vs-navbar>
   </div>

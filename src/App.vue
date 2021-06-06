@@ -86,4 +86,15 @@ $sides: (top, bottom, left, right);
     padding-bottom: #{$space}px !important;
   }
 }
+
+$textColors: ("grey", "darkgrey");
+@each $textColor in $textColors {
+  .text--#{$textColor} {
+    color: #{$textColor} !important;
+  }
+}
+
+.full-width {
+  width: 100% !important;
+}
 </style>
