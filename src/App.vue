@@ -41,7 +41,7 @@ h6 {
   font-weight: 400;
 }
 
-$spaceamounts: (2, 4, 6, 8, 10, 12, 16, 20, 24, 48);
+$spaceamounts: (2, 4, 6, 8, 10, 12, 16, 20, 24, 30, 36, 48);
 
 $sides: (top, bottom, left, right);
 @each $space in $spaceamounts {

@@ -143,7 +143,44 @@
             </vs-col>
             <vs-col vs-w="6" class="pa-10">
               <vs-card actionable fixed-height>
-                <div class="info-item flex-center pt-10">$8000 bounty</div>
+                <div
+                  class="info-item flex-center pt-10"
+                  @click="showCampaignBudgetPopup = true"
+                >
+                  ${{ campaign.totalBudget }} bounty
+                </div>
+                <vs-popup
+                  title="Campaign Budget"
+                  :active.sync="showCampaignBudgetPopup"
+                >
+                  <vs-row>
+                    <vs-col vs-w="3">
+                      Total Budget
+                      <vs-input-number
+                        v-model="campaign.totalBudget"
+                        label="$"
+                        :min="200"
+                        :max="10000"
+                        :step="200"
+                      />
+                      Hits Goal
+                      <vs-input-number
+                        v-model="campaign.hitsGoal"
+                        :min="200"
+                        :step="200"
+                      />
+                    </vs-col>
+                    <vs-col vs-w="9">
+                      <div class="info-item pt-24" style="text-align: center">
+                        <small>(approximate price per hit)</small>
+                        <br />
+                        ${{
+                          (campaign.totalBudget / campaign.hitsGoal).toFixed(2)
+                        }}
+                      </div>
+                    </vs-col>
+                  </vs-row>
+                </vs-popup>
               </vs-card>
             </vs-col>
           </vs-row>
@@ -344,11 +381,14 @@ export default {
   data() {
     return {
       showCampaignTimelinePopup: false,
+      showCampaignBudgetPopup: false,
       campaign: {
         title: "Probana Boost",
         description:
           "Vestibulum pellentesque arcu a orci elementum, sed fermentum enim fringilla. Quisque tristique odio ac ligula pulvinar viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend quam. Integer et enim non ante consequat fermentum eu eget lacus. Maecenas sit amet ipsum.",
         dateRange: [],
+        totalBudget: 200,
+        hitsGoal: 200,
       },
       activityItems: [
         {
