@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-row>
+    <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
           <vs-card>
@@ -31,9 +31,11 @@
               <div>
                 <b>{{ post.userName }}</b>
                 <br />
-                <span>{{ post.content | trimLength }}</span>
+                <span class="text--grey">{{
+                  moment(post.createdOn.toDate()).fromNow()
+                }}</span>
                 <br />
-                <span>{{ moment(post.createdOn.toDate()).fromNow() }}</span>
+                <span>{{ post.content | trimLength }}</span>
               </div>
 
               <div slot="footer">
