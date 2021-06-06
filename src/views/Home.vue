@@ -22,7 +22,7 @@
           <br />
           <span>{{ post.content | trimLength }}</span>
           <br />
-          <span>{{ post.createdOn | formatDate }}</span>
+          <span>{{ moment(post.createdOn.toDate()).fromNow() }}</span>
           <br />
           <button @click="likePost(post.id, post.likes)">+</button>
           {{ post.likes }} like{{ post.likes !== 1 ? "s" : "" }}
@@ -37,18 +37,10 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapState } from "vuex";
 
 export default {
   filters: {
-    formatDate(val) {
-      if (!val) {
-        return "-";
-      }
-      let date = val.toDate();
-      return moment(date).fromNow();
-    },
     trimLength(val) {
       if (val.length < 200) {
         return val;

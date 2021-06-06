@@ -4,6 +4,7 @@ import router from "@/router";
 import store from "@/store";
 import { auth } from "@/firebase";
 
+import moment from "moment";
 import Vuesax from "vuesax";
 import "vuesax/dist/vuesax.css";
 import "material-icons/iconfont/material-icons.css";
@@ -11,6 +12,7 @@ import "material-icons/iconfont/material-icons.css";
 Vue.use(Vuesax, {});
 
 Vue.config.productionTip = false;
+Vue.prototype.moment = moment;
 
 let app;
 auth.onAuthStateChanged((user) => {
