@@ -1,38 +1,62 @@
 <template>
   <div>
-    <h2>Home</h2>
-    <div>
-      <div>
-        <form @submit.prevent>
-          <button @click="createPost()" :disabled="post.content === ''">
-            post
-          </button>
-          <br />
-          <textarea
-            v-model.trim="post.content"
-            placeholder="create a post"
-          ></textarea>
-        </form>
-      </div>
-
-      <div v-if="posts.length">
-        <hr />
-        <div v-for="post in posts" :key="post.id">
-          <b>{{ post.userName }}</b>
-          <br />
-          <span>{{ post.content | trimLength }}</span>
-          <br />
-          <span>{{ moment(post.createdOn.toDate()).fromNow() }}</span>
-          <br />
-          <button @click="likePost(post.id, post.likes)">+</button>
-          {{ post.likes }} like{{ post.likes !== 1 ? "s" : "" }}
-          <hr />
+    <vs-row>
+      <vs-col vs-w="3">
+        <div class="mt-20 pa-10">
+          <vs-card>
+            <div slot="header">
+              <h3>New Post</h3>
+            </div>
+            <div>
+              <vs-textarea
+                v-model.trim="post.content"
+                placeholder="Start typing..."
+                height="200px"
+              />
+              <vs-button
+                type="gradient"
+                @click="createPost()"
+                class="full-width"
+                >Post</vs-button
+              >
+            </div>
+          </vs-card>
         </div>
-      </div>
-      <div v-else>
-        <p>There are currently no posts</p>
-      </div>
-    </div>
+      </vs-col>
+
+      <vs-col vs-w="5">
+        <div class="mt-20 pa-10">
+          <div v-if="posts.length">
+            <vs-card v-for="post in posts" :key="post.id">
+              <div>
+                <b>{{ post.userName }}</b>
+                <br />
+                <span>{{ post.content | trimLength }}</span>
+                <br />
+                <span>{{ moment(post.createdOn.toDate()).fromNow() }}</span>
+              </div>
+
+              <div slot="footer">
+                <vs-row vs-justify="flex-end">
+                  <vs-button
+                    @click="likePost(post.id, post.likes)"
+                    type="gradient"
+                    color="danger"
+                    icon="favorite"
+                  >
+                    {{ post.likes }}
+                  </vs-button>
+                </vs-row>
+              </div>
+            </vs-card>
+          </div>
+
+          <div v-else>
+            <p class="text--grey">There are currently no posts</p>
+          </div>
+        </div>
+      </vs-col>
+    </vs-row>
   </div>
 </template>
 
