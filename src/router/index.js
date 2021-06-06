@@ -40,6 +40,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "campaign-view */ "@/views/CampaignView.vue"),
   },
+  {
+    path: "/campaign/edit",
+    name: "Campaign",
+    component: () =>
+      import(/* webpackChunkName: "campaign-edit */ "@/views/CampaignEdit.vue"),
+  },
 ];
 
 const router = new VueRouter({
