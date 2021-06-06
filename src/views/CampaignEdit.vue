@@ -76,9 +76,69 @@
           <vs-row class="mt-16">
             <vs-col vs-w="6" class="pa-10">
               <vs-card actionable fixed-height>
-                <div class="info-item flex-center pt-10">
-                  May 23rd 2020 - December 31st 2020
+                <div
+                  class="info-item flex-center pt-10"
+                  @click="showCampaignTimelinePopup = true"
+                >
+                  {{
+                    campaign.dateRange[0]
+                      ? moment(campaign.dateRange[0]).format("MMM Do YYYY")
+                      : "-"
+                  }}
+                  -
+                  {{
+                    campaign.dateRange[1]
+                      ? moment(campaign.dateRange[1]).format("MMM Do YYYY")
+                      : "-"
+                  }}
                 </div>
+                <div
+                  class="info-item flex-center"
+                  v-if="campaign.dateRange[0] && campaign.dateRange[1]"
+                >
+                  <i style="font-size: 20px">
+                    ({{
+                      moment
+                        .duration(
+                          moment(campaign.dateRange[0]).diff(
+                            campaign.dateRange[1]
+                          )
+                        )
+                        .humanize()
+                    }})
+                  </i>
+                </div>
+                <vs-popup
+                  title="Campaign Timeline"
+                  :active.sync="showCampaignTimelinePopup"
+                >
+                  <vs-row>
+                    <vs-col vs-w="6" style="text-align: center"
+                      >Start Date</vs-col
+                    >
+                    <vs-col vs-w="6" style="text-align: center"
+                      >End Date</vs-col
+                    >
+                  </vs-row>
+                  <vs-row>
+                    <vs-col>
+                      <div class="flex-center my-8">
+                        <date-picker
+                          range
+                          inline
+                          v-model="campaign.dateRange"
+                        ></date-picker>
+                      </div>
+                    </vs-col>
+                  </vs-row>
+                  <div class="full-width" style="text-align: right">
+                    <vs-button
+                      type="filled"
+                      @click="showCampaignTimelinePopup = false"
+                      >Save</vs-button
+                    >
+                  </div>
+                </vs-popup>
               </vs-card>
             </vs-col>
             <vs-col vs-w="6" class="pa-10">
@@ -271,18 +331,24 @@
 <script>
 import { mapState } from "vuex";
 
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+
 import ContentEditable from "@/components/ContentEditable";
 
 export default {
   components: {
     ContentEditable,
+    DatePicker,
   },
   data() {
     return {
+      showCampaignTimelinePopup: false,
       campaign: {
         title: "Probana Boost",
         description:
           "Vestibulum pellentesque arcu a orci elementum, sed fermentum enim fringilla. Quisque tristique odio ac ligula pulvinar viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend quam. Integer et enim non ante consequat fermentum eu eget lacus. Maecenas sit amet ipsum.",
+        dateRange: [],
       },
       activityItems: [
         {
