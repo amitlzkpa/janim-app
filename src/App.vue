@@ -16,7 +16,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../node_modules/typeface-roboto/index.css";
+// @import "~@fontsource/roboto/index.css";
+@import "~@fontsource/lato/index.css";
 
 body {
   font-family: "Tahoma";

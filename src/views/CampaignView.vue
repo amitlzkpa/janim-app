@@ -44,7 +44,13 @@
 
           <vs-row>
             <vs-col vs-w="12">
-              <p style="font-size: 20px; color: darkgrey">
+              <p
+                style="
+                  font-family: 'Lato', sand-serif;
+                  font-size: 20px;
+                  color: #4d4d4d;
+                "
+              >
                 Vestibulum pellentesque arcu a orci elementum, sed fermentum
                 enim fringilla. Quisque tristique odio ac ligula pulvinar
                 viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend
@@ -98,7 +104,32 @@
           <vs-divider />
 
           <vs-row>
-            <vs-col> </vs-col>
+            <vs-col vs-w="8"> </vs-col>
+            <vs-col vs-w="4">
+              <div style="text-align: center">
+                <div class="my-10">
+                  <img
+                    src="/imgs/dotted-map.png"
+                    alt="Target Regions"
+                    style="object-fit: cover; width: 100%"
+                  />
+                  <div class="flex-center mt-10" style="flex-wrap: wrap">
+                    <span class="country-label">USA</span>
+                    <span class="country-label">California</span>
+                    <span class="country-label">Portland</span>
+                    <span class="country-label">Oregon</span>
+                    <span class="country-label">West Coast</span>
+                    <span class="country-label">Barcelona</span>
+                    <span class="country-label">Spain</span>
+                    <span class="country-label">Hamburg</span>
+                    <span class="country-label">Munich</span>
+                    <span class="country-label">Germany</span>
+                  </div>
+                </div>
+
+                <vs-divider />
+              </div>
+            </vs-col>
           </vs-row>
         </div>
       </vs-col>
@@ -135,5 +166,13 @@ export default {
   font-size: 24px;
   font-weight: 300;
   color: grey;
+}
+
+.country-label {
+  color: grey;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 0px 4px 0px 4px;
 }
 </style>
