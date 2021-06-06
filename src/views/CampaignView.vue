@@ -104,7 +104,42 @@
           <vs-divider />
 
           <vs-row>
-            <vs-col vs-w="8"> </vs-col>
+            <vs-col vs-w="8">
+              <vs-tabs>
+                <vs-tab label="Activity">
+                  <div>
+                    <vs-card
+                      v-for="activityItem in activityItems"
+                      :key="activityItem.id"
+                    >
+                      <div>
+                        <span class="text--grey">
+                          <i>
+                            {{ moment(activityItem.date).fromNow() }}
+                          </i>
+                        </span>
+                        <br />
+                        <span>{{ activityItem.content }}</span>
+                      </div>
+
+                      <div slot="footer">
+                        <vs-row vs-justify="flex-end">
+                          <vs-button
+                            type="gradient"
+                            :color="activityItem.iconColor"
+                            :icon="activityItem.icon"
+                          >
+                          </vs-button>
+                        </vs-row>
+                      </div>
+                    </vs-card>
+                  </div>
+                </vs-tab>
+                <vs-tab label="Members">
+                  <div>Service</div>
+                </vs-tab>
+              </vs-tabs>
+            </vs-col>
             <vs-col vs-w="4">
               <div style="text-align: center">
                 <div class="my-10">
@@ -198,7 +233,87 @@ import { mapState } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      activityItems: [
+        {
+          id: "a",
+          content: "Cras tristique elit molestie lectus congue dictum.",
+          date: this.moment("2021-02-27T00:00:00"),
+          icon: "favorite",
+          iconColor: "danger",
+        },
+        {
+          id: "b",
+          content:
+            "Fusce condimentum purus id finibus gravida. Proin sed justo congue, ultricies neque non, volutpat nulla.",
+          date: this.moment("2020-12-14T00:00:00"),
+          icon: "person",
+          iconColor: "warning",
+        },
+        {
+          id: "c",
+          content:
+            "Sed hendrerit sapien vitae felis viverra, quis efficitur velit blandit.",
+          date: this.moment("2020-11-09T00:00:00"),
+          icon: "favorite",
+          iconColor: "danger",
+        },
+        {
+          id: "d",
+          content:
+            "Mauris porttitor ligula at mollis egestas. Vestibulum aliquam urna at porttitor aliquam. Cras tristique elit molestie lectus congue dictum.",
+          date: this.moment("2020-11-07T00:00:00"),
+          icon: "favorite",
+          iconColor: "danger",
+        },
+        {
+          id: "e",
+          content: "Justo congue, ultricies neque non, volutpat nulla.",
+          date: this.moment("2020-07-01T00:00:00"),
+          icon: "person",
+          iconColor: "warning",
+        },
+        {
+          id: "f",
+          content:
+            "Volutpat nulla molestie lectus congue dictumonec sed nisl imperdiet, auctor turpis vel, ultricies mauris.",
+          date: this.moment("2020-06-19T00:00:00"),
+          icon: "share",
+          iconColor: "success",
+        },
+        {
+          id: "g",
+          content:
+            "Volutpat nulla molestie lectus congue dictumonec sed nisl imperdiet, auctor turpis vel, ultricies mauris.",
+          date: this.moment("2020-06-19T00:00:00"),
+          icon: "share",
+          iconColor: "success",
+        },
+        {
+          id: "h",
+          content:
+            "Pelit molestie lectus congue dictum. Maecenas ornare nisl ut est euismod, sit amet vehicula est suscipit. Maecenas non est efficitur, malesuada massa eget, ullamcorper ex.",
+          date: this.moment("2020-05-22T00:00:00"),
+          icon: "person",
+          iconColor: "warning",
+        },
+        {
+          id: "i",
+          content:
+            "Mauris porttitor ligula at mollis egestas. Vestibulum aliquam urna at porttitor aliquam. Cras tristique elit molestie lectus congue dictum.",
+          date: this.moment("2020-11-07T00:00:00"),
+          icon: "favorite",
+          iconColor: "danger",
+        },
+        {
+          id: "j",
+          content: "Justo congue, ultricies neque non, volutpat nulla.",
+          date: this.moment("2020-07-01T00:00:00"),
+          icon: "person",
+          iconColor: "warning",
+        },
+      ],
+    };
   },
   computed: {
     ...mapState(["userProfile"]),
