@@ -128,6 +128,62 @@
                 </div>
 
                 <vs-divider />
+
+                <div class="my-10">
+                  <div
+                    class="pt-48 text--grey"
+                    style="
+                      flex-direction: column;
+                      font-family: 'Roboto', sand-serif;
+                      font-weight: 200;
+                      font-size: 24px;
+                    "
+                  >
+                    <span> AGE </span>
+                    <div class="flex-center">
+                      <vs-icon
+                        class="material-icons-outlined"
+                        icon="supervisor_account"
+                        color="grey"
+                        size="75px"
+                      ></vs-icon>
+                      <span class="ml-8" style="font-size: 36px">
+                        8-24 yo
+                      </span>
+                    </div>
+
+                    <div class="my-48 px-8">
+                      Sed hendrerit sapien vitae felis viverra, quis efficitur
+                      velit blandit.
+                    </div>
+
+                    <div class="my-48 px-8">
+                      Proin et nisi at nunc pretium gravida.
+                    </div>
+
+                    <div class="my-48 px-8">
+                      Festibulum porta ipsum at erat ullamcorper, sit amet
+                      convallis nisl convallis.
+                    </div>
+                  </div>
+                </div>
+
+                <vs-divider />
+
+                <div class="my-10">
+                  <vs-chip>#SOCCER</vs-chip>
+                  <vs-chip>#EPL</vs-chip>
+                  <vs-chip>#LIVERPOOL</vs-chip>
+                  <vs-chip>#RONALDO</vs-chip>
+                  <vs-chip>#JERSEY</vs-chip>
+                  <vs-chip>#GERARD</vs-chip>
+                  <vs-chip>#REDS</vs-chip>
+                  <vs-chip>#ANFIELD</vs-chip>
+                  <vs-chip>#MESSI</vs-chip>
+                  <vs-chip>#YOUNEVERWALKALONE</vs-chip>
+                  <vs-chip>#BLUES</vs-chip>
+                  <vs-chip>#TRAINING</vs-chip>
+                </div>
               </div>
             </vs-col>
           </vs-row>
