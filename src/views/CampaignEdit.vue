@@ -24,16 +24,30 @@
         <div class="mt-20 pa-10">
           <vs-row>
             <vs-col vs-w="12">
-              <p
-                class="mt-8"
-                style="
-                  font-family: 'Roboto', sans-serif;
-                  font-style: italic;
-                  color: #5b3cc4;
-                "
-              >
-                Stanton Media
-              </p>
+              <div class="full-width" style="display: flex">
+                <vs-dropdown>
+                  <a href="#" class="text--grey">
+                    Stanton Media
+                    <vs-icon
+                      style="font-size: 12px"
+                      icon="expand_more"
+                    ></vs-icon>
+                  </a>
+
+                  <vs-dropdown-menu>
+                    <vs-dropdown-item> Stanton Media </vs-dropdown-item>
+                    <vs-dropdown-item> Zephyr Adverts </vs-dropdown-item>
+                    <vs-dropdown-item> Nova Agency </vs-dropdown-item>
+                  </vs-dropdown-menu>
+                </vs-dropdown>
+                <span style="flex-grow: 1"/>
+                <vs-button color="primary" type="flat">Save</vs-button>
+              </div>
+            </vs-col>
+          </vs-row>
+
+          <vs-row>
+            <vs-col vs-w="12">
               <ContentEditable
                 tag="span"
                 v-model="campaign.title"

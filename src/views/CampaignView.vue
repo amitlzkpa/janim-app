@@ -24,16 +24,20 @@
         <div class="mt-20 pa-10">
           <vs-row>
             <vs-col vs-w="12">
-              <p
-                class="mt-8"
-                style="
-                  font-family: 'Roboto', sans-serif;
-                  font-style: italic;
-                  color: #5b3cc4;
-                "
-              >
-                Stanton Media
-              </p>
+              <div class="full-width" style="display: flex">
+                <span class="text--grey mt-12" style="font-size: 12px"
+                  >Stanton Media</span
+                >
+                <span style="flex-grow: 1" />
+                <vs-button color="primary" type="flat" to="/campaign/edit"
+                  >Edit</vs-button
+                >
+              </div>
+            </vs-col>
+          </vs-row>
+
+          <vs-row>
+            <vs-col vs-w="12">
               <span
                 style="
                   font-family: 'Roboto', sans-serif;
@@ -53,6 +57,13 @@
                   font-family: 'Lato', sand-serif;
                   font-size: 20px;
                   color: #4d4d4d;
+                  height: 80px;
+                  width: 100%;
+                  display: inline-block;
+                  resize: vertical;
+                  overflow-x: hidden;
+                  overflow-y: auto;
+                  margin-top: 2px;
                 "
               >
                 Vestibulum pellentesque arcu a orci elementum, sed fermentum
