@@ -3,12 +3,6 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
-          <vs-upload
-            multiple
-            class="full-width"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            @on-success="successUpload"
-          />
           <vs-images>
             <vs-image
               :key="index"
@@ -30,6 +24,16 @@
         <div class="mt-20 pa-10">
           <vs-row>
             <vs-col vs-w="12">
+              <p
+                class="mt-8"
+                style="
+                  font-family: 'Roboto', sans-serif;
+                  font-style: italic;
+                  color: #5b3cc4;
+                "
+              >
+                Stanton Media
+              </p>
               <ContentEditable
                 tag="span"
                 v-model="campaign.title"
@@ -843,13 +847,6 @@ export default {
     ...mapState(["userProfile"]),
   },
   methods: {
-    successUpload() {
-      this.$vs.notify({
-        color: "success",
-        title: "Upload Success",
-        text: "Lorem ipsum dolor sit amet, consectetur",
-      });
-    },
     addNextKeyword() {
       if (this.campaign.targetKeywords.includes(this.nextKeyword.toLowerCase()))
         return;

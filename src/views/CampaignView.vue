@@ -24,21 +24,25 @@
         <div class="mt-20 pa-10">
           <vs-row>
             <vs-col vs-w="12">
-              <p style="color: grey; font-family: 'Roboto', sans-serif">
-                <span style="font-size: 60px; font-weight: 100"
-                  >Probana Boost</span
-                >
-                <span
-                  style="
-                    font-size: 24px;
-                    font-weight: 300;
-                    font-style: italic;
-                    color: #5b3cc4;
-                  "
-                >
-                  Stanton Media
-                </span>
+              <p
+                class="mt-8"
+                style="
+                  font-family: 'Roboto', sans-serif;
+                  font-style: italic;
+                  color: #5b3cc4;
+                "
+              >
+                Stanton Media
               </p>
+              <span
+                style="
+                  font-family: 'Roboto', sans-serif;
+                  font-size: 60px;
+                  font-weight: 100;
+                  color: grey;
+                "
+                >Probana Boost</span
+              >
             </vs-col>
           </vs-row>
 
