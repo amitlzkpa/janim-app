@@ -45,7 +45,7 @@
                   font-weight: 100;
                   color: grey;
                 "
-                >Probana Boost</span
+                >{{ campaign.title }}</span
               >
             </vs-col>
           </vs-row>
@@ -66,26 +66,24 @@
                   margin-top: 2px;
                 "
               >
-                Vestibulum pellentesque arcu a orci elementum, sed fermentum
-                enim fringilla. Quisque tristique odio ac ligula pulvinar
-                viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend
-                quam. Integer et enim non ante consequat fermentum eu eget
-                lacus. Maecenas sit amet ipsum.
+                {{ campaign.description }}
               </p>
             </vs-col>
           </vs-row>
 
           <vs-row class="mt-16">
             <vs-col vs-w="6" class="pa-10">
-              <vs-card actionable fixed-height>
+              <vs-card fixed-height>
                 <div class="info-item flex-center pt-10">
-                  May 23rd 2020 - December 31st 2020
+                  <DateRangeViewer :dateRange="campaign.dateRange" />
                 </div>
               </vs-card>
             </vs-col>
             <vs-col vs-w="6" class="pa-10">
-              <vs-card actionable fixed-height>
-                <div class="info-item flex-center pt-10">$8000 bounty</div>
+              <vs-card fixed-height>
+                <div class="info-item flex-center pt-10">
+                  ${{ campaign.totalBudget }} bounty
+                </div>
               </vs-card>
             </vs-col>
           </vs-row>
@@ -102,8 +100,13 @@
               <span class="ml-8 text--grey"> JOIN </span>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
-              <span class="ml-8 text--grey">
-                <i>28 days to go</i>
+              <span class="ml-8 text--grey" v-if="campaign.dateRange[1]">
+                <i
+                  >{{
+                    moment.duration(moment(campaign.dateRange[1]).diff(moment())).humanize()
+                  }}
+                  to go</i
+                >
               </span>
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
@@ -272,10 +275,17 @@
 
 <script>
 import { mapState } from "vuex";
+import * as fb from "@/firebase";
+
+import DateRangeViewer from "@/components/DateRangeViewer";
 
 export default {
+  components: {
+    DateRangeViewer,
+  },
   data() {
     return {
+      campaign: {},
       activityItems: [
         {
           id: "a",
@@ -360,7 +370,21 @@ export default {
   computed: {
     ...mapState(["userProfile"]),
   },
-  methods: {},
+  async mounted() {
+    await this.refreshData();
+  },
+  methods: {
+    async refreshData() {
+      let campaignId = this.$route.params.campaignId;
+      let doc = await fb.campaignsCollection.doc(campaignId).get();
+      let campaignData = doc.data();
+      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
+        (d) => d.toDate()
+      );
+      this.campaign = campaignData.campaign;
+      console.log(this.campaign);
+    },
+  },
 };
 </script>
 

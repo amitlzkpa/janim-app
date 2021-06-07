@@ -40,8 +40,10 @@
                     <vs-dropdown-item> Nova Agency </vs-dropdown-item>
                   </vs-dropdown-menu>
                 </vs-dropdown>
-                <span style="flex-grow: 1"/>
-                <vs-button color="primary" type="flat">Save</vs-button>
+                <span style="flex-grow: 1" />
+                <vs-button color="primary" type="flat" @click="saveCampaign()"
+                  >Save</vs-button
+                >
               </div>
             </vs-col>
           </vs-row>
@@ -98,33 +100,7 @@
                   class="info-item flex-center pt-10"
                   @click="showCampaignTimelinePopup = true"
                 >
-                  {{
-                    campaign.dateRange[0]
-                      ? moment(campaign.dateRange[0]).format("MMM Do YYYY")
-                      : "-"
-                  }}
-                  -
-                  {{
-                    campaign.dateRange[1]
-                      ? moment(campaign.dateRange[1]).format("MMM Do YYYY")
-                      : "-"
-                  }}
-                </div>
-                <div
-                  class="info-item flex-center"
-                  v-if="campaign.dateRange[0] && campaign.dateRange[1]"
-                >
-                  <i style="font-size: 20px">
-                    ({{
-                      moment
-                        .duration(
-                          moment(campaign.dateRange[0]).diff(
-                            campaign.dateRange[1]
-                          )
-                        )
-                        .humanize()
-                    }})
-                  </i>
+                  <DateRangeViewer :dateRange="campaign.dateRange" />
                 </div>
                 <vs-popup
                   title="Campaign Timeline"
@@ -504,10 +480,12 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
 import ContentEditable from "@/components/ContentEditable";
+import DateRangeViewer from "@/components/DateRangeViewer";
 
 export default {
   components: {
     ContentEditable,
+    DateRangeViewer,
     DatePicker,
   },
   data() {
@@ -764,10 +742,10 @@ export default {
         { name: "Zimbabwe", code: "ZW" },
       ],
       campaign: {
+        id: null,
         isActive: true,
-        title: "Probana Boost",
-        description:
-          "Vestibulum pellentesque arcu a orci elementum, sed fermentum enim fringilla. Quisque tristique odio ac ligula pulvinar viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend quam. Integer et enim non ante consequat fermentum eu eget lacus. Maecenas sit amet ipsum.",
+        title: "",
+        description: "",
         dateRange: [],
         totalBudget: 200,
         hitsGoal: 200,
@@ -867,32 +845,12 @@ export default {
       this.campaign.targetKeywords.push(this.nextKeyword.toLowerCase());
       this.nextKeyword = "";
     },
+    async saveCampaign() {
+      this.$store.dispatch("saveCampaign", { campaign: this.campaign });
+    },
   },
 };
 </script>
 
 <style scoped>
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.info-item {
-  align-self: center;
-  width: 100%;
-  min-height: 40px;
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-  color: grey;
-}
-
-.country-label {
-  color: grey;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  margin: 0px 4px 0px 4px;
-}
 </style>

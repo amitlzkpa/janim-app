@@ -94,6 +94,11 @@ const store = new Vuex.Store({
         });
       });
     },
+
+    async saveCampaign({ dispatch }, campaign) {
+      console.log(campaign);
+      await fb.campaignsCollection.add(campaign);
+    },
   },
 });
 

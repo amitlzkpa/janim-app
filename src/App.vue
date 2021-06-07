@@ -106,4 +106,28 @@ $textColors: ("grey", "darkgrey");
 .third-width {
   width: 32% !important;
 }
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-item {
+  align-self: center;
+  width: 100%;
+  min-height: 40px;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: grey;
+}
+
+.country-label {
+  color: grey;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 0px 4px 0px 4px;
+}
 </style>

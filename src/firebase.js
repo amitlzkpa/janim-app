@@ -19,8 +19,17 @@ const auth = firebase.auth();
 
 // collection references
 const usersCollection = db.collection("users");
+const campaignsCollection = db.collection("campaign");
+
 const postsCollection = db.collection("posts");
 const likesCollection = db.collection("likes");
 
 // export utils/refs
-export { db, auth, usersCollection, postsCollection, likesCollection };
+export {
+  db,
+  auth,
+  usersCollection,
+  campaignsCollection,
+  postsCollection,
+  likesCollection,
+};
