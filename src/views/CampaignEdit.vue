@@ -189,12 +189,10 @@
 
           <vs-row>
             <vs-col vs-w="1" class="flex-center">
-              <vs-button
-                color="danger"
-                type="gradient"
-                icon="person_add"
-              ></vs-button>
-              <span class="ml-8 text--grey"> JOIN </span>
+              <vs-switch color="success" v-model="campaign.isActive">
+                <span slot="on">Live</span>
+                <span slot="off">Paused</span>
+              </vs-switch>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
               <span class="ml-8 text--grey">
@@ -748,6 +746,7 @@ export default {
         { name: "Zimbabwe", code: "ZW" },
       ],
       campaign: {
+        isActive: true,
         title: "Probana Boost",
         description:
           "Vestibulum pellentesque arcu a orci elementum, sed fermentum enim fringilla. Quisque tristique odio ac ligula pulvinar viverra. Donec sed nisl mollis, commodo ipsum sit amet, eleifend quam. Integer et enim non ante consequat fermentum eu eget lacus. Maecenas sit amet ipsum.",
