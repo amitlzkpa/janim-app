@@ -310,7 +310,7 @@
                           autocomplete
                           class="ml-8"
                           label="Regions"
-                          v-model="selectedCountries"
+                          v-model="campaign.targetCountries"
                         >
                           <vs-select-item
                             :key="country.code"
@@ -330,7 +330,7 @@
                         >
                           <span
                             class="country-label"
-                            v-for="country in selectedCountries"
+                            v-for="country in campaign.targetCountries"
                             :key="country.code"
                             >{{ country.name }},</span
                           >
@@ -343,7 +343,10 @@
 
                 <vs-divider />
 
-                <div class="my-10">
+                <div
+                  class="my-10"
+                  @click="showDemographicTargetingPopup = true"
+                >
                   <div
                     class="pt-48 text--grey"
                     style="
@@ -353,8 +356,14 @@
                       font-size: 24px;
                     "
                   >
-                    <span> AGE </span>
-                    <div class="flex-center">
+                    <span> TARGET PROFILE </span>
+                    <div
+                      v-if="!campaign.ageRange[0]"
+                      style="text-align: center"
+                    >
+                      -
+                    </div>
+                    <div v-else class="flex-center">
                       <vs-icon
                         class="material-icons-outlined"
                         icon="supervisor_account"
@@ -362,24 +371,55 @@
                         size="75px"
                       ></vs-icon>
                       <span class="ml-8" style="font-size: 36px">
-                        8-24 yo
+                        {{ campaign.ageRange[0] }}-{{ campaign.ageRange[1] }}
+                        yo
                       </span>
                     </div>
 
                     <div class="my-48 px-8">
-                      Sed hendrerit sapien vitae felis viverra, quis efficitur
-                      velit blandit.
+                      {{ campaign.targetDescriptors[0] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      Proin et nisi at nunc pretium gravida.
+                      {{ campaign.targetDescriptors[1] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      Festibulum porta ipsum at erat ullamcorper, sit amet
-                      convallis nisl convallis.
+                      {{ campaign.targetDescriptors[2] }}
                     </div>
                   </div>
+
+                  <vs-popup
+                    title="Demographic Targeting"
+                    :active.sync="showDemographicTargetingPopup"
+                  >
+                    <div class="pa-8">
+                      Age Range
+                      <vs-row>
+                        <vs-col vs-w="10">
+                          <vs-slider :step="1" v-model="campaign.ageRange" />
+                        </vs-col>
+                        <vs-col vs-w="2">
+                          <div class="pa-10">
+                            <div v-if="!campaign.ageRange[0]">-</div>
+                            <div v-else>
+                              {{ campaign.ageRange[0] }}-{{
+                                campaign.ageRange[1]
+                              }}
+                              yo
+                            </div>
+                          </div>
+                        </vs-col>
+                      </vs-row>
+
+                      <br />
+
+                      Descriptors
+                      <vs-textarea v-model="campaign.targetDescriptors[0]" />
+                      <vs-textarea v-model="campaign.targetDescriptors[1]" />
+                      <vs-textarea v-model="campaign.targetDescriptors[2]" />
+                    </div>
+                  </vs-popup>
                 </div>
 
                 <vs-divider />
@@ -425,7 +465,7 @@ export default {
       showCampaignTimelinePopup: false,
       showCampaignBudgetPopup: false,
       showGeographicTargetingPopup: false,
-      selectedCountries: [],
+      showDemographicTargetingPopup: false,
       countryList: [
         { name: "Afghanistan", code: "AF" },
         { name: "Åland Islands", code: "AX" },
@@ -678,6 +718,9 @@ export default {
         dateRange: [],
         totalBudget: 200,
         hitsGoal: 200,
+        ageRange: [],
+        targetCountries: [],
+        targetDescriptors: ["", "", ""],
       },
       activityItems: [
         {
