@@ -357,13 +357,7 @@
                     "
                   >
                     <span> TARGET PROFILE </span>
-                    <div
-                      v-if="!campaign.ageRange[0]"
-                      style="text-align: center"
-                    >
-                      -
-                    </div>
-                    <div v-else class="flex-center">
+                    <div v-if="campaign.ageRange[0]" class="flex-center">
                       <vs-icon
                         class="material-icons-outlined"
                         icon="supervisor_account"
@@ -424,19 +418,59 @@
 
                 <vs-divider />
 
-                <div class="my-10">
-                  <vs-chip>#SOCCER</vs-chip>
-                  <vs-chip>#EPL</vs-chip>
-                  <vs-chip>#LIVERPOOL</vs-chip>
-                  <vs-chip>#RONALDO</vs-chip>
-                  <vs-chip>#JERSEY</vs-chip>
-                  <vs-chip>#GERARD</vs-chip>
-                  <vs-chip>#REDS</vs-chip>
-                  <vs-chip>#ANFIELD</vs-chip>
-                  <vs-chip>#MESSI</vs-chip>
-                  <vs-chip>#YOUNEVERWALKALONE</vs-chip>
-                  <vs-chip>#BLUES</vs-chip>
-                  <vs-chip>#TRAINING</vs-chip>
+                <div class="my-10" @click="showKeywordTargetingPopup = true">
+                  <div
+                    v-if="campaign.targetKeywords.length < 1"
+                    style="text-align: center"
+                    class="pa-24"
+                  >
+                    <p
+                      class="text--grey"
+                      style="
+                        font-family: 'Roboto', sans-serif;
+                        font-weight: 200;
+                        font-style: italic;
+                      "
+                    >
+                      (no keywords)
+                    </p>
+                  </div>
+                  <div v-else>
+                    <vs-chip
+                      class="mx-4"
+                      v-for="(kw, idx) of campaign.targetKeywords"
+                      :key="idx"
+                      >#{{ kw }}</vs-chip
+                    >
+                  </div>
+
+                  <vs-popup
+                    title="Keyword Targeting"
+                    :active.sync="showKeywordTargetingPopup"
+                  >
+                    <div style="height: 300px">
+                      <vs-row>
+                        <vs-col vs-w="5" class="pa-8">
+                          <vs-input
+                            size="large"
+                            label-placeholder="keyword"
+                            v-model="nextKeyword"
+                            icon-after="true"
+                            icon="add"
+                            v-on:icon-click="addNextKeyword"
+                          />
+                        </vs-col>
+                        <vs-col vs-w="7" class="pa-8">
+                          <vs-chip
+                            class="mx-4"
+                            v-for="(kw, idx) of campaign.targetKeywords"
+                            :key="idx"
+                            >#{{ kw }}</vs-chip
+                          >
+                        </vs-col>
+                      </vs-row>
+                    </div>
+                  </vs-popup>
                 </div>
               </div>
             </vs-col>
@@ -466,6 +500,8 @@ export default {
       showCampaignBudgetPopup: false,
       showGeographicTargetingPopup: false,
       showDemographicTargetingPopup: false,
+      showKeywordTargetingPopup: false,
+      nextKeyword: "",
       countryList: [
         { name: "Afghanistan", code: "AF" },
         { name: "Åland Islands", code: "AX" },
@@ -721,6 +757,7 @@ export default {
         ageRange: [],
         targetCountries: [],
         targetDescriptors: ["", "", ""],
+        targetKeywords: [],
       },
       activityItems: [
         {
@@ -813,6 +850,12 @@ export default {
         title: "Upload Success",
         text: "Lorem ipsum dolor sit amet, consectetur",
       });
+    },
+    addNextKeyword() {
+      if (this.campaign.targetKeywords.includes(this.nextKeyword.toLowerCase()))
+        return;
+      this.campaign.targetKeywords.push(this.nextKeyword.toLowerCase());
+      this.nextKeyword = "";
     },
   },
 };
