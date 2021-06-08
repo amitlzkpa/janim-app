@@ -29,7 +29,10 @@
                   >Stanton Media</span
                 >
                 <span style="flex-grow: 1" />
-                <vs-button color="primary" type="flat" to="/campaign/edit"
+                <vs-button
+                  color="primary"
+                  type="flat"
+                  :to="`/campaign/edit/${campaign.id}`"
                   >Edit</vs-button
                 >
               </div>
@@ -90,7 +93,7 @@
 
           <vs-divider />
 
-          <vs-row>
+          <vs-row style="height: 60px">
             <vs-col vs-w="1" class="flex-center">
               <vs-button
                 color="danger"
@@ -190,23 +193,7 @@
             <vs-col vs-w="4">
               <div style="text-align: center">
                 <div class="my-10">
-                  <img
-                    src="/imgs/dotted-map.png"
-                    alt="Target Regions"
-                    style="object-fit: cover; width: 100%"
-                  />
-                  <div class="flex-center mt-10" style="flex-wrap: wrap">
-                    <span class="country-label">USA</span>
-                    <span class="country-label">California</span>
-                    <span class="country-label">Portland</span>
-                    <span class="country-label">Oregon</span>
-                    <span class="country-label">West Coast</span>
-                    <span class="country-label">Barcelona</span>
-                    <span class="country-label">Spain</span>
-                    <span class="country-label">Hamburg</span>
-                    <span class="country-label">Munich</span>
-                    <span class="country-label">Germany</span>
-                  </div>
+                  <CountryListViewer :countries="campaign.targetCountries" />
                 </div>
 
                 <vs-divider />
@@ -252,18 +239,7 @@
                 <vs-divider />
 
                 <div class="my-10">
-                  <vs-chip>#SOCCER</vs-chip>
-                  <vs-chip>#EPL</vs-chip>
-                  <vs-chip>#LIVERPOOL</vs-chip>
-                  <vs-chip>#RONALDO</vs-chip>
-                  <vs-chip>#JERSEY</vs-chip>
-                  <vs-chip>#GERARD</vs-chip>
-                  <vs-chip>#REDS</vs-chip>
-                  <vs-chip>#ANFIELD</vs-chip>
-                  <vs-chip>#MESSI</vs-chip>
-                  <vs-chip>#YOUNEVERWALKALONE</vs-chip>
-                  <vs-chip>#BLUES</vs-chip>
-                  <vs-chip>#TRAINING</vs-chip>
+                  <KeywordsViewer :keywords="campaign.targetKeywords" />
                 </div>
               </div>
             </vs-col>
@@ -279,10 +255,14 @@ import { mapState } from "vuex";
 import * as fb from "@/firebase";
 
 import DateRangeViewer from "@/components/DateRangeViewer";
+import CountryListViewer from "@/components/CountryListViewer";
+import KeywordsViewer from "@/components/KeywordsViewer";
 
 export default {
   components: {
     DateRangeViewer,
+    CountryListViewer,
+    KeywordsViewer,
   },
   data() {
     return {

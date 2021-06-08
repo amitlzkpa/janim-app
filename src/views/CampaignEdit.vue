@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="editedCampaignData.id">
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
@@ -184,7 +184,7 @@
 
           <vs-divider />
 
-          <vs-row>
+          <vs-row style="height: 60px">
             <vs-col vs-w="1" class="flex-center">
               <vs-switch color="success" v-model="editedCampaignData.isActive">
                 <span slot="on">Live</span>
@@ -284,24 +284,9 @@
             <vs-col vs-w="4">
               <div style="text-align: center">
                 <div class="my-10" @click="showGeographicTargetingPopup = true">
-                  <img
-                    src="/imgs/dotted-map.png"
-                    alt="Target Regions"
-                    style="object-fit: cover; width: 100%"
+                  <CountryListViewer
+                    :countries="editedCampaignData.targetCountries"
                   />
-                  <div class="flex-center mt-10" style="flex-wrap: wrap">
-                    <span class="country-label">USA</span>
-                    <span class="country-label">California</span>
-                    <span class="country-label">Portland</span>
-                    <span class="country-label">Oregon</span>
-                    <span class="country-label">West Coast</span>
-                    <span class="country-label">Barcelona</span>
-                    <span class="country-label">Spain</span>
-                    <span class="country-label">Hamburg</span>
-                    <span class="country-label">Munich</span>
-                    <span class="country-label">Germany</span>
-                  </div>
-
                   <vs-popup
                     title="Geographic Targeting"
                     :active.sync="showGeographicTargetingPopup"
@@ -437,30 +422,9 @@
                 <vs-divider />
 
                 <div class="my-10" @click="showKeywordTargetingPopup = true">
-                  <div
-                    v-if="editedCampaignData.targetKeywords.length < 1"
-                    style="text-align: center"
-                    class="pa-24"
-                  >
-                    <p
-                      class="text--grey"
-                      style="
-                        font-family: 'Roboto', sans-serif;
-                        font-weight: 200;
-                        font-style: italic;
-                      "
-                    >
-                      (no keywords)
-                    </p>
-                  </div>
-                  <div v-else>
-                    <vs-chip
-                      class="mx-4"
-                      v-for="(kw, idx) of editedCampaignData.targetKeywords"
-                      :key="idx"
-                      >#{{ kw }}</vs-chip
-                    >
-                  </div>
+                  <KeywordsViewer
+                    :keywords="editedCampaignData.targetKeywords"
+                  />
 
                   <vs-popup
                     title="Keyword Targeting"
@@ -510,12 +474,16 @@ import "vue2-datepicker/index.css";
 
 import ContentEditable from "@/components/ContentEditable";
 import DateRangeViewer from "@/components/DateRangeViewer";
+import CountryListViewer from "@/components/CountryListViewer";
+import KeywordsViewer from "@/components/KeywordsViewer";
 
 export default {
   components: {
     ContentEditable,
     DateRangeViewer,
     DatePicker,
+    CountryListViewer,
+    KeywordsViewer,
   },
   data() {
     return {
