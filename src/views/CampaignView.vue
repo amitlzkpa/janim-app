@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="campaign.id">
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
@@ -103,7 +103,9 @@
               <span class="ml-8 text--grey" v-if="campaign.dateRange[1]">
                 <i
                   >{{
-                    moment.duration(moment(campaign.dateRange[1]).diff(moment())).humanize()
+                    moment
+                      .duration(moment(campaign.dateRange[1]).diff(moment()))
+                      .humanize()
                   }}
                   to go</i
                 >
@@ -219,8 +221,8 @@
                       font-size: 24px;
                     "
                   >
-                    <span> AGE </span>
-                    <div class="flex-center">
+                    <span> TARGET PROFILE </span>
+                    <div v-if="campaign.ageRange[0]" class="flex-center">
                       <vs-icon
                         class="material-icons-outlined"
                         icon="supervisor_account"
@@ -228,22 +230,21 @@
                         size="75px"
                       ></vs-icon>
                       <span class="ml-8" style="font-size: 36px">
-                        8-24 yo
+                        {{ campaign.ageRange[0] }}-{{ campaign.ageRange[1] }}
+                        yo
                       </span>
                     </div>
 
                     <div class="my-48 px-8">
-                      Sed hendrerit sapien vitae felis viverra, quis efficitur
-                      velit blandit.
+                      {{ campaign.targetDescriptors[0] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      Proin et nisi at nunc pretium gravida.
+                      {{ campaign.targetDescriptors[1] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      Festibulum porta ipsum at erat ullamcorper, sit amet
-                      convallis nisl convallis.
+                      {{ campaign.targetDescriptors[2] }}
                     </div>
                   </div>
                 </div>

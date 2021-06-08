@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Landing",
+    name: "Vyrall",
     component: () =>
       import(/* webpackChunkName: "landing" */ "@/views/Landing.vue"),
   },
@@ -36,13 +36,13 @@ const routes = [
   },
   {
     path: "/campaign/view/:campaignId",
-    name: "Campaign",
+    name: "Vyrall Campaign | View",
     component: () =>
       import(/* webpackChunkName: "campaign-view */ "@/views/CampaignView.vue"),
   },
   {
-    path: "/campaign/edit",
-    name: "Campaign",
+    path: "/campaign/edit/:campaignId?",
+    name: "Vyrall Campaign | Edit",
     component: () =>
       import(/* webpackChunkName: "campaign-edit */ "@/views/CampaignEdit.vue"),
   },

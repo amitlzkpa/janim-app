@@ -96,8 +96,13 @@ const store = new Vuex.Store({
     },
 
     async saveCampaign({ dispatch }, campaign) {
-      console.log(campaign);
-      await fb.campaignsCollection.add(campaign);
+      if (!campaign.campaign.id) {
+        let c = await fb.campaignsCollection.add(campaign);
+        campaign.campaign.id = c.id;
+      }
+      await fb.campaignsCollection
+        .doc(campaign.campaign.id)
+        .update({ campaign: campaign.campaign });
     },
   },
 });
