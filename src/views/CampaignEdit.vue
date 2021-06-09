@@ -3,6 +3,7 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
+          <ImageUploader :basePath="`${editedCampaignData.id}/campaign-assets/`" />
           <vs-images>
             <vs-image
               :key="index"
@@ -476,6 +477,7 @@ import ContentEditable from "@/components/ContentEditable";
 import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
+import ImageUploader from "@/components/ImageUploader";
 
 import countryList from '@/assets/countryList.json'
 
@@ -486,6 +488,7 @@ export default {
     DatePicker,
     CountryListViewer,
     KeywordsViewer,
+    ImageUploader
   },
   data() {
     return {

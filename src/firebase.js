@@ -16,6 +16,7 @@ firebase.initializeApp(firebaseConfig);
 // utils
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
 // collection references
 const usersCollection = db.collection("users");
@@ -28,6 +29,7 @@ const likesCollection = db.collection("likes");
 export {
   db,
   auth,
+  storage,
   usersCollection,
   campaignsCollection,
   postsCollection,
