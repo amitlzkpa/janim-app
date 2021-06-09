@@ -5,16 +5,10 @@
         <div class="mt-20 pa-10">
           <vs-images>
             <vs-image
-              :key="index"
-              :src="`https://picsum.photos/400/400?image=2${index}`"
-              v-for="(image, index) in 2"
+              v-for="(asset, idx) in campaign.assets"
+              :key="idx"
+              :src="asset.source"
               class="full-width"
-            />
-            <vs-image
-              :key="index + 2"
-              :src="`https://picsum.photos/400/400?image=1${index}`"
-              v-for="(image, index) in 7"
-              class="third-width"
             />
           </vs-images>
         </div>

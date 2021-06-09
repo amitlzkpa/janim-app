@@ -69,7 +69,7 @@ export default {
     },
   },
   methods: {
-    async addFile(e) {
+    addFile(e) {
       let droppedFiles = e.dataTransfer.files;
       if (!droppedFiles) return;
       [...droppedFiles].forEach((f) => {
@@ -122,9 +122,6 @@ export default {
             totalBytesSent = bytesSent.reduce((a, b) => a + b, 0);
             let progress = (totalBytesSent / totalBytesAcrossAllFiles) * 100;
             this.uploadPercent = progress;
-            console.log(
-              `${totalBytesSent}/${totalBytesAcrossAllFiles} => ${this.uploadPercent}`
-            );
             switch (snapshot.state) {
               case "paused":
                 // console.log("Upload is paused");
@@ -140,7 +137,12 @@ export default {
           },
           async () => {
             let downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-            console.log("File available at", downloadURL);
+            let uploadedItemData = {
+              name: file.name,
+              type: file.type,
+              path: downloadURL,
+            };
+            this.$emit("onUploadComplete", uploadedItemData);
             completedUploads++;
             let isComplete = completedUploads === this.files.length + 1;
             this.isUploading = !isComplete;

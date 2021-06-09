@@ -3,19 +3,16 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
-          <ImageUploader :basePath="`${editedCampaignData.id}/campaign-assets/`" />
+          <ImageUploader
+            :basePath="`${editedCampaignData.id}/campaign-assets/`"
+            @onUploadComplete="onNewAssetCreated"
+          />
           <vs-images>
             <vs-image
-              :key="index"
-              :src="`https://picsum.photos/400/400?image=2${index}`"
-              v-for="(image, index) in 2"
+              v-for="(asset, idx) in editedCampaignData.assets"
+              :key="idx"
+              :src="asset.source"
               class="full-width"
-            />
-            <vs-image
-              :key="index + 2"
-              :src="`https://picsum.photos/400/400?image=1${index}`"
-              v-for="(image, index) in 7"
-              class="third-width"
             />
           </vs-images>
         </div>
@@ -479,7 +476,7 @@ import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
 import ImageUploader from "@/components/ImageUploader";
 
-import countryList from '@/assets/countryList.json'
+import countryList from "@/assets/countryList.json";
 
 export default {
   components: {
@@ -488,7 +485,7 @@ export default {
     DatePicker,
     CountryListViewer,
     KeywordsViewer,
-    ImageUploader
+    ImageUploader,
   },
   data() {
     return {
@@ -511,6 +508,7 @@ export default {
         targetCountries: [],
         targetDescriptors: ["", "", ""],
         targetKeywords: [],
+        assets: [],
       },
       storedCampaignData: {},
       activityItems: [
@@ -631,6 +629,21 @@ export default {
       this.$store.dispatch("saveCampaign", {
         campaign: this.editedCampaignData,
       });
+    },
+    async onNewAssetCreated(newAsset) {
+      let newAssetObj = {
+        name: newAsset.name,
+        description: "",
+        type: newAsset.type,
+        source: newAsset.path,
+        tags: [],
+        id: "",
+        orderIndex: 0,
+        isActive: true,
+        isHidden: false,
+      };
+      this.editedCampaignData.assets.push(newAssetObj);
+      await this.saveCampaign();
     },
   },
 };
