@@ -132,4 +132,8 @@ $textColors: ("grey", "darkgrey");
   font-weight: 300;
   margin: 0px 4px 0px 4px;
 }
+
+.vs-image--img {
+  background-size: contain !important;
+}
 </style>
