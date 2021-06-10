@@ -1,13 +1,30 @@
 <template>
   <div>
     <vs-images>
-      <vs-image
-        v-for="(asset, idx) in bigSizedAssets"
-        :key="`i-${idx}`"
-        :src="asset.source"
-        class="full-width"
-        @click="showImgPopup[idx] = true"
-      />
+      <template v-for="(asset, idx) in bigSizedAssets">
+        <div
+          :key="`d-${idx}`"
+          @click="openPopup(idx)"
+          style="width: 100%; height: 100%"
+        >
+          <vs-image :key="`i-${idx}`" :src="asset.source" class="full-width" />
+          <vs-popup
+            :key="`p-${idx}`"
+            title="Lorem ipsum dolor sit amet"
+            :active.sync="showImgPopup[idx]"
+          >
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </vs-popup>
+        </div>
+      </template>
       <vs-image
         v-for="(asset, idx) in smallSizedAssets"
         :key="idx + Math.min(assets.length, 3)"
@@ -28,11 +45,13 @@ export default {
   },
   data() {
     return {
-      showImgPopup: [],
+      showImgPopup: {},
     };
   },
   created() {
-    this.showImgPopup = this.assets.map(a => false);
+    this.assets.forEach((a, i) => {
+      this.showImgPopup[i] = false;
+    });
   },
   computed: {
     bigSizedAssets() {
@@ -43,6 +62,11 @@ export default {
         Math.min(this.assets.length, 3),
         this.assets.length
       );
+    },
+  },
+  methods: {
+    openPopup(idx) {
+      this.showImgPopup[idx] = !this.showImgPopup[idx];
     },
   },
 };
