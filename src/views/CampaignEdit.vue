@@ -636,7 +636,6 @@ export default {
         id: uuidv4(),
         orderIndex: 0,
         isActive: true,
-        isHidden: false,
       };
       this.editedCampaignData.assets.push(newAssetObj);
       await this.saveCampaign();

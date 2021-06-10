@@ -5,11 +5,11 @@
         v-for="(asset, idx) in bigSizedAssets"
         :key="idx"
         :asset="asset"
-        classText="full-width pa-4"
+        classText="half-width pa-4"
       />
       <AssetThumbnail
         v-for="(asset, idx) in smallSizedAssets"
-        :key="idx + Math.min(assets.length, 3)"
+        :key="idx + Math.min(assets.length, 4)"
         :asset="asset"
         classText="third-width pa-6"
       />
@@ -36,11 +36,11 @@ export default {
   created() {},
   computed: {
     bigSizedAssets() {
-      return this.assets.slice(0, Math.min(this.assets.length, 3));
+      return this.assets.slice(0, Math.min(this.assets.length, 4));
     },
     smallSizedAssets() {
       return this.assets.slice(
-        Math.min(this.assets.length, 3),
+        Math.min(this.assets.length, 4),
         this.assets.length
       );
     },
