@@ -5,13 +5,13 @@
         v-for="(asset, idx) in bigSizedAssets"
         :key="idx"
         :asset="asset"
-        classText="full-width"
+        classText="full-width pa-4"
       />
       <AssetThumbnail
         v-for="(asset, idx) in smallSizedAssets"
         :key="idx + Math.min(assets.length, 3)"
         :asset="asset"
-        classText="third-width"
+        classText="third-width pa-6"
       />
     </vs-images>
   </div>

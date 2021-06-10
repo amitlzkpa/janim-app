@@ -459,6 +459,7 @@
 <script>
 import { mapState } from "vuex";
 import * as fb from "@/firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
@@ -632,7 +633,7 @@ export default {
         type: newAsset.type,
         source: newAsset.path,
         tags: [],
-        id: "",
+        id: uuidv4(),
         orderIndex: 0,
         isActive: true,
         isHidden: false,
