@@ -14,12 +14,30 @@
               {{ asset.id }}
             </i>
             <div style="flex-grow: 1"></div>
-            <vs-switch color="success" v-model="asset.isActive">
+            <vs-switch v-if="editMode" color="success" v-model="asset.isActive">
               <span slot="on">Live</span>
               <span slot="off">Inactive</span>
             </vs-switch>
           </div>
-          <div class="my-8" style="display: flex; height: 60%">
+          <div v-if="editMode" class="my-8" style="display: flex; height: 60%">
+            <vs-textarea v-model="asset.description" style="width: 60%" />
+            <div class="pa-4" style="flex-grow: 1">
+              <vs-input
+                size="large"
+                label-placeholder="tags"
+                v-model="nextTag"
+                icon-after="true"
+                icon="add"
+                class="full-width"
+                v-on:icon-click="addNextTag"
+              />
+              <br />
+              <vs-chip class="mx-4" v-for="(tag, idx) of asset.tags" :key="idx"
+                >#{{ tag }}</vs-chip
+              >
+            </div>
+          </div>
+          <div v-else class="my-8" style="display: flex; height: 60%">
             <div style="width: 60%">
               {{ asset.description }}
             </div>
@@ -29,7 +47,7 @@
               >
             </div>
           </div>
-          <div style="display: flex">
+          <div v-if="editMode" style="display: flex">
             <vs-button color="danger" type="flat">Delete</vs-button>
             <div style="flex-grow: 1"></div>
             <vs-button color="primary" type="filled">Save</vs-button>
@@ -51,11 +69,24 @@ export default {
       type: String,
       default: "",
     },
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       popupIsOpen: false,
+      nextTag: "",
     };
+  },
+  methods: {
+    addNextTag() {
+      if (!this.nextTag || this.asset.tags.includes(this.nextTag.toLowerCase()))
+        return;
+      this.asset.tags.push(this.nextTag.toLowerCase());
+      this.nextTag = "";
+    },
   },
 };
 </script>

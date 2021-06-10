@@ -5,12 +5,14 @@
         v-for="(asset, idx) in bigSizedAssets"
         :key="idx"
         :asset="asset"
+        :editMode="editMode"
         classText="half-width pa-4"
       />
       <AssetThumbnail
         v-for="(asset, idx) in smallSizedAssets"
         :key="idx + Math.min(assets.length, 4)"
         :asset="asset"
+        :editMode="editMode"
         classText="third-width pa-6"
       />
     </vs-images>
@@ -28,6 +30,10 @@ export default {
     assets: {
       type: Array,
       default: () => [],
+    },
+    editMode: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

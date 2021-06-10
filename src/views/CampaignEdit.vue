@@ -3,11 +3,12 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
+          <AssetGallery :assets="editedCampaignData.assets" :editMode="true" />
           <ImageUploader
             :basePath="`${editedCampaignData.id}/campaign-assets/`"
+            :height="60"
             @onUploadComplete="onNewAssetCreated"
           />
-          <AssetGallery :assets="editedCampaignData.assets" />
         </div>
       </vs-col>
 
@@ -459,7 +460,7 @@
 <script>
 import { mapState } from "vuex";
 import * as fb from "@/firebase";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
@@ -481,7 +482,7 @@ export default {
     CountryListViewer,
     KeywordsViewer,
     ImageUploader,
-    AssetGallery
+    AssetGallery,
   },
   data() {
     return {
@@ -611,6 +612,7 @@ export default {
     },
     addNextKeyword() {
       if (
+        this.nextKeyword ||
         this.editedCampaignData.targetKeywords.includes(
           this.nextKeyword.toLowerCase()
         )
