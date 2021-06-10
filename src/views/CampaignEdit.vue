@@ -7,14 +7,7 @@
             :basePath="`${editedCampaignData.id}/campaign-assets/`"
             @onUploadComplete="onNewAssetCreated"
           />
-          <vs-images>
-            <vs-image
-              v-for="(asset, idx) in editedCampaignData.assets"
-              :key="idx"
-              :src="asset.source"
-              class="full-width"
-            />
-          </vs-images>
+          <AssetGallery :assets="editedCampaignData.assets" />
         </div>
       </vs-col>
 
@@ -475,6 +468,7 @@ import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
 import ImageUploader from "@/components/ImageUploader";
+import AssetGallery from "@/components/AssetGallery";
 
 import countryList from "@/assets/countryList.json";
 
@@ -486,6 +480,7 @@ export default {
     CountryListViewer,
     KeywordsViewer,
     ImageUploader,
+    AssetGallery
   },
   data() {
     return {

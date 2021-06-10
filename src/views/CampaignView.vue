@@ -3,14 +3,7 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
-          <vs-images>
-            <vs-image
-              v-for="(asset, idx) in campaign.assets"
-              :key="idx"
-              :src="asset.source"
-              class="full-width"
-            />
-          </vs-images>
+          <AssetGallery :assets="campaign.assets" />
         </div>
       </vs-col>
 
@@ -251,12 +244,14 @@ import * as fb from "@/firebase";
 import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
+import AssetGallery from "@/components/AssetGallery";
 
 export default {
   components: {
     DateRangeViewer,
     CountryListViewer,
     KeywordsViewer,
+    AssetGallery,
   },
   data() {
     return {
