@@ -134,6 +134,6 @@ $textColors: ("grey", "darkgrey");
 }
 
 .vs-image--img {
-  background-size: contain !important;
+  background-size: cover !important;
 }
 </style>
