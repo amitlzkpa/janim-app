@@ -6,12 +6,9 @@
           <AssetGallery
             :assets="editedCampaignData.assets"
             :editMode="true"
+            :uploadBasepath="`${editedCampaignData.id}/campaign-assets/`"
+            @onAssetCreated="onAssetCreated"
             @onAssetDeleted="onAssetDeleted"
-          />
-          <ImageUploader
-            :basePath="`${editedCampaignData.id}/campaign-assets/`"
-            :height="60"
-            @onUploadComplete="onNewAssetCreated"
           />
         </div>
       </vs-col>
@@ -473,7 +470,6 @@ import ContentEditable from "@/components/ContentEditable";
 import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
-import ImageUploader from "@/components/ImageUploader";
 import AssetGallery from "@/components/AssetGallery";
 
 import countryList from "@/assets/countryList.json";
@@ -485,7 +481,6 @@ export default {
     DatePicker,
     CountryListViewer,
     KeywordsViewer,
-    ImageUploader,
     AssetGallery,
   },
   data() {
@@ -632,7 +627,7 @@ export default {
         campaign: this.editedCampaignData,
       });
     },
-    async onNewAssetCreated(newAsset) {
+    async onAssetCreated(newAsset) {
       let newAssetObj = {
         name: newAsset.name,
         description: "",

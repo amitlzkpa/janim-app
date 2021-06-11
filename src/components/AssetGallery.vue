@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-images>
+    <vs-images style="max-height: 800px; overflow-y: hidden; overflow-y: auto">
       <AssetThumbnail
         v-for="(asset, idx) in bigSizedAssets"
         :key="idx"
@@ -18,15 +18,23 @@
         classText="third-width pa-6"
       />
     </vs-images>
+    <ImageUploader
+      v-if="editMode"
+      :basePath="uploadBasepath"
+      :height="60"
+      @onUploadComplete="onAssetCreated"
+    />
   </div>
 </template>
 
 <script>
 import AssetThumbnail from "@/components/AssetThumbnail";
+import ImageUploader from "@/components/ImageUploader";
 
 export default {
   components: {
     AssetThumbnail,
+    ImageUploader,
   },
   props: {
     assets: {
@@ -36,6 +44,10 @@ export default {
     editMode: {
       type: Boolean,
       default: false,
+    },
+    uploadBasepath: {
+      type: String,
+      default: "",
     },
   },
   data() {
@@ -54,6 +66,9 @@ export default {
     },
   },
   methods: {
+    onAssetCreated(asset) {
+      this.$emit("onAssetCreated", asset);
+    },
     onAssetDeleted(asset) {
       this.$emit("onAssetDeleted", asset);
     },
