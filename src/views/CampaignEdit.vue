@@ -3,7 +3,11 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
-          <AssetGallery :assets="editedCampaignData.assets" :editMode="true" />
+          <AssetGallery
+            :assets="editedCampaignData.assets"
+            :editMode="true"
+            @onAssetDeleted="onAssetDeleted"
+          />
           <ImageUploader
             :basePath="`${editedCampaignData.id}/campaign-assets/`"
             :height="60"
@@ -636,10 +640,18 @@ export default {
         source: newAsset.path,
         tags: [],
         id: uuidv4(),
-        orderIndex: 0,
         isActive: true,
       };
       this.editedCampaignData.assets.push(newAssetObj);
+      await this.saveCampaign();
+    },
+    async onAssetDeleted(assetToDelete) {
+      let fileRef = fb.storage.refFromURL(assetToDelete.source);
+      await fileRef.delete();
+      let delAssetIdx = this.editedCampaignData.assets.findIndex(
+        (a) => a.id === assetToDelete.id
+      );
+      this.editedCampaignData.assets.splice(delAssetIdx, 1);
       await this.saveCampaign();
     },
   },

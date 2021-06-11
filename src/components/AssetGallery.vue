@@ -6,6 +6,7 @@
         :key="idx"
         :asset="asset"
         :editMode="editMode"
+        @onAssetDeleted="onAssetDeleted"
         classText="half-width pa-4"
       />
       <AssetThumbnail
@@ -13,6 +14,7 @@
         :key="idx + Math.min(assets.length, 4)"
         :asset="asset"
         :editMode="editMode"
+        @onAssetDeleted="onAssetDeleted"
         classText="third-width pa-6"
       />
     </vs-images>
@@ -51,6 +53,10 @@ export default {
       );
     },
   },
-  methods: {},
+  methods: {
+    onAssetDeleted(asset) {
+      this.$emit("onAssetDeleted", asset);
+    },
+  },
 };
 </script>

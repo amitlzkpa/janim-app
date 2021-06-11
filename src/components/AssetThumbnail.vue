@@ -56,7 +56,9 @@
                 <span slot="off">Inactive</span>
               </vs-switch>
               <div style="flex-grow: 1"></div>
-              <vs-button color="danger" type="flat">Delete</vs-button>
+              <vs-button color="danger" type="flat" @click="onDeleteClicked"
+                >Delete</vs-button
+              >
             </div>
           </vs-col>
         </vs-row>
@@ -93,6 +95,10 @@ export default {
         return;
       this.asset.tags.push(this.nextTag.toLowerCase());
       this.nextTag = "";
+    },
+    onDeleteClicked() {
+      this.$emit("onAssetDeleted", this.asset);
+      this.popupIsOpen = false;
     },
   },
 };
