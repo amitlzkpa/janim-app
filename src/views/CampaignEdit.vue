@@ -215,31 +215,59 @@
               <vs-tabs>
                 <vs-tab label="Activity">
                   <div>
-                    <vs-card
-                      v-for="activityItem in activityItems"
-                      :key="activityItem.id"
-                    >
-                      <div>
-                        <span class="text--grey">
-                          <i>
-                            {{ moment(activityItem.date).fromNow() }}
-                          </i>
-                        </span>
-                        <br />
-                        <span>{{ activityItem.content }}</span>
-                      </div>
+                    <div class="my-8">
+                      <vs-card>
+                        <div>
+                          <vs-textarea
+                            class="my-2"
+                            label="Post an update"
+                            placeholder="Start typing..."
+                            v-model="nextPostContent"
+                          />
+                        </div>
 
-                      <div slot="footer">
-                        <vs-row vs-justify="flex-end">
-                          <vs-button
-                            type="gradient"
-                            :color="activityItem.iconColor"
-                            :icon="activityItem.icon"
-                          >
-                          </vs-button>
-                        </vs-row>
-                      </div>
-                    </vs-card>
+                        <div slot="footer">
+                          <vs-row vs-justify="flex-end">
+                            <vs-button
+                              x-large
+                              :disabled="nextPostContent === ''"
+                              @click="createActivityPost()"
+                              type="gradient"
+                              color="danger"
+                              icon="send"
+                            >
+                            </vs-button>
+                          </vs-row>
+                        </div>
+                      </vs-card>
+                    </div>
+                    <div>
+                      <vs-card
+                        v-for="activityItem in activityItems"
+                        :key="activityItem.id"
+                      >
+                        <div>
+                          <span class="text--grey">
+                            <i>
+                              {{ moment(activityItem.date).fromNow() }}
+                            </i>
+                          </span>
+                          <br />
+                          <span>{{ activityItem.content }}</span>
+                        </div>
+
+                        <div slot="footer">
+                          <vs-row vs-justify="flex-end">
+                            <vs-button
+                              type="gradient"
+                              :color="activityItem.iconColor"
+                              :icon="activityItem.icon"
+                            >
+                            </vs-button>
+                          </vs-row>
+                        </div>
+                      </vs-card>
+                    </div>
                   </div>
                 </vs-tab>
                 <vs-tab label="Members">
@@ -491,6 +519,7 @@ export default {
       showDemographicTargetingPopup: false,
       showKeywordTargetingPopup: false,
       nextKeyword: "",
+      nextPostContent: "",
       countryList: countryList,
       editedCampaignData: {
         id: null,
@@ -621,6 +650,15 @@ export default {
         this.nextKeyword.toLowerCase()
       );
       this.nextKeyword = "";
+    },
+    createActivityPost() {
+      let pData = {
+        assocCampaignId: this.editedCampaignData.id,
+        content: this.nextPostContent,
+        type: "campaign-manager-update",
+      };
+      this.$store.dispatch("createActivityPost", pData);
+      this.nextPostContent = "";
     },
     async saveCampaign() {
       this.$store.dispatch("saveCampaign", {

@@ -3,7 +3,8 @@
     <div
       :style="`
         width: 100%;
-        height: ${height}px;
+        min-height: ${height}px;
+        max-height: ${height * 2}px;
         border: 1px dotted grey;
         border-radius: 8px;
         padding: 8px;

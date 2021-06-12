@@ -52,13 +52,14 @@ const store = new Vuex.Store({
       router.push("/login");
     },
 
-    async createPost({ state, commit }, post) {
-      await fb.postsCollection.add({
+    async createActivityPost({ state, commit }, post) {
+      await fb.activityPostsCollection.add({
         createdOn: new Date(),
         content: post.content,
+        type: post.type,
+        assocCampaignId: fb.campaignsCollection.doc(post.id),
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.name,
-        likes: 0,
       });
     },
     async likePost({ commit }, post) {
@@ -72,7 +73,7 @@ const store = new Vuex.Store({
         postId: post.id,
         userId: userId,
       });
-      fb.postsCollection.doc(post.id).update({
+      fb.activityPostsCollection.doc(post.id).update({
         likes: post.likesCount + 1,
       });
     },
@@ -85,11 +86,11 @@ const store = new Vuex.Store({
 
       dispatch("fetchUserProfile", { uid: userId });
 
-      const postDocs = await fb.postsCollection
+      const postDocs = await fb.activityPostsCollection
         .where("userId", "==", userId)
         .get();
       postDocs.forEach((doc) => {
-        fb.postsCollection.doc(doc.id).update({
+        fb.activityPostsCollection.doc(doc.id).update({
           userName: user.name,
         });
       });
@@ -107,17 +108,19 @@ const store = new Vuex.Store({
   },
 });
 
-fb.postsCollection.orderBy("createdOn", "desc").onSnapshot((snapshot) => {
-  let postsArray = [];
+fb.activityPostsCollection
+  .orderBy("createdOn", "desc")
+  .onSnapshot((snapshot) => {
+    let postsArray = [];
 
-  snapshot.forEach((doc) => {
-    let post = doc.data();
-    post.id = doc.id;
+    snapshot.forEach((doc) => {
+      let post = doc.data();
+      post.id = doc.id;
 
-    postsArray.push(post);
+      postsArray.push(post);
+    });
+
+    store.commit("setPosts", postsArray);
   });
-
-  store.commit("setPosts", postsArray);
-});
 
 export default store;

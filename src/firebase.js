@@ -22,7 +22,7 @@ const storage = firebase.storage();
 const usersCollection = db.collection("users");
 const campaignsCollection = db.collection("campaign");
 
-const postsCollection = db.collection("posts");
+const activityPostsCollection = db.collection("activityPosts");
 const likesCollection = db.collection("likes");
 
 // export utils/refs
@@ -32,6 +32,6 @@ export {
   storage,
   usersCollection,
   campaignsCollection,
-  postsCollection,
+  activityPostsCollection,
   likesCollection,
 };
