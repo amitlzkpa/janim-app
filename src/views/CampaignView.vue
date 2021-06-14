@@ -117,32 +117,63 @@
             <vs-col vs-w="8">
               <vs-tabs>
                 <vs-tab label="Activity">
-                  <div>
-                    <vs-card
-                      v-for="activityItem in activityItems"
-                      :key="activityItem.id"
-                    >
-                      <div>
-                        <span class="text--grey">
-                          <i>
-                            {{ moment(activityItem.date).fromNow() }}
-                          </i>
-                        </span>
-                        <br />
-                        <span>{{ activityItem.content }}</span>
-                      </div>
-
-                      <div slot="footer">
-                        <vs-row vs-justify="flex-end">
-                          <vs-button
-                            type="gradient"
-                            :color="activityItem.iconColor"
-                            :icon="activityItem.icon"
-                          >
-                          </vs-button>
-                        </vs-row>
-                      </div>
-                    </vs-card>
+                  <div
+                    v-for="activityItem in activityItems"
+                    :key="activityItem.id"
+                    class="flex-center"
+                  >
+                    <vs-row>
+                      <vs-col vs-w="3" class="flex-center pt-48">
+                        <vs-icon
+                          v-if="activityItem.type === 'campaign-manager-update'"
+                          icon="supervisor_account"
+                          style="
+                            font-size: 30px;
+                            padding: 8px;
+                            border-radius: 50%;
+                            border: 4px solid #5b3cc4;
+                            color: #5b3cc4;
+                          "
+                        />
+                        <vs-icon
+                          v-if="activityItem.type === 'hits-stats-update'"
+                          icon="flash_on"
+                          style="
+                            font-size: 30px;
+                            padding: 8px;
+                            border-radius: 50%;
+                            border: 4px solid rgb(255, 130, 0);
+                            color: rgb(255, 130, 0);
+                          "
+                        />
+                      </vs-col>
+                      <vs-col vs-w="9" class="pr-48">
+                        <vs-card>
+                          <div>
+                            <span class="text--grey">
+                              <i>
+                                {{
+                                  moment(
+                                    activityItem.createdOn.toDate()
+                                  ).fromNow()
+                                }}
+                              </i>
+                            </span>
+                            <div
+                              style="
+                                height: 100px;
+                                overflow-x: hidden;
+                                overflow-y: auto;
+                                font-family: 'Lato', sans-serif;
+                                font-size: 18px;
+                              "
+                            >
+                              {{ activityItem.content }}
+                            </div>
+                          </div>
+                        </vs-card>
+                      </vs-col>
+                    </vs-row>
                   </div>
                 </vs-tab>
                 <vs-tab label="Members">
@@ -256,85 +287,7 @@ export default {
   data() {
     return {
       campaign: {},
-      activityItems: [
-        {
-          id: "a",
-          content: "Cras tristique elit molestie lectus congue dictum.",
-          date: this.moment("2021-02-27T00:00:00"),
-          icon: "favorite",
-          iconColor: "danger",
-        },
-        {
-          id: "b",
-          content:
-            "Fusce condimentum purus id finibus gravida. Proin sed justo congue, ultricies neque non, volutpat nulla.",
-          date: this.moment("2020-12-14T00:00:00"),
-          icon: "person",
-          iconColor: "warning",
-        },
-        {
-          id: "c",
-          content:
-            "Sed hendrerit sapien vitae felis viverra, quis efficitur velit blandit.",
-          date: this.moment("2020-11-09T00:00:00"),
-          icon: "favorite",
-          iconColor: "danger",
-        },
-        {
-          id: "d",
-          content:
-            "Mauris porttitor ligula at mollis egestas. Vestibulum aliquam urna at porttitor aliquam. Cras tristique elit molestie lectus congue dictum.",
-          date: this.moment("2020-11-07T00:00:00"),
-          icon: "favorite",
-          iconColor: "danger",
-        },
-        {
-          id: "e",
-          content: "Justo congue, ultricies neque non, volutpat nulla.",
-          date: this.moment("2020-07-01T00:00:00"),
-          icon: "person",
-          iconColor: "warning",
-        },
-        {
-          id: "f",
-          content:
-            "Volutpat nulla molestie lectus congue dictumonec sed nisl imperdiet, auctor turpis vel, ultricies mauris.",
-          date: this.moment("2020-06-19T00:00:00"),
-          icon: "share",
-          iconColor: "success",
-        },
-        {
-          id: "g",
-          content:
-            "Volutpat nulla molestie lectus congue dictumonec sed nisl imperdiet, auctor turpis vel, ultricies mauris.",
-          date: this.moment("2020-06-19T00:00:00"),
-          icon: "share",
-          iconColor: "success",
-        },
-        {
-          id: "h",
-          content:
-            "Pelit molestie lectus congue dictum. Maecenas ornare nisl ut est euismod, sit amet vehicula est suscipit. Maecenas non est efficitur, malesuada massa eget, ullamcorper ex.",
-          date: this.moment("2020-05-22T00:00:00"),
-          icon: "person",
-          iconColor: "warning",
-        },
-        {
-          id: "i",
-          content:
-            "Mauris porttitor ligula at mollis egestas. Vestibulum aliquam urna at porttitor aliquam. Cras tristique elit molestie lectus congue dictum.",
-          date: this.moment("2020-11-07T00:00:00"),
-          icon: "favorite",
-          iconColor: "danger",
-        },
-        {
-          id: "j",
-          content: "Justo congue, ultricies neque non, volutpat nulla.",
-          date: this.moment("2020-07-01T00:00:00"),
-          icon: "person",
-          iconColor: "warning",
-        },
-      ],
+      activityItems: [],
     };
   },
   computed: {
@@ -352,7 +305,15 @@ export default {
         (d) => d.toDate()
       );
       this.campaign = campaignData.campaign;
-      console.log(this.campaign);
+
+      this.activityItems = [];
+      let postsResult = await fb.activityPostsCollection
+        .where("assocCampaignId", "==", this.campaign.id)
+        .orderBy("createdOn", "desc")
+        .get();
+      postsResult.forEach((r) => {
+        this.activityItems.push(r.data());
+      });
     },
   },
 };

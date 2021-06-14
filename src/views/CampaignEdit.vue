@@ -597,12 +597,11 @@ export default {
       this.activityItems = [];
       let postsResult = await fb.activityPostsCollection
         .where("assocCampaignId", "==", this.editedCampaignData.id)
-        .orderBy("createdOn")
+        .orderBy("createdOn", "desc")
         .get();
       postsResult.forEach((r) => {
         this.activityItems.push(r.data());
       });
-      console.log(this.activityItems);
     },
     addNextKeyword() {
       if (
