@@ -214,95 +214,34 @@
             <vs-col vs-w="8">
               <vs-tabs>
                 <vs-tab label="Activity">
-                  <div>
-                    <div class="my-8">
-                      <vs-card>
-                        <div>
-                          <vs-textarea
-                            class="my-2"
-                            label="Post an update"
-                            placeholder="Start typing..."
-                            v-model="nextPostContent"
-                          />
-                        </div>
+                  <div class="my-8">
+                    <vs-card>
+                      <div>
+                        <vs-textarea
+                          class="my-2"
+                          label="Post an update"
+                          placeholder="Start typing..."
+                          v-model="nextPostContent"
+                        />
+                      </div>
 
-                        <div slot="footer">
-                          <vs-row vs-justify="flex-end">
-                            <vs-button
-                              x-large
-                              :disabled="nextPostContent === ''"
-                              @click="createActivityPost()"
-                              type="gradient"
-                              color="danger"
-                              icon="send"
-                            >
-                            </vs-button>
-                          </vs-row>
-                        </div>
-                      </vs-card>
-                    </div>
-                    <div>
-                      <div
-                        v-for="activityItem in activityItems"
-                        :key="activityItem.id"
-                        class="flex-center"
-                      >
-                        <vs-row>
-                          <vs-col vs-w="3" class="flex-center pt-48">
-                            <vs-icon
-                              v-if="
-                                activityItem.type === 'campaign-manager-update'
-                              "
-                              icon="supervisor_account"
-                              style="
-                                font-size: 30px;
-                                padding: 8px;
-                                border-radius: 50%;
-                                border: 4px solid #5b3cc4;
-                                color: #5b3cc4;
-                              "
-                            />
-                            <vs-icon
-                              v-if="activityItem.type === 'hits-stats-update'"
-                              icon="flash_on"
-                              style="
-                                font-size: 30px;
-                                padding: 8px;
-                                border-radius: 50%;
-                                border: 4px solid rgb(255, 130, 0);
-                                color: rgb(255, 130, 0);
-                              "
-                            />
-                          </vs-col>
-                          <vs-col vs-w="9" class="pr-48">
-                            <vs-card>
-                              <div>
-                                <span class="text--grey">
-                                  <i>
-                                    {{
-                                      moment(
-                                        activityItem.createdOn.toDate()
-                                      ).fromNow()
-                                    }}
-                                  </i>
-                                </span>
-                                <div
-                                  style="
-                                    height: 100px;
-                                    overflow-x: hidden;
-                                    overflow-y: auto;
-                                    font-family: 'Lato', sans-serif;
-                                    font-size: 18px;
-                                  "
-                                >
-                                  {{ activityItem.content }}
-                                </div>
-                              </div>
-                            </vs-card>
-                          </vs-col>
+                      <div slot="footer">
+                        <vs-row vs-justify="flex-end">
+                          <vs-button
+                            x-large
+                            :disabled="nextPostContent === ''"
+                            @click="createActivityPost()"
+                            type="gradient"
+                            color="danger"
+                            icon="send"
+                          >
+                          </vs-button>
                         </vs-row>
                       </div>
-                    </div>
+                    </vs-card>
+                  </div>
+                  <div>
+                    <ActivityListViewer :campaignId="editedCampaignData.id" />
                   </div>
                 </vs-tab>
                 <vs-tab label="Members">
@@ -534,17 +473,19 @@ import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
 import AssetGallery from "@/components/AssetGallery";
+import ActivityListViewer from "@/components/ActivityListViewer";
 
 import countryList from "@/assets/countryList.json";
 
 export default {
   components: {
+    DatePicker,
     ContentEditable,
     DateRangeViewer,
-    DatePicker,
     CountryListViewer,
     KeywordsViewer,
     AssetGallery,
+    ActivityListViewer,
   },
   data() {
     return {
@@ -571,7 +512,6 @@ export default {
         assets: [],
       },
       storedCampaignData: {},
-      activityItems: [],
     };
   },
   computed: {
@@ -593,15 +533,6 @@ export default {
       this.storedCampaignData = JSON.parse(
         JSON.stringify(this.editedCampaignData)
       );
-
-      this.activityItems = [];
-      let postsResult = await fb.activityPostsCollection
-        .where("assocCampaignId", "==", this.editedCampaignData.id)
-        .orderBy("createdOn", "desc")
-        .get();
-      postsResult.forEach((r) => {
-        this.activityItems.push(r.data());
-      });
     },
     addNextKeyword() {
       if (
