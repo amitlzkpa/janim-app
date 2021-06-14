@@ -44,7 +44,7 @@
             <vs-col vs-w="12">
               <p
                 style="
-                  font-family: 'Lato', sand-serif;
+                  font-family: 'Lato', sans-serif;
                   font-size: 20px;
                   color: #4d4d4d;
                   height: 80px;

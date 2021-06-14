@@ -57,7 +57,7 @@ const store = new Vuex.Store({
         createdOn: new Date(),
         content: post.content,
         type: post.type,
-        assocCampaignId: fb.campaignsCollection.doc(post.id),
+        assocCampaignId: post.assocCampaignId,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.name,
       });
