@@ -13,10 +13,24 @@
       </div>
 
       <vs-navbar-item v-if="isLoggedIn">
-        <vs-button type="flat" to="/settings" class="mx-4">Settings</vs-button>
-      </vs-navbar-item>
-      <vs-navbar-item v-if="isLoggedIn">
-        <vs-button type="flat" @click="logout()" class="mx-4">Logout</vs-button>
+        <vs-dropdown>
+          <a class="a-icon" href.prevent>
+            <span class="mb-8">
+              {{ userProfile.name }}
+            </span>
+            <vs-icon size="small" icon="expand_more"></vs-icon>
+          </a>
+
+          <vs-dropdown-menu style="width: 200px">
+            <vs-dropdown-item to="/organizations">
+              Organizations
+            </vs-dropdown-item>
+            <vs-dropdown-item to="/settings"> Settings </vs-dropdown-item>
+            <vs-dropdown-item @click="logout()" divider>
+              Logout
+            </vs-dropdown-item>
+          </vs-dropdown-menu>
+        </vs-dropdown>
       </vs-navbar-item>
 
       <vs-navbar-item v-if="!isLoggedIn">
