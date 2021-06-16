@@ -21,6 +21,21 @@
       contenteditable
       v-on="listeners"
     />
+    <div style="position: relative; width: 0; height: 0">
+      <div
+        v-if="!value"
+        :style="`
+          ${styleText}
+          position: absolute;
+          color: #DEDEDE;
+          bottom: 0px;
+          left: 0px;
+          z-index: -9999;
+          `"
+      >
+        {{ placeholderValue }}
+      </div>
+    </div>
   </span>
 </template>
 
@@ -36,6 +51,10 @@ export default {
       default: "",
     },
     value: {
+      type: String,
+      default: "",
+    },
+    placeholderValue: {
       type: String,
       default: "",
     },
