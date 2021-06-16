@@ -26,6 +26,15 @@ const routes = [
     },
   },
   {
+    path: "/organizations",
+    name: "Organizations",
+    component: () =>
+      import(/* webpackChunkName: "settings" */ "@/views/Organizations.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/settings",
     name: "Settings",
     component: () =>
