@@ -8,10 +8,14 @@ Vue.use(Vuex);
 let store = new Vuex.Store({
   state: {
     userProfile: {},
+    campaign: {},
   },
   mutations: {
     setUserProfile(state, val) {
       state.userProfile = val;
+    },
+    setCampaign(state, val) {
+      state.campaign = val;
     },
   },
   actions: {
@@ -63,6 +67,15 @@ let store = new Vuex.Store({
       });
     },
 
+    async refreshCampaign({ commit }, campaignId) {
+      if (!campaignId) return;
+      let doc = await fb.campaignsCollection.doc(campaignId).get();
+      let campaignData = doc.data();
+      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
+        (d) => d.toDate()
+      );
+      commit("setCampaign", campaignData.campaign);
+    },
     async saveCampaign({ dispatch }, campaign) {
       if (!campaign.campaign.id) {
         let c = await fb.campaignsCollection.add(campaign);

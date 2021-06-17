@@ -230,12 +230,10 @@ export default {
     ActivityListViewer,
   },
   data() {
-    return {
-      campaign: {},
-    };
+    return {};
   },
   computed: {
-    ...mapState(["userProfile"]),
+    ...mapState(["userProfile", "campaign"]),
   },
   async mounted() {
     await this.refreshData();
@@ -243,39 +241,12 @@ export default {
   methods: {
     async refreshData() {
       let campaignId = this.$route.params.campaignId;
-      let doc = await fb.campaignsCollection.doc(campaignId).get();
-      let campaignData = doc.data();
-      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
-        (d) => d.toDate()
-      );
-      this.campaign = campaignData.campaign;
+      if (!campaignId) return;
+      this.$store.dispatch("refreshCampaign", campaignId);
     },
   },
 };
 </script>
 
 <style scoped>
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.info-item {
-  align-self: center;
-  width: 100%;
-  min-height: 40px;
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-  color: grey;
-}
-
-.country-label {
-  color: grey;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  margin: 0px 4px 0px 4px;
-}
 </style>
