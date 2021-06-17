@@ -79,11 +79,11 @@ export default {
     async refreshData() {
       if (!this.campaignId) return;
       this.activityItems = [];
-      let postsResult = await fb.activityPostsCollection
+      let res = await fb.activityPostsCollection
         .where("assocCampaignId", "==", this.campaignId)
         .orderBy("createdOn", "desc")
         .get();
-      postsResult.forEach((r) => {
+      res.forEach((r) => {
         this.activityItems.push(r.data());
       });
     },

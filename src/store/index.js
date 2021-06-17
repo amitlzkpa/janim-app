@@ -5,7 +5,7 @@ import router from "@/router/index";
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+let store = new Vuex.Store({
   state: {
     userProfile: {},
     posts: [],
@@ -20,21 +20,21 @@ const store = new Vuex.Store({
   },
   actions: {
     async login({ dispatch }, form) {
-      const { user } = await fb.auth.signInWithEmailAndPassword(
+      let { user } = await fb.auth.signInWithEmailAndPassword(
         form.email,
         form.password
       );
       dispatch("fetchUserProfile", user);
     },
     async fetchUserProfile({ commit }, user) {
-      const userProfile = await fb.usersCollection.doc(user.uid).get();
+      let userProfile = await fb.usersCollection.doc(user.uid).get();
       commit("setUserProfile", userProfile.data());
       if (router.currentRoute.path === "/login") {
         router.push("/home");
       }
     },
     async signup({ dispatch }, form) {
-      const { user } = await fb.auth.createUserWithEmailAndPassword(
+      let { user } = await fb.auth.createUserWithEmailAndPassword(
         form.email,
         form.password
       );
@@ -64,14 +64,11 @@ const store = new Vuex.Store({
     },
 
     async updateProfile({ dispatch }, user) {
-      const userId = fb.auth.currentUser.uid;
-      const userRef = await fb.usersCollection.doc(userId).update({
-        name: user.name,
-      });
+      let userId = fb.auth.currentUser.uid;
 
       dispatch("fetchUserProfile", { uid: userId });
 
-      const postDocs = await fb.activityPostsCollection
+      let postDocs = await fb.activityPostsCollection
         .where("userId", "==", userId)
         .get();
       postDocs.forEach((doc) => {

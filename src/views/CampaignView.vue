@@ -252,11 +252,11 @@ export default {
       this.campaign = campaignData.campaign;
 
       this.activityItems = [];
-      let postsResult = await fb.activityPostsCollection
+      let res = await fb.activityPostsCollection
         .where("assocCampaignId", "==", this.campaign.id)
         .orderBy("createdOn", "desc")
         .get();
-      postsResult.forEach((r) => {
+      res.forEach((r) => {
         this.activityItems.push(r.data());
       });
     },

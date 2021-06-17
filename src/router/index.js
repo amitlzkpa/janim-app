@@ -4,7 +4,7 @@ import { auth } from "@/firebase";
 
 Vue.use(VueRouter);
 
-const routes = [
+let routes = [
   {
     path: "/",
     name: "Vyrall",
@@ -57,14 +57,14 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
+let router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
+  let requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
 
   if (requiresAuth && !auth.currentUser) {
     next("/login");

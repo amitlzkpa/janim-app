@@ -2,7 +2,7 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
-const firebaseConfig = {
+let firebaseConfig = {
   apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
   authDomain: "vyrall.firebaseapp.com",
   projectId: "vyrall",
@@ -14,15 +14,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // utils
-const db = firebase.firestore();
-const auth = firebase.auth();
-const storage = firebase.storage();
+let db = firebase.firestore();
+let auth = firebase.auth();
+let storage = firebase.storage();
 
 // collection references
-const usersCollection = db.collection("users");
-const campaignsCollection = db.collection("campaign");
+let usersCollection = db.collection("users");
+let campaignsCollection = db.collection("campaign");
 
-const activityPostsCollection = db.collection("activityPosts");
+let activityPostsCollection = db.collection("activityPosts");
 
 // export utils/refs
 export {
