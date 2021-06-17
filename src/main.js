@@ -27,6 +27,6 @@ auth.onAuthStateChanged((user) => {
   }
 
   if (user) {
-    store.dispatch("fetchUserProfile", user);
+    store.dispatch("refreshUserProfile", user);
   }
 });

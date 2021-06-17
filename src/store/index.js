@@ -20,14 +20,7 @@ let store = new Vuex.Store({
         form.email,
         form.password
       );
-      dispatch("fetchUserProfile", user);
-    },
-    async fetchUserProfile({ commit }, user) {
-      let userProfile = await fb.usersCollection.doc(user.uid).get();
-      commit("setUserProfile", userProfile.data());
-      if (router.currentRoute.path === "/login") {
-        router.push("/home");
-      }
+      dispatch("refreshUserProfile", user);
     },
     async signup({ dispatch }, form) {
       let { user } = await fb.auth.createUserWithEmailAndPassword(
@@ -37,7 +30,7 @@ let store = new Vuex.Store({
       await fb.usersCollection.doc(user.uid).set({
         name: form.name,
       });
-      dispatch("fetchUserProfile", user);
+      dispatch("refreshUserProfile", user);
     },
     async reset({ dispatch }, form) {
       await fb.auth.sendPasswordResetEmail(form.email);
@@ -48,21 +41,17 @@ let store = new Vuex.Store({
       router.push("/login");
     },
 
-    async createActivityPost({ state, commit }, post) {
-      await fb.activityPostsCollection.add({
-        createdOn: new Date(),
-        content: post.content,
-        type: post.type,
-        assocCampaignId: post.assocCampaignId,
-        userId: fb.auth.currentUser.uid,
-        userName: state.userProfile.name,
-      });
+    async refreshUserProfile({ commit }, user) {
+      let userProfile = await fb.usersCollection.doc(user.uid).get();
+      commit("setUserProfile", userProfile.data());
+      if (router.currentRoute.path === "/login") {
+        router.push("/home");
+      }
     },
-
-    async updateProfile({ dispatch }, user) {
+    async saveUserProfile({ dispatch }, user) {
       let userId = fb.auth.currentUser.uid;
 
-      dispatch("fetchUserProfile", { uid: userId });
+      dispatch("refreshUserProfile", { uid: userId });
 
       let postDocs = await fb.activityPostsCollection
         .where("userId", "==", userId)
@@ -82,6 +71,17 @@ let store = new Vuex.Store({
       await fb.campaignsCollection
         .doc(campaign.campaign.id)
         .update({ campaign: campaign.campaign });
+    },
+
+    async createActivityPost({ state, commit }, post) {
+      await fb.activityPostsCollection.add({
+        createdOn: new Date(),
+        content: post.content,
+        type: post.type,
+        assocCampaignId: post.assocCampaignId,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.name,
+      });
     },
   },
 });

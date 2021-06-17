@@ -14,7 +14,7 @@
         />
       </div>
 
-      <button @click="updateProfile()">Update</button>
+      <button @click="saveUserProfile()">Update</button>
     </form>
   </div>
 </template>
@@ -32,8 +32,8 @@ export default {
     ...mapState(["userProfile"]),
   },
   methods: {
-    updateProfile() {
-      this.$store.dispatch("updateProfile", {
+    saveUserProfile() {
+      this.$store.dispatch("saveUserProfile", {
         name: this.name !== "" ? this.name : this.userProfile.name,
       });
       this.name = "";
