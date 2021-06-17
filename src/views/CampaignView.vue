@@ -232,7 +232,6 @@ export default {
   data() {
     return {
       campaign: {},
-      activityItems: [],
     };
   },
   computed: {
@@ -250,15 +249,6 @@ export default {
         (d) => d.toDate()
       );
       this.campaign = campaignData.campaign;
-
-      this.activityItems = [];
-      let res = await fb.activityPostsCollection
-        .where("assocCampaignId", "==", this.campaign.id)
-        .orderBy("createdOn", "desc")
-        .get();
-      res.forEach((r) => {
-        this.activityItems.push(r.data());
-      });
     },
   },
 };

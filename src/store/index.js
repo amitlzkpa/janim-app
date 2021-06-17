@@ -8,14 +8,10 @@ Vue.use(Vuex);
 let store = new Vuex.Store({
   state: {
     userProfile: {},
-    posts: [],
   },
   mutations: {
     setUserProfile(state, val) {
       state.userProfile = val;
-    },
-    setPosts(state, val) {
-      state.posts = val;
     },
   },
   actions: {
@@ -89,20 +85,5 @@ let store = new Vuex.Store({
     },
   },
 });
-
-fb.activityPostsCollection
-  .orderBy("createdOn", "desc")
-  .onSnapshot((snapshot) => {
-    let postsArray = [];
-
-    snapshot.forEach((doc) => {
-      let post = doc.data();
-      post.id = doc.id;
-
-      postsArray.push(post);
-    });
-
-    store.commit("setPosts", postsArray);
-  });
 
 export default store;
