@@ -213,7 +213,6 @@
 
 <script>
 import { mapState } from "vuex";
-import * as fb from "@/firebase";
 
 import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";

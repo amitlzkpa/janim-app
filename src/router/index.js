@@ -29,7 +29,9 @@ let routes = [
     path: "/organizations",
     name: "Organizations",
     component: () =>
-      import(/* webpackChunkName: "settings" */ "@/views/Organizations.vue"),
+      import(
+        /* webpackChunkName: "organizations" */ "@/views/Organizations.vue"
+      ),
     meta: {
       requiresAuth: true,
     },
@@ -47,13 +49,17 @@ let routes = [
     path: "/campaign/view/:campaignId",
     name: "Vyrall Campaign | View",
     component: () =>
-      import(/* webpackChunkName: "campaign-view */ "@/views/CampaignView.vue"),
+      import(
+        /* webpackChunkName: "campaign-view" */ "@/views/CampaignView.vue"
+      ),
   },
   {
     path: "/campaign/edit/:campaignId?",
     name: "Vyrall Campaign | Edit",
     component: () =>
-      import(/* webpackChunkName: "campaign-edit */ "@/views/CampaignEdit.vue"),
+      import(
+        /* webpackChunkName: "campaign-edit" */ "@/views/CampaignEdit.vue"
+      ),
   },
 ];
 
