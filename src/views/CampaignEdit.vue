@@ -122,13 +122,6 @@
                       </div>
                     </vs-col>
                   </vs-row>
-                  <div class="full-width" style="text-align: right">
-                    <vs-button
-                      type="filled"
-                      @click="showCampaignTimelinePopup = false"
-                      >Save</vs-button
-                    >
-                  </div>
                 </vs-popup>
               </vs-card>
             </vs-col>
@@ -323,7 +316,17 @@
                           >
                         </div>
                       </vs-col>
-                      <vs-col vs-w="8"></vs-col>
+                      <vs-col vs-w="8">
+                        <div style="display: flex; flex-direction: column; justify-content: center; height: 100%">
+                          <div class="pl-48">
+                            <img
+                              src="/imgs/dotted-map.png"
+                              alt="Target Regions"
+                              style="object-fit: cover; width: 100%"
+                            />
+                          </div>
+                        </div>
+                      </vs-col>
                     </vs-row>
                   </vs-popup>
                 </div>
@@ -501,8 +504,11 @@ export default {
   computed: {
     ...mapState(["userProfile"]),
     hasPendingSaves() {
-      return JSON.stringify(this.editedCampaign) !== JSON.stringify(this.$store.getters.getCampaign);
-    }
+      return (
+        JSON.stringify(this.editedCampaign) !==
+        JSON.stringify(this.$store.getters.getCampaign)
+      );
+    },
   },
   async mounted() {
     campaignUpdateSub = this.$store.subscribe(async (mutation, state) => {
@@ -517,7 +523,9 @@ export default {
   },
   methods: {
     async refreshData() {
-      this.editedCampaign = JSON.parse(JSON.stringify(this.$store.getters.getCampaign));
+      this.editedCampaign = JSON.parse(
+        JSON.stringify(this.$store.getters.getCampaign)
+      );
     },
     addNextKeyword() {
       if (

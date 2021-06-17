@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="max-height: 1200px; overflow-y: auto">
     <div
       v-for="activityItem in activityItems"
       :key="activityItem.id"
