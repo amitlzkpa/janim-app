@@ -60,6 +60,8 @@
 <script>
 import * as fb from "@/firebase";
 
+let campaignUpdateSub;
+
 export default {
   props: {
     campaignId: {
@@ -74,6 +76,11 @@ export default {
   },
   async mounted() {
     await this.refreshData();
+    campaignUpdateSub = this.$store.subscribe(async (mutation, state) => {
+      if (mutation.type === "setCampaign") {
+        await this.refreshData();
+      }
+    });
   },
   methods: {
     async refreshData() {
@@ -87,6 +94,9 @@ export default {
         this.activityItems.push(r.data());
       });
     },
+  },
+  beforeDestroy() {
+    if (campaignUpdateSub) campaignUpdateSub();
   },
 };
 </script>

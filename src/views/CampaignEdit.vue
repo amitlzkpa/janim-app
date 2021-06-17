@@ -472,7 +472,6 @@ export default {
       nextKeyword: "",
       nextPostContent: "",
       countryList: countryList,
-      storedCampaignData: {},
     };
   },
   computed: {
@@ -486,8 +485,6 @@ export default {
       let campaignId = this.$route.params.campaignId;
       if (!campaignId) return;
       this.$store.dispatch("refreshCampaign", campaignId);
-      this.storedCampaignData = JSON.parse(JSON.stringify(this.campaign));
-      console.log(this.storedCampaignData);
     },
     addNextKeyword() {
       if (

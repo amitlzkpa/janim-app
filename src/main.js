@@ -16,6 +16,10 @@ Vue.use(vueFilterPrettyBytes);
 
 Vue.config.productionTip = false;
 
+Vue.prototype.wait = async function (ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms));
+};
+
 let app;
 auth.onAuthStateChanged((user) => {
   if (!app) {

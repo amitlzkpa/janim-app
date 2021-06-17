@@ -84,9 +84,10 @@ let store = new Vuex.Store({
       await fb.campaignsCollection
         .doc(campaign.campaign.id)
         .update({ campaign: campaign.campaign });
+      dispatch("refreshCampaign", campaign.campaign.id);
     },
 
-    async createActivityPost({ state, commit }, post) {
+    async createActivityPost({ state, dispatch }, post) {
       await fb.activityPostsCollection.add({
         createdOn: new Date(),
         content: post.content,
@@ -95,6 +96,7 @@ let store = new Vuex.Store({
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.name,
       });
+      dispatch("refreshCampaign", state.campaign.id);
     },
   },
 });
