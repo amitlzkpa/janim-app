@@ -1,12 +1,12 @@
 <template>
-  <div v-if="campaign.id">
+  <div v-if="editedCampaign.id">
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div class="mt-20 pa-10">
           <AssetGallery
-            :assets="campaign.assets"
+            :assets="editedCampaign.assets"
             :editMode="true"
-            :uploadBasepath="`${campaign.id}/campaign-assets/`"
+            :uploadBasepath="`${editedCampaign.id}/campaign-assets/`"
             @onAssetCreated="onAssetCreated"
             @onAssetDeleted="onAssetDeleted"
           />
@@ -34,7 +34,11 @@
                   </vs-dropdown-menu>
                 </vs-dropdown>
                 <span style="flex-grow: 1" />
-                <vs-button color="primary" type="flat" @click="saveCampaign()"
+                <vs-button
+                  color="primary"
+                  :disabled="!hasPendingSaves"
+                  :type="hasPendingSaves ? 'filled' : 'flat'"
+                  @click="saveCampaign()"
                   >Save</vs-button
                 >
               </div>
@@ -45,7 +49,7 @@
             <vs-col vs-w="12">
               <ContentEditable
                 tag="span"
-                v-model="campaign.title"
+                v-model="editedCampaign.title"
                 styleText="
                   cursor: select;
                   border: 1px dashed grey;
@@ -66,7 +70,7 @@
             <vs-col vs-w="12">
               <ContentEditable
                 tag="span"
-                v-model="campaign.description"
+                v-model="editedCampaign.description"
                 styleText="
                   cursor: select;
                   border: 1px dashed grey;
@@ -93,7 +97,7 @@
                   class="info-item flex-center pt-10"
                   @click="showCampaignTimelinePopup = true"
                 >
-                  <DateRangeViewer :dateRange="campaign.dateRange" />
+                  <DateRangeViewer :dateRange="editedCampaign.dateRange" />
                 </div>
                 <vs-popup
                   title="Campaign Timeline"
@@ -113,7 +117,7 @@
                         <date-picker
                           range
                           inline
-                          v-model="campaign.dateRange"
+                          v-model="editedCampaign.dateRange"
                         ></date-picker>
                       </div>
                     </vs-col>
@@ -134,7 +138,7 @@
                   class="info-item flex-center pt-10"
                   @click="showCampaignBudgetPopup = true"
                 >
-                  ${{ campaign.totalBudget }} bounty
+                  ${{ editedCampaign.totalBudget }} bounty
                 </div>
                 <vs-popup
                   title="Campaign Budget"
@@ -144,7 +148,7 @@
                     <vs-col vs-w="3">
                       Total Budget
                       <vs-input-number
-                        v-model="campaign.totalBudget"
+                        v-model="editedCampaign.totalBudget"
                         label="$"
                         :min="200"
                         :max="10000"
@@ -152,7 +156,7 @@
                       />
                       Hits Goal
                       <vs-input-number
-                        v-model="campaign.hitsGoal"
+                        v-model="editedCampaign.hitsGoal"
                         :min="200"
                         :step="200"
                       />
@@ -162,7 +166,9 @@
                         <small>(approximate price per hit)</small>
                         <br />
                         ${{
-                          (campaign.totalBudget / campaign.hitsGoal).toFixed(2)
+                          (
+                            editedCampaign.totalBudget / editedCampaign.hitsGoal
+                          ).toFixed(2)
                         }}
                       </div>
                     </vs-col>
@@ -176,7 +182,7 @@
 
           <vs-row style="height: 60px">
             <vs-col vs-w="1" class="flex-center">
-              <vs-switch color="success" v-model="campaign.isActive">
+              <vs-switch color="success" v-model="editedCampaign.isActive">
                 <span slot="on">Live</span>
                 <span slot="off">Paused</span>
               </vs-switch>
@@ -186,7 +192,9 @@
                 <i
                   >{{
                     moment
-                      .duration(moment(campaign.dateRange[1]).diff(moment()))
+                      .duration(
+                        moment(editedCampaign.dateRange[1]).diff(moment())
+                      )
                       .humanize()
                   }}
                   to go</i
@@ -236,7 +244,7 @@
                     </vs-card>
                   </div>
                   <div>
-                    <ActivityListViewer :campaignId="campaign.id" />
+                    <ActivityListViewer :campaignId="editedCampaign.id" />
                   </div>
                 </vs-tab>
                 <vs-tab label="Members">
@@ -274,7 +282,9 @@
             <vs-col vs-w="4">
               <div style="text-align: center">
                 <div class="my-10" @click="showGeographicTargetingPopup = true">
-                  <CountryListViewer :countries="campaign.targetCountries" />
+                  <CountryListViewer
+                    :countries="editedCampaign.targetCountries"
+                  />
                   <vs-popup
                     title="Geographic Targeting"
                     :active.sync="showGeographicTargetingPopup"
@@ -287,7 +297,7 @@
                           autocomplete
                           class="ml-8"
                           label="Regions"
-                          v-model="campaign.targetCountries"
+                          v-model="editedCampaign.targetCountries"
                         >
                           <vs-select-item
                             :key="country.code"
@@ -307,7 +317,7 @@
                         >
                           <span
                             class="country-label"
-                            v-for="country in campaign.targetCountries"
+                            v-for="country in editedCampaign.targetCountries"
                             :key="country.code"
                             >{{ country.name }},</span
                           >
@@ -334,7 +344,7 @@
                     "
                   >
                     <span> TARGET PROFILE </span>
-                    <div v-if="campaign.ageRange[0]" class="flex-center">
+                    <div v-if="editedCampaign.ageRange[0]" class="flex-center">
                       <vs-icon
                         class="material-icons-outlined"
                         icon="supervisor_account"
@@ -342,21 +352,23 @@
                         size="75px"
                       ></vs-icon>
                       <span class="ml-8" style="font-size: 36px">
-                        {{ campaign.ageRange[0] }}-{{ campaign.ageRange[1] }}
+                        {{ editedCampaign.ageRange[0] }}-{{
+                          editedCampaign.ageRange[1]
+                        }}
                         yo
                       </span>
                     </div>
 
                     <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[0] }}
+                      {{ editedCampaign.targetDescriptors[0] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[1] }}
+                      {{ editedCampaign.targetDescriptors[1] }}
                     </div>
 
                     <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[2] }}
+                      {{ editedCampaign.targetDescriptors[2] }}
                     </div>
                   </div>
 
@@ -368,14 +380,17 @@
                       Age Range
                       <vs-row>
                         <vs-col vs-w="10">
-                          <vs-slider :step="1" v-model="campaign.ageRange" />
+                          <vs-slider
+                            :step="1"
+                            v-model="editedCampaign.ageRange"
+                          />
                         </vs-col>
                         <vs-col vs-w="2">
                           <div class="pa-10">
-                            <div v-if="!campaign.ageRange[0]">-</div>
+                            <div v-if="!editedCampaign.ageRange[0]">-</div>
                             <div v-else>
-                              {{ campaign.ageRange[0] }}-{{
-                                campaign.ageRange[1]
+                              {{ editedCampaign.ageRange[0] }}-{{
+                                editedCampaign.ageRange[1]
                               }}
                               yo
                             </div>
@@ -386,9 +401,15 @@
                       <br />
 
                       Descriptors
-                      <vs-textarea v-model="campaign.targetDescriptors[0]" />
-                      <vs-textarea v-model="campaign.targetDescriptors[1]" />
-                      <vs-textarea v-model="campaign.targetDescriptors[2]" />
+                      <vs-textarea
+                        v-model="editedCampaign.targetDescriptors[0]"
+                      />
+                      <vs-textarea
+                        v-model="editedCampaign.targetDescriptors[1]"
+                      />
+                      <vs-textarea
+                        v-model="editedCampaign.targetDescriptors[2]"
+                      />
                     </div>
                   </vs-popup>
                 </div>
@@ -396,7 +417,7 @@
                 <vs-divider />
 
                 <div class="my-10" @click="showKeywordTargetingPopup = true">
-                  <KeywordsViewer :keywords="campaign.targetKeywords" />
+                  <KeywordsViewer :keywords="editedCampaign.targetKeywords" />
 
                   <vs-popup
                     title="Keyword Targeting"
@@ -417,7 +438,7 @@
                         <vs-col vs-w="7" class="pa-8">
                           <vs-chip
                             class="mx-4"
-                            v-for="(kw, idx) of campaign.targetKeywords"
+                            v-for="(kw, idx) of editedCampaign.targetKeywords"
                             :key="idx"
                             >#{{ kw }}</vs-chip
                           >
@@ -452,6 +473,8 @@ import ActivityListViewer from "@/components/ActivityListViewer";
 
 import countryList from "@/assets/countryList.json";
 
+let campaignUpdateSub;
+
 export default {
   components: {
     DatePicker,
@@ -464,6 +487,7 @@ export default {
   },
   data() {
     return {
+      editedCampaign: {},
       showCampaignTimelinePopup: false,
       showCampaignBudgetPopup: false,
       showGeographicTargetingPopup: false,
@@ -475,29 +499,40 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile", "campaign"]),
+    ...mapState(["userProfile"]),
+    hasPendingSaves() {
+      return JSON.stringify(this.editedCampaign) !== JSON.stringify(this.$store.getters.getCampaign);
+    }
   },
   async mounted() {
-    await this.refreshData();
+    campaignUpdateSub = this.$store.subscribe(async (mutation, state) => {
+      if (mutation.type === "setCampaign") {
+        await this.refreshData();
+      }
+    });
+
+    let campaignId = this.$route.params.campaignId;
+    if (!campaignId) return;
+    this.$store.dispatch("refreshCampaign", campaignId);
   },
   methods: {
     async refreshData() {
-      let campaignId = this.$route.params.campaignId;
-      if (!campaignId) return;
-      this.$store.dispatch("refreshCampaign", campaignId);
+      this.editedCampaign = JSON.parse(JSON.stringify(this.$store.getters.getCampaign));
     },
     addNextKeyword() {
       if (
         this.nextKeyword ||
-        this.campaign.targetKeywords.includes(this.nextKeyword.toLowerCase())
+        this.editedCampaign.targetKeywords.includes(
+          this.nextKeyword.toLowerCase()
+        )
       )
         return;
-      this.campaign.targetKeywords.push(this.nextKeyword.toLowerCase());
+      this.editedCampaign.targetKeywords.push(this.nextKeyword.toLowerCase());
       this.nextKeyword = "";
     },
     createActivityPost() {
       let pData = {
-        assocCampaignId: this.campaign.id.toString(),
+        assocCampaignId: this.editedCampaign.id.toString(),
         content: this.nextPostContent,
         type: "campaign-manager-update",
       };
@@ -506,7 +541,7 @@ export default {
     },
     async saveCampaign() {
       this.$store.dispatch("saveCampaign", {
-        campaign: this.campaign,
+        campaign: this.editedCampaign,
       });
     },
     async onAssetCreated(newAsset) {
@@ -519,18 +554,19 @@ export default {
         id: uuidv4(),
         isActive: true,
       };
-      this.campaign.assets.push(newAssetObj);
-      await this.saveCampaign();
+      this.editedCampaign.assets.push(newAssetObj);
     },
     async onAssetDeleted(assetToDelete) {
       let fileRef = fb.storage.refFromURL(assetToDelete.source);
       await fileRef.delete();
-      let delAssetIdx = this.campaign.assets.findIndex(
+      let delAssetIdx = this.editedCampaign.assets.findIndex(
         (a) => a.id === assetToDelete.id
       );
-      this.campaign.assets.splice(delAssetIdx, 1);
-      await this.saveCampaign();
+      this.editedCampaign.assets.splice(delAssetIdx, 1);
     },
+  },
+  beforeDestroy() {
+    if (campaignUpdateSub) campaignUpdateSub();
   },
 };
 </script>

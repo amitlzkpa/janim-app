@@ -71,20 +71,27 @@ let store = new Vuex.Store({
       if (!campaignId) return;
       let doc = await fb.campaignsCollection.doc(campaignId).get();
       let campaignData = doc.data();
+      // quick-hack start
       campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
         (d) => d.toDate()
       );
+      // quick-hack end
       commit("setCampaign", campaignData.campaign);
     },
-    async saveCampaign({ dispatch }, campaign) {
-      if (!campaign.campaign.id) {
-        let c = await fb.campaignsCollection.add(campaign);
-        campaign.campaign.id = c.id;
+    async saveCampaign({ dispatch }, campaignData) {
+      if (!campaignData.campaign.id) {
+        let c = await fb.campaignsCollection.add(campaignData);
+        campaignData.campaign.id = c.id;
       }
+      // quick-hack start
+      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
+        (d) => new Date(d)
+      );
+      // quick-hack end
       await fb.campaignsCollection
-        .doc(campaign.campaign.id)
-        .update({ campaign: campaign.campaign });
-      dispatch("refreshCampaign", campaign.campaign.id);
+        .doc(campaignData.campaign.id)
+        .update({ campaign: campaignData.campaign });
+      dispatch("refreshCampaign", campaignData.campaign.id);
     },
 
     async createActivityPost({ state, dispatch }, post) {
@@ -98,6 +105,10 @@ let store = new Vuex.Store({
       });
       dispatch("refreshCampaign", state.campaign.id);
     },
+  },
+
+  getters: {
+    getCampaign: (state) => state.campaign,
   },
 });
 
