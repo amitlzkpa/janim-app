@@ -1,63 +1,7 @@
 <template>
   <div>
-    <vs-row class="px-10">
-      <vs-col vs-lg="3" vs-sm="5" vs-xs="12">
-        <div class="mt-20 pa-10">
-          <vs-card>
-            <div slot="header">
-              <h3>New Post</h3>
-            </div>
-            <div>
-              <vs-textarea
-                v-model.trim="post.content"
-                placeholder="Start typing..."
-                height="200px"
-              />
-              <vs-button
-                type="gradient"
-                @click="createPost()"
-                class="full-width"
-                >Post</vs-button
-              >
-            </div>
-          </vs-card>
-        </div>
-      </vs-col>
-
-      <vs-col vs-lg="6" vs-sm="7" vs-xs="12">
-        <div class="mt-20 pa-10">
-          <div v-if="posts.length">
-            <vs-card v-for="post in posts" :key="post.id">
-              <div>
-                <b>{{ post.userName }}</b>
-                <br />
-                <span class="text--grey">{{
-                  moment(post.createdOn.toDate()).fromNow()
-                }}</span>
-                <br />
-                <span>{{ post.content | trimLength }}</span>
-              </div>
-
-              <div slot="footer">
-                <vs-row vs-justify="flex-end">
-                  <vs-button
-                    @click="likePost(post.id, post.likes)"
-                    type="gradient"
-                    color="danger"
-                    icon="favorite"
-                  >
-                    {{ post.likes }}
-                  </vs-button>
-                </vs-row>
-              </div>
-            </vs-card>
-          </div>
-
-          <div v-else>
-            <p class="text--grey">There are currently no posts</p>
-          </div>
-        </div>
-      </vs-col>
+    <vs-row class="pa-10">
+      <vs-col> Home </vs-col>
     </vs-row>
   </div>
 </template>
@@ -66,33 +10,13 @@
 import { mapState } from "vuex";
 
 export default {
-  filters: {
-    trimLength(val) {
-      if (val.length < 200) {
-        return val;
-      }
-      return `${val.substring(0, 200)}...`;
-    },
-  },
   data() {
-    return {
-      post: {
-        content: "",
-      },
-    };
+    return {};
   },
   computed: {
-    ...mapState(["userProfile", "posts"]),
+    ...mapState(["userProfile"]),
   },
-  methods: {
-    createPost() {
-      this.$store.dispatch("createPost", { content: this.post.content });
-      this.post.content = "";
-    },
-    likePost(id, likesCount) {
-      this.$store.dispatch("likePost", { id, likesCount });
-    },
-  },
+  methods: {},
 };
 </script>
 

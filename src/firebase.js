@@ -23,7 +23,6 @@ const usersCollection = db.collection("users");
 const campaignsCollection = db.collection("campaign");
 
 const activityPostsCollection = db.collection("activityPosts");
-const likesCollection = db.collection("likes");
 
 // export utils/refs
 export {
@@ -33,5 +32,4 @@ export {
   usersCollection,
   campaignsCollection,
   activityPostsCollection,
-  likesCollection,
 };

@@ -62,21 +62,6 @@ const store = new Vuex.Store({
         userName: state.userProfile.name,
       });
     },
-    async likePost({ commit }, post) {
-      const userId = fb.auth.currentUser.uid;
-      const docId = `${userId}_${post.id}`;
-      const doc = await fb.likesCollection.doc(docId).get();
-      if (doc.exists) {
-        return;
-      }
-      await fb.likesCollection.doc(docId).set({
-        postId: post.id,
-        userId: userId,
-      });
-      fb.activityPostsCollection.doc(post.id).update({
-        likes: post.likesCount + 1,
-      });
-    },
 
     async updateProfile({ dispatch }, user) {
       const userId = fb.auth.currentUser.uid;
