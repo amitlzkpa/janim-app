@@ -330,7 +330,7 @@
                   @click="showGeographicTargetingPopup = true"
                 >
                   <CountryListViewer
-                    :countries="editedCampaign.targetCountries"
+                    :countries="campaign.targetCountries"
                   />
                   <vs-popup
                     title="Geographic Targeting"
@@ -347,10 +347,10 @@
                           v-model="editedCampaign.targetCountries"
                         >
                           <vs-select-item
-                            :key="country.code"
+                            v-for="(country, idx) in countryCodesList"
+                            :key="idx"
                             :value="country"
                             :text="country.name"
-                            v-for="country in countryList"
                           />
                         </vs-select>
                         <div
@@ -386,10 +386,8 @@
                           "
                         >
                           <div class="pl-48">
-                            <img
-                              src="/imgs/dotted-map.png"
-                              alt="Target Regions"
-                              style="object-fit: cover; width: 100%"
+                            <CountryListViewer
+                              :countries="editedCampaign.targetCountries"
                             />
                           </div>
                         </div>
@@ -625,7 +623,7 @@ import KeywordsViewer from "@/components/KeywordsViewer";
 import AssetGallery from "@/components/AssetGallery";
 import ActivityListViewer from "@/components/ActivityListViewer";
 
-import countryList from "@/assets/countryList.json";
+import countryCodesList from "@/assets/countryCodesList.json";
 
 let campaignUpdateSub;
 
@@ -649,7 +647,7 @@ export default {
       showKeywordTargetingPopup: false,
       nextKeyword: "",
       nextPostContent: "",
-      countryList: countryList,
+      countryCodesList: countryCodesList,
     };
   },
   computed: {

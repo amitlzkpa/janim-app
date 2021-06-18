@@ -35,6 +35,7 @@
 <script>
 import DottedMap from "dotted-map/without-countries";
 import dottedMapJson from "@/assets/dottedMap.json";
+import countryDotsList from "@/assets/countryDotsList.json";
 
 export default {
   props: {
@@ -52,8 +53,11 @@ export default {
     topMaps() {
       let mps = [];
       let dm, sm;
-      for (let c of this.countries) {
-        dm = new DottedMap({ map: JSON.parse(c.dotMapJson) });
+      for (let country of this.countries) {
+        let ct = countryDotsList.find((c) => c.code === country.code);
+        dm = new DottedMap({
+          map: JSON.parse(ct.dotMapJson),
+        });
         sm = dm.getSVG({
           radius: 0.5,
           color: "#ff0080",
