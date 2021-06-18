@@ -1,7 +1,8 @@
 <template>
   <div>
     <img
-      src="/imgs/dotted-map.png"
+      v-if="mapSrc"
+      :src="`data:image/svg+xml;utf8,${mapSrc}`"
       alt="Target Regions"
       style="object-fit: cover; width: 100%"
     />
@@ -17,6 +18,9 @@
 </template>
 
 <script>
+import DottedMap from "dotted-map/without-countries";
+import dottedMapJson from "@/assets/dottedMap.json";
+
 export default {
   props: {
     countries: {
@@ -25,7 +29,19 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      mapSrc: "",
+    };
+  },
+  async mounted() {
+    let dMap = new DottedMap({ map: dottedMapJson });
+    let svgMap = dMap.getSVG({
+      radius: 0.5,
+      color: "#bbbbbb",
+      shape: "circle",
+      backgroundColor: "#ffffff",
+    });
+    this.mapSrc = encodeURIComponent(svgMap);
   },
 };
 </script>
