@@ -64,13 +64,14 @@ export default {
   created() {},
   computed: {
     bigSizedAssets() {
-      return this.assets.slice(0, Math.min(this.assets.length, 4));
+      return this.assets
+        .filter((a) => this.editMode || a.isActive)
+        .slice(0, Math.min(this.assets.length, 4));
     },
     smallSizedAssets() {
-      return this.assets.slice(
-        Math.min(this.assets.length, 4),
-        this.assets.length
-      );
+      return this.assets
+        .filter((a) => this.editMode || a.isActive)
+        .slice(Math.min(this.assets.length, 4), this.assets.length);
     },
   },
   methods: {
