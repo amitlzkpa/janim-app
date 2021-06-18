@@ -2,7 +2,18 @@
   <div v-if="editedCampaign.id">
     <vs-row class="px-10">
       <vs-col vs-w="3">
-        <div class="mt-20 pa-10">
+        <div
+          class="mt-20 pa-10"
+          :style="`
+            border: 1px dashed ${
+              JSON.stringify(campaign.assets) !==
+              JSON.stringify(editedCampaign.assets)
+                ? '#ff0080'
+                : '#dedede'
+            };
+            border-radius: 8px;
+          `"
+        >
           <AssetGallery
             :assets="editedCampaign.assets"
             :editMode="true"
@@ -14,7 +25,7 @@
       </vs-col>
 
       <vs-col vs-w="9">
-        <div class="mt-20 pa-10">
+        <div class="mt-10 pa-10">
           <vs-row>
             <vs-col vs-w="12">
               <div class="full-width" style="display: flex">
@@ -35,9 +46,10 @@
                 </vs-dropdown>
                 <span style="flex-grow: 1" />
                 <vs-button
-                  color="primary"
+                  class="mb-10"
+                  :color="hasPendingSaves ? 'danger' : 'primary'"
                   :disabled="!hasPendingSaves"
-                  :type="hasPendingSaves ? 'filled' : 'flat'"
+                  :type="hasPendingSaves ? 'gradient' : 'flat'"
                   @click="saveCampaign()"
                   >Save</vs-button
                 >
@@ -300,11 +312,10 @@
                 </vs-tab>
               </vs-tabs>
             </vs-col>
-            <vs-col vs-w="4">
+            <vs-col vs-w="4" class="pl-20">
               <div style="text-align: center">
-                <div class="my-10" @click="showGeographicTargetingPopup = true">
+                <div class="my-10 pa-8" @click="showGeographicTargetingPopup = true">
                   <CountryListViewer
-                    class="pa-8"
                     :style="`color: ${
                       JSON.stringify(campaign.targetCountries) !==
                       JSON.stringify(editedCampaign.targetCountries)

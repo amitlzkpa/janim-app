@@ -8,7 +8,7 @@
       </vs-col>
 
       <vs-col vs-w="9">
-        <div class="mt-20 pa-10">
+        <div class="mt-10 pa-10">
           <vs-row>
             <vs-col vs-w="12">
               <div class="full-width" style="display: flex">
@@ -17,6 +17,7 @@
                 >
                 <span style="flex-grow: 1" />
                 <vs-button
+                  class="mb-10"
                   color="primary"
                   type="flat"
                   :to="`/campaign/edit/${campaign.id}`"
@@ -151,9 +152,9 @@
                 </vs-tab>
               </vs-tabs>
             </vs-col>
-            <vs-col vs-w="4">
+            <vs-col vs-w="4" class="pl-20">
               <div style="text-align: center">
-                <div class="my-10">
+                <div class="my-10 pa-8">
                   <CountryListViewer :countries="campaign.targetCountries" />
                 </div>
 
@@ -161,7 +162,6 @@
 
                 <div class="my-10">
                   <div
-                    class="pt-48 text--grey"
                     style="
                       flex-direction: column;
                       font-family: 'Roboto', sand-serif;
@@ -169,18 +169,20 @@
                       font-size: 24px;
                     "
                   >
-                    <span> TARGET PROFILE </span>
-                    <div v-if="campaign.ageRange[0]" class="flex-center">
-                      <vs-icon
-                        class="material-icons-outlined"
-                        icon="supervisor_account"
-                        color="grey"
-                        size="75px"
-                      ></vs-icon>
-                      <span class="ml-8" style="font-size: 36px">
-                        {{ campaign.ageRange[0] }}-{{ campaign.ageRange[1] }}
-                        yo
-                      </span>
+                    <div class="py-20 mb-20">
+                      <span> TARGET PROFILE </span>
+                      <div v-if="campaign.ageRange[0]" class="flex-center">
+                        <vs-icon
+                          class="material-icons-outlined"
+                          icon="supervisor_account"
+                          color="grey"
+                          size="75px"
+                        ></vs-icon>
+                        <span class="ml-8" style="font-size: 36px">
+                          {{ campaign.ageRange[0] }}-{{ campaign.ageRange[1] }}
+                          yo
+                        </span>
+                      </div>
                     </div>
 
                     <div class="my-48 px-8">
