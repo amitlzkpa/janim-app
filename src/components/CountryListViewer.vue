@@ -25,7 +25,7 @@
       <span
         v-for="country in countries"
         :key="country.code"
-        class="country-label"
+        class="mx-4 country-label"
         >{{ country.name }}</span
       >
     </div>

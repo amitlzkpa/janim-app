@@ -196,7 +196,7 @@
                     </vs-col>
                     <vs-col vs-w="9">
                       <div
-                        v-if="editedCampaign.totalBudget !== null"
+                        v-if="!!editedCampaign.totalBudget && !!editedCampaign.hitsGoal"
                         class="info-item pt-24"
                         style="text-align: center"
                       >
@@ -371,7 +371,7 @@
                           class="pa-8 ma-8"
                         >
                           <span
-                            class="country-label"
+                            class="mx-4 country-label"
                             style="cursor: pointer"
                             v-for="(
                               country, idx

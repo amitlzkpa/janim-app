@@ -117,7 +117,6 @@ $sides: (top, bottom, left, right);
 .country-label {
   font-size: 14px;
   font-weight: 300;
-  margin: 0px 4px 0px 4px;
 }
 
 .vs-image--img {

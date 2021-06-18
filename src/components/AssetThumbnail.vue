@@ -19,9 +19,9 @@
         </vs-row>
         <vs-row class="mt-8">
           <vs-col>
-            <i class="country-label">
+            <span class="mx-4">
               {{ asset.id }}
-            </i>
+            </span>
             <vs-row>
               <vs-col vs-w="8">
                 <vs-textarea

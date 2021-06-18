@@ -13,7 +13,7 @@
       @drop.prevent="addFile"
       @dragover.prevent
     >
-      <div v-if="files.length === 0" class="flex-center country-label">
+      <div v-if="files.length === 0" style="text-align: center">
         Drag and drop files here to upload
       </div>
       <div v-else>
