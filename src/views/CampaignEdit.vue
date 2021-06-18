@@ -30,7 +30,7 @@
             <vs-col vs-w="12">
               <div class="full-width" style="display: flex">
                 <vs-dropdown>
-                  <a href="#" class="text--grey">
+                  <a href="#">
                     Stanton Media
                     <vs-icon
                       style="font-size: 12px"
@@ -71,7 +71,7 @@
                   };
                   border-radius: 8px;
                   color: ${
-                    campaign.title !== editedCampaign.title ? '#ff0080' : 'grey'
+                    campaign.title !== editedCampaign.title ? '#ff0080' : ''
                   };
                   font-size: 60px;
                   font-weight: 100;
@@ -99,7 +99,7 @@
                   color: ${
                     campaign.description !== editedCampaign.description
                       ? '#ff0080'
-                      : 'grey'
+                      : 'black'
                   };
                   font-family: 'Lato', sans-serif;
                   font-size: 20px;
@@ -127,7 +127,7 @@
                       JSON.stringify(campaign.dateRange) !==
                       JSON.stringify(editedCampaign.dateRange)
                         ? '#ff0080'
-                        : 'grey'
+                        : ''
                     }`"
                     :dateRange="editedCampaign.dateRange"
                   />
@@ -165,7 +165,7 @@
                     campaign.totalBudget !== editedCampaign.totalBudget ||
                     campaign.hitsGoal !== editedCampaign.hitsGoal
                       ? '#ff0080'
-                      : 'grey'
+                      : ''
                   }`"
                   class="info-item flex-center pt-10"
                   @click="showCampaignBudgetPopup = true"
@@ -220,7 +220,7 @@
               </vs-switch>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
-              <span class="ml-8 text--grey">
+              <span class="ml-8">
                 <i
                   >{{
                     moment
@@ -235,11 +235,11 @@
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="star_outline" color="rgb(255, 130, 0)"></vs-icon>
-              <span class="ml-8 text--grey"> 4,702 HITS </span>
+              <span class="ml-8"> 4,702 HITS </span>
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="person_outline" color="success"></vs-icon>
-              <span class="ml-8 text--grey"> 78 MEMBERS </span>
+              <span class="ml-8"> 78 MEMBERS </span>
             </vs-col>
           </vs-row>
 
@@ -314,25 +314,25 @@
             <vs-col vs-w="4" class="pl-20">
               <div style="text-align: center">
                 <div
-                  class="my-10 pa-8"
+                  class="my-10 pa-8 full-width"
+                  :style="`color: ${
+                    JSON.stringify(campaign.targetCountries) !==
+                    JSON.stringify(editedCampaign.targetCountries)
+                      ? '#ff0080'
+                      : ''
+                  };
+                  border: 1px dashed ${
+                    JSON.stringify(campaign.targetCountries) !==
+                    JSON.stringify(editedCampaign.targetCountries)
+                      ? '#ff0080'
+                      : '#dedede'
+                  };
+                  border-radius: 8px;
+                  cursor: pointer;
+                  `"
                   @click="showGeographicTargetingPopup = true"
                 >
                   <CountryListViewer
-                    :style="`color: ${
-                      JSON.stringify(campaign.targetCountries) !==
-                      JSON.stringify(editedCampaign.targetCountries)
-                        ? '#ff0080'
-                        : 'grey'
-                    };
-                    border: 1px dashed ${
-                      JSON.stringify(campaign.targetCountries) !==
-                      JSON.stringify(editedCampaign.targetCountries)
-                        ? '#ff0080'
-                        : '#dedede'
-                    };
-                    border-radius: 8px;
-                    cursor: pointer;
-                    `"
                     :countries="editedCampaign.targetCountries"
                   />
                   <vs-popup
@@ -362,7 +362,6 @@
                             width: 100%;
                             overflow-x: hidden;
                             overflow-wrap: break-word;
-                            color: grey;
                           "
                           class="pa-8 ma-8"
                         >
@@ -423,7 +422,7 @@
                           JSON.stringify(campaign.ageRange) !==
                           JSON.stringify(editedCampaign.ageRange)
                             ? '#ff0080'
-                            : 'grey'
+                            : ''
                         };
                         border: 1px dashed ${
                           JSON.stringify(campaign.ageRange) !==
@@ -446,7 +445,7 @@
                             JSON.stringify(campaign.ageRange) !==
                             JSON.stringify(editedCampaign.ageRange)
                               ? '#ff0080'
-                              : 'grey'
+                              : '#bbbbbb'
                           "
                           size="75px"
                         ></vs-icon>
@@ -465,7 +464,7 @@
                         JSON.stringify(campaign.targetDescriptors) !==
                         JSON.stringify(editedCampaign.targetDescriptors)
                           ? '#ff0080'
-                          : 'grey'
+                          : ''
                       };
                       border: 1px dashed ${
                         JSON.stringify(campaign.targetDescriptors) !==
@@ -543,7 +542,7 @@
                         JSON.stringify(campaign.targetKeywords) !==
                         JSON.stringify(editedCampaign.targetKeywords)
                           ? '#ff0080'
-                          : 'grey'
+                          : ''
                       };
                       border: 1px dashed ${
                         JSON.stringify(campaign.targetKeywords) !==

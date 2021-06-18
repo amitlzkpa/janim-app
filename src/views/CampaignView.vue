@@ -12,9 +12,7 @@
           <vs-row>
             <vs-col vs-w="12">
               <div class="full-width" style="display: flex">
-                <span class="text--grey mt-12" style="font-size: 12px"
-                  >Stanton Media</span
-                >
+                <span class="mt-12" style="font-size: 12px">Stanton Media</span>
                 <span style="flex-grow: 1" />
                 <vs-button
                   class="mb-10"
@@ -29,7 +27,7 @@
 
           <vs-row>
             <vs-col vs-w="12">
-              <span style="font-size: 60px; font-weight: 100; color: grey">{{
+              <span style="font-size: 60px; font-weight: 100">{{
                 campaign.title
               }}</span>
             </vs-col>
@@ -49,6 +47,7 @@
                   overflow-x: hidden;
                   overflow-y: auto;
                   margin-top: 2px;
+                  color: black;
                 "
               >
                 {{ campaign.description }}
@@ -82,10 +81,10 @@
                 type="gradient"
                 icon="person_add"
               ></vs-button>
-              <span class="ml-8 text--grey"> JOIN </span>
+              <span class="ml-8"> JOIN </span>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
-              <span class="ml-8 text--grey" v-if="campaign.dateRange[1]">
+              <span class="ml-8" v-if="campaign.dateRange[1]">
                 <i
                   >{{
                     moment
@@ -98,11 +97,11 @@
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="star_outline" color="rgb(255, 130, 0)"></vs-icon>
-              <span class="ml-8 text--grey"> 4,702 HITS </span>
+              <span class="ml-8"> 4,702 HITS </span>
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="person_outline" color="success"></vs-icon>
-              <span class="ml-8 text--grey"> 78 MEMBERS </span>
+              <span class="ml-8"> 78 MEMBERS </span>
             </vs-col>
           </vs-row>
 
@@ -168,7 +167,7 @@
                         <vs-icon
                           class="material-icons-outlined"
                           icon="supervisor_account"
-                          color="grey"
+                          color="#bbbbbb"
                           size="75px"
                         ></vs-icon>
                         <span class="ml-8" style="font-size: 36px">

@@ -33,11 +33,9 @@
         <vs-col vs-w="9" class="pr-48">
           <vs-card>
             <div>
-              <span class="text--grey">
-                <i>
-                  {{ moment(activityItem.createdOn.toDate()).fromNow() }}
-                </i>
-              </span>
+              <i>
+                {{ moment(activityItem.createdOn.toDate()).fromNow() }}
+              </i>
               <div
                 style="
                   height: 100px;
@@ -45,6 +43,7 @@
                   overflow-y: auto;
                   font-family: 'Lato', sans-serif;
                   font-size: 18px;
+                  color: black;
                 "
               >
                 {{ activityItem.content }}

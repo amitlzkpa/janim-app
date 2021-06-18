@@ -6,7 +6,7 @@
           <vs-card v-if="currentlyOpenForm === 'login'">
             <div slot="header">
               <h3>Welcome Back</h3>
-              <p class="text--grey">Sign in to continue</p>
+              <p>Sign in to continue</p>
             </div>
             <div>
               <vs-input
@@ -44,7 +44,7 @@
           <vs-card v-if="currentlyOpenForm === 'signup'">
             <div slot="header">
               <h3>Get Started</h3>
-              <p class="text--grey">Sign up to get started</p>
+              <p>Sign up to get started</p>
             </div>
             <div>
               <vs-input
@@ -82,9 +82,7 @@
           <vs-card v-if="currentlyOpenForm === 'reset'">
             <div slot="header">
               <h3>Reset Password</h3>
-              <p class="text--grey">
-                Submit and check your email for reset instructions
-              </p>
+              <p>Submit and check your email for reset instructions</p>
             </div>
             <div>
               <vs-input

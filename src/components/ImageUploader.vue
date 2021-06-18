@@ -5,7 +5,7 @@
         width: 100%;
         min-height: ${height}px;
         max-height: ${height * 2}px;
-        border: 1px dotted grey;
+        background-color: #eeeeee;
         border-radius: 8px;
         padding: 8px;
         overflow: auto;

@@ -3,7 +3,7 @@
     <div>
       <vs-row>
         <vs-col>
-          <span style="font-size: 60px; font-weight: 100; color: grey"
+          <span style="font-size: 60px; font-weight: 100"
             >My Organizations</span
           >
         </vs-col>
@@ -16,7 +16,6 @@
             placeholderValue="search"
             styleText="
               cursor: select;
-              color: grey;
               font-size: 30px;
               font-weight: 100;
               min-height: 40px;
@@ -38,7 +37,6 @@
                 "
               >
                 <div
-                  class="text--grey"
                   style="height: 100px; overflow-x: hidden; overflow-y: auto"
                 >
                   <span>
@@ -93,7 +91,7 @@
         <vs-col vs-w="9">
           <div class="pa-36 mt-10">
             <div v-if="selectedOrg.id">
-              <p style="font-size: 40px; font-weight: 600; color: grey">
+              <p style="font-size: 40px; font-weight: 600">
                 {{ selectedOrg.name }}
               </p>
 
@@ -144,10 +142,7 @@
               </vs-tabs>
             </div>
             <div v-else>
-              <div
-                class="text--grey mt-10"
-                style="font-size: 30px; font-weight: 100"
-              >
+              <div class="mt-10" style="font-size: 30px; font-weight: 100">
                 Select an organization to view details.
               </div>
             </div>

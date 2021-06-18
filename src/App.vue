@@ -21,6 +21,7 @@ export default {
 
 body {
   font-family: "Roboto", sans-serif;
+  color: grey;
 }
 
 h1 {
@@ -85,13 +86,6 @@ $sides: (top, bottom, left, right);
   }
 }
 
-$textColors: ("grey", "darkgrey");
-@each $textColor in $textColors {
-  .text--#{$textColor} {
-    color: #{$textColor} !important;
-  }
-}
-
 .full-width {
   width: 100% !important;
 }
@@ -118,7 +112,6 @@ $textColors: ("grey", "darkgrey");
   min-height: 40px;
   font-size: 24px;
   font-weight: 300;
-  color: grey;
 }
 
 .country-label {
