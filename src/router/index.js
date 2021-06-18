@@ -7,19 +7,19 @@ Vue.use(VueRouter);
 let routes = [
   {
     path: "/",
-    name: "Vyrall",
+    name: "landing",
     component: () =>
       import(/* webpackChunkName: "landing" */ "@/views/Landing.vue"),
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     component: () =>
       import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
   },
   {
     path: "/home",
-    name: "Home",
+    name: "home",
     component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
     meta: {
       requiresAuth: true,
@@ -27,7 +27,7 @@ let routes = [
   },
   {
     path: "/organizations",
-    name: "Organizations",
+    name: "organizations",
     component: () =>
       import(
         /* webpackChunkName: "organizations" */ "@/views/Organizations.vue"
@@ -38,7 +38,7 @@ let routes = [
   },
   {
     path: "/settings",
-    name: "Settings",
+    name: "settings",
     component: () =>
       import(/* webpackChunkName: "settings" */ "@/views/Settings.vue"),
     meta: {
@@ -47,19 +47,25 @@ let routes = [
   },
   {
     path: "/campaign/view/:campaignId",
-    name: "Vyrall Campaign | View",
+    name: "campaign-view",
     component: () =>
       import(
         /* webpackChunkName: "campaign-view" */ "@/views/CampaignView.vue"
       ),
   },
   {
-    path: "/campaign/edit/:campaignId?",
-    name: "Vyrall Campaign | Edit",
+    path: "/campaign/edit/:campaignId",
+    name: "campaign-edit",
     component: () =>
       import(
         /* webpackChunkName: "campaign-edit" */ "@/views/CampaignEdit.vue"
       ),
+  },
+  {
+    path: "/campaign/new",
+    name: "campaign-new",
+    component: () =>
+      import(/* webpackChunkName: "campaign-new" */ "@/views/CampaignEdit.vue"),
   },
 ];
 

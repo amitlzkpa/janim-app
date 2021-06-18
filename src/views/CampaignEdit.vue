@@ -85,6 +85,7 @@
               <ContentEditable
                 tag="span"
                 v-model="editedCampaign.description"
+                placeholderValue="description"
                 :styleText="`
                   cursor: select;
                   border: 1px dashed ${
@@ -167,7 +168,10 @@
                   class="info-item flex-center pt-10"
                   @click="showCampaignBudgetPopup = true"
                 >
-                  ${{ editedCampaign.totalBudget }} bounty
+                  <span v-if="editedCampaign.totalBudget === null">
+                    - - -
+                  </span>
+                  <span v-else> ${{ editedCampaign.totalBudget }} bounty </span>
                 </div>
                 <vs-popup
                   title="Campaign Budget"
@@ -191,7 +195,11 @@
                       />
                     </vs-col>
                     <vs-col vs-w="9">
-                      <div class="info-item pt-24" style="text-align: center">
+                      <div
+                        v-if="editedCampaign.totalBudget !== null"
+                        class="info-item pt-24"
+                        style="text-align: center"
+                      >
                         <small>(approximate price per hit)</small>
                         <br />
                         ${{
@@ -217,7 +225,7 @@
               </vs-switch>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
-              <span class="ml-8">
+              <span v-if="editedCampaign.dateRange[1]" class="ml-8">
                 <i
                   >{{
                     moment
@@ -330,7 +338,7 @@
                   @click="showGeographicTargetingPopup = true"
                 >
                   <CountryListViewer
-                    :countries="campaign.targetCountries"
+                    :countries="editedCampaign.targetCountries"
                   />
                   <vs-popup
                     title="Geographic Targeting"
@@ -665,9 +673,7 @@ export default {
       }
     });
 
-    let campaignId = this.$route.params.campaignId;
-    if (!campaignId) return;
-    this.$store.dispatch("refreshCampaign", campaignId);
+    this.$store.dispatch("refreshCampaign", this.$route.params.campaignId);
   },
   methods: {
     async refreshData() {

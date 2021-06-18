@@ -47,7 +47,6 @@
                   overflow-x: hidden;
                   overflow-y: auto;
                   margin-top: 2px;
-                  color: black;
                 "
               >
                 {{ campaign.description }}

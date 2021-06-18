@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import * as fb from "@/firebase";
 import router from "@/router/index";
 
+import campaignSchema from "@/schemas/campaign";
+
 Vue.use(Vuex);
 
 let store = new Vuex.Store({
@@ -68,19 +70,23 @@ let store = new Vuex.Store({
     },
 
     async refreshCampaign({ commit }, campaignId) {
-      if (!campaignId) return;
-      let doc = await fb.campaignsCollection.doc(campaignId).get();
-      let campaignData = doc.data();
+      let campaignData;
+      if (campaignId) {
+        let doc = await fb.campaignsCollection.doc(campaignId).get();
+        campaignData = doc.data().campaign;
+      } else {
+        campaignData = JSON.parse(JSON.stringify(campaignSchema));
+      }
       // quick-hack start
       // convert to pure js Date object from the firebase timestamp format
-      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
-        (d) => d.toDate()
-      );
+      campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
       // quick-hack end
-      commit("setCampaign", campaignData.campaign);
+      commit("setCampaign", campaignData);
     },
     async saveCampaign({ dispatch }, campaignData) {
-      if (!campaignData.campaign.id) {
+      if (!campaignData.campaign.title) return;
+      if (!campaignData.campaign.id || campaignData.campaign.id === "new") {
+        delete campaignData.campaign.id;
         let c = await fb.campaignsCollection.add(campaignData);
         campaignData.campaign.id = c.id;
       }
@@ -94,6 +100,9 @@ let store = new Vuex.Store({
         .doc(campaignData.campaign.id)
         .update({ campaign: campaignData.campaign });
       dispatch("refreshCampaign", campaignData.campaign.id);
+      let reroutePath = `/campaign/edit/${campaignData.campaign.id}`;
+      if (router.currentRoute.fullPath !== reroutePath)
+        router.push(reroutePath);
     },
 
     async createActivityPost({ state, dispatch }, post) {
