@@ -353,8 +353,14 @@
                         >
                           <span
                             class="country-label"
-                            v-for="country in editedCampaign.targetCountries"
+                            style="cursor: pointer"
+                            v-for="(
+                              country, idx
+                            ) in editedCampaign.targetCountries"
                             :key="country.code"
+                            @click="
+                              editedCampaign.targetCountries.splice(idx, 1)
+                            "
                             >{{ country.name }},</span
                           >
                         </div>
