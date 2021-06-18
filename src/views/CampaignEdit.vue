@@ -50,18 +50,22 @@
               <ContentEditable
                 tag="span"
                 v-model="editedCampaign.title"
-                styleText="
+                :styleText="`
                   cursor: select;
-                  border: 1px dashed grey;
+                  border: 1px dashed ${
+                    campaign.title !== editedCampaign.title ? '#ff0080' : 'grey'
+                  };
                   border-radius: 8px;
-                  color: grey;
+                  color: ${
+                    campaign.title !== editedCampaign.title ? '#ff0080' : 'grey'
+                  };
                   font-family: 'Roboto', sans-serif;
                   font-size: 60px;
                   font-weight: 100;
                   min-height: 70px;
                   width: 100%;
                   display: inline-block;
-                "
+                `"
               />
             </vs-col>
           </vs-row>
@@ -71,11 +75,17 @@
               <ContentEditable
                 tag="span"
                 v-model="editedCampaign.description"
-                styleText="
+                :styleText="`
                   cursor: select;
-                  border: 1px dashed grey;
+                  border: 1px dashed ${
+                    campaign.description !== editedCampaign.description ? '#ff0080' : 'grey'
+                  };
                   border-radius: 8px;
-                  color: #4d4d4d;
+                  color: ${
+                    campaign.description !== editedCampaign.description
+                      ? '#ff0080'
+                      : '#4d4d4d'
+                  };
                   font-family: 'Lato', sans-serif;
                   font-size: 20px;
                   height: 80px;
@@ -85,7 +95,7 @@
                   overflow-x: hidden;
                   overflow-y: auto;
                   margin-top: 2px;
-                "
+                `"
               />
             </vs-col>
           </vs-row>
@@ -317,7 +327,14 @@
                         </div>
                       </vs-col>
                       <vs-col vs-w="8">
-                        <div style="display: flex; flex-direction: column; justify-content: center; height: 100%">
+                        <div
+                          style="
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            height: 100%;
+                          "
+                        >
                           <div class="pl-48">
                             <img
                               src="/imgs/dotted-map.png"
@@ -502,11 +519,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile"]),
+    ...mapState(["userProfile", "campaign"]),
     hasPendingSaves() {
       return (
-        JSON.stringify(this.editedCampaign) !==
-        JSON.stringify(this.$store.getters.getCampaign)
+        JSON.stringify(this.editedCampaign) !== JSON.stringify(this.campaign)
       );
     },
   },
@@ -523,9 +539,7 @@ export default {
   },
   methods: {
     async refreshData() {
-      this.editedCampaign = JSON.parse(
-        JSON.stringify(this.$store.getters.getCampaign)
-      );
+      this.editedCampaign = JSON.parse(JSON.stringify(this.campaign));
     },
     addNextKeyword() {
       if (
