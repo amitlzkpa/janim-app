@@ -5,7 +5,7 @@
       -
       {{ endDate }}
     </div>
-    <div class="info-item flex-center" v-if="hasValidDates">
+    <div class="flex-center" v-if="hasValidDates">
       <i style="font-size: 20px"> ({{ timeGap }}) </i>
     </div>
   </div>

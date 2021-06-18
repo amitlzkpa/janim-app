@@ -72,6 +72,7 @@ let store = new Vuex.Store({
       let doc = await fb.campaignsCollection.doc(campaignId).get();
       let campaignData = doc.data();
       // quick-hack start
+      // convert to pure js Date object from the firebase timestamp format
       campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
         (d) => d.toDate()
       );
@@ -84,6 +85,7 @@ let store = new Vuex.Store({
         campaignData.campaign.id = c.id;
       }
       // quick-hack start
+      // convert to Date object for firebase save
       campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
         (d) => new Date(d)
       );

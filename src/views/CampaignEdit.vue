@@ -78,7 +78,9 @@
                 :styleText="`
                   cursor: select;
                   border: 1px dashed ${
-                    campaign.description !== editedCampaign.description ? '#ff0080' : 'grey'
+                    campaign.description !== editedCampaign.description
+                      ? '#ff0080'
+                      : 'grey'
                   };
                   border-radius: 8px;
                   color: ${
@@ -107,7 +109,15 @@
                   class="info-item flex-center pt-10"
                   @click="showCampaignTimelinePopup = true"
                 >
-                  <DateRangeViewer :dateRange="editedCampaign.dateRange" />
+                  <DateRangeViewer
+                    :style="`color: ${
+                      JSON.stringify(campaign.dateRange) !==
+                      JSON.stringify(editedCampaign.dateRange)
+                        ? '#ff0080'
+                        : 'grey'
+                    }`"
+                    :dateRange="editedCampaign.dateRange"
+                  />
                 </div>
                 <vs-popup
                   title="Campaign Timeline"
@@ -138,6 +148,12 @@
             <vs-col vs-w="6" class="pa-10">
               <vs-card actionable fixed-height>
                 <div
+                  :style="`color: ${
+                    campaign.totalBudget !== editedCampaign.totalBudget ||
+                    campaign.hitsGoal !== editedCampaign.hitsGoal
+                      ? '#ff0080'
+                      : 'grey'
+                  }`"
                   class="info-item flex-center pt-10"
                   @click="showCampaignBudgetPopup = true"
                 >
@@ -540,6 +556,12 @@ export default {
   methods: {
     async refreshData() {
       this.editedCampaign = JSON.parse(JSON.stringify(this.campaign));
+      // quick-hack start
+      // convert the string to pure js Date object
+      this.editedCampaign.dateRange = this.editedCampaign.dateRange.map(
+        (d) => new Date(d)
+      );
+      // quick-hack end
     },
     addNextKeyword() {
       if (
