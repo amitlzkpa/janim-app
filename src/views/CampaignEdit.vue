@@ -73,7 +73,6 @@
                   color: ${
                     campaign.title !== editedCampaign.title ? '#ff0080' : 'grey'
                   };
-                  font-family: 'Roboto', sans-serif;
                   font-size: 60px;
                   font-weight: 100;
                   min-height: 70px;
@@ -314,7 +313,10 @@
             </vs-col>
             <vs-col vs-w="4" class="pl-20">
               <div style="text-align: center">
-                <div class="my-10 pa-8" @click="showGeographicTargetingPopup = true">
+                <div
+                  class="my-10 pa-8"
+                  @click="showGeographicTargetingPopup = true"
+                >
                   <CountryListViewer
                     :style="`color: ${
                       JSON.stringify(campaign.targetCountries) !==
@@ -410,7 +412,6 @@
                     style="
                       cursor: pointer;
                       flex-direction: column;
-                      font-family: 'Roboto', sans-serif;
                       font-weight: 200;
                       font-size: 24px;
                     "

@@ -29,15 +29,9 @@
 
           <vs-row>
             <vs-col vs-w="12">
-              <span
-                style="
-                  font-family: 'Roboto', sans-serif;
-                  font-size: 60px;
-                  font-weight: 100;
-                  color: grey;
-                "
-                >{{ campaign.title }}</span
-              >
+              <span style="font-size: 60px; font-weight: 100; color: grey">{{
+                campaign.title
+              }}</span>
             </vs-col>
           </vs-row>
 
@@ -164,7 +158,6 @@
                   <div
                     style="
                       flex-direction: column;
-                      font-family: 'Roboto', sand-serif;
                       font-weight: 200;
                       font-size: 24px;
                     "

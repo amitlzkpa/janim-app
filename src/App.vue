@@ -20,24 +20,21 @@ export default {
 @import "~@fontsource/lato/index.css";
 
 body {
-  font-family: "Tahoma";
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
-  font-family: "Roboto", sans-serif;
   font-weight: 200;
 }
 
 h2,
 h3 {
-  font-family: "Roboto", sans-serif;
   font-weight: 300;
 }
 
 h4,
 h5,
 h6 {
-  font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
 
@@ -119,14 +116,12 @@ $textColors: ("grey", "darkgrey");
   align-self: center;
   width: 100%;
   min-height: 40px;
-  font-family: "Roboto", sans-serif;
   font-size: 24px;
   font-weight: 300;
   color: grey;
 }
 
 .country-label {
-  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 300;
   margin: 0px 4px 0px 4px;

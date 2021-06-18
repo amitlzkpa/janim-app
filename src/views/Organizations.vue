@@ -3,13 +3,7 @@
     <div>
       <vs-row>
         <vs-col>
-          <span
-            style="
-              font-family: 'Roboto', sans-serif;
-              font-size: 60px;
-              font-weight: 100;
-              color: grey;
-            "
+          <span style="font-size: 60px; font-weight: 100; color: grey"
             >My Organizations</span
           >
         </vs-col>
@@ -23,7 +17,6 @@
             styleText="
               cursor: select;
               color: grey;
-              font-family: 'Roboto', sans-serif;
               font-size: 30px;
               font-weight: 100;
               min-height: 40px;
@@ -52,13 +45,7 @@
                     <i> {{ org.id }} </i>
                   </span>
                   <br />
-                  <span
-                    style="
-                      font-family: 'Roboto', sans-serif;
-                      font-weight: 600;
-                      font-size: 24px;
-                    "
-                  >
+                  <span style="font-weight: 600; font-size: 24px">
                     {{ org.name }}
                   </span>
                   <p
@@ -106,14 +93,7 @@
         <vs-col vs-w="9">
           <div class="pa-36 mt-10">
             <div v-if="selectedOrg.id">
-              <p
-                style="
-                  font-family: 'Roboto', sans-serif;
-                  font-size: 40px;
-                  font-weight: 600;
-                  color: grey;
-                "
-              >
+              <p style="font-size: 40px; font-weight: 600; color: grey">
                 {{ selectedOrg.name }}
               </p>
 
@@ -166,11 +146,7 @@
             <div v-else>
               <div
                 class="text--grey mt-10"
-                style="
-                  font-family: 'Roboto', sans-serif;
-                  font-size: 30px;
-                  font-weight: 100;
-                "
+                style="font-size: 30px; font-weight: 100"
               >
                 Select an organization to view details.
               </div>
