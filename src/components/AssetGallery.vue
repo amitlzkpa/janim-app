@@ -7,7 +7,7 @@
     >
       <p style="font-weight: 200; font-style: italic">(no assets uploaded)</p>
     </div>
-    <vs-images style="max-height: 800px; overflow-y: hidden; overflow-y: auto">
+    <vs-images style="max-height: 800px; overflow-x: hidden; overflow-y: auto">
       <AssetThumbnail
         v-for="(asset, idx) in bigSizedAssets"
         :key="idx"
@@ -26,7 +26,7 @@
       />
     </vs-images>
     <ImageUploader
-      class="px-18"
+      class="pa-18"
       v-if="editMode"
       :basePath="uploadBasepath"
       :height="60"

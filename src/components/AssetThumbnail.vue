@@ -1,6 +1,13 @@
 <template>
   <div @click="popupIsOpen = true" :class="classText">
-    <vs-image :src="asset.source" style="width: 100%; height: 100%" />
+    <vs-image
+      :src="asset.source"
+      :style="`
+        opacity: ${asset.isActive ? '1' : '0.4'};
+        padding: ${asset.isActive ? '0' : '12'}px;
+        width: 100%; height: 100%;
+      `"
+    />
     <vs-popup :title="asset.name" :active.sync="popupIsOpen">
       <div>
         <vs-row>
