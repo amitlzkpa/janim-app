@@ -75,18 +75,34 @@
               </vs-card>
             </div>
           </div>
-          <vs-card
-            actionable
-            style="
-              height: 80px;
-              border-radius: 8px;
-              text-align: center;
-              background-color: #dedede;
-            "
-            class="flex-center"
-          >
-            <vs-icon icon="add" color="white" size="large" class="mt-6" />
-          </vs-card>
+          <div @click="showNewOrgPopup = true">
+            <vs-card
+              actionable
+              style="
+                height: 80px;
+                border-radius: 8px;
+                text-align: center;
+                background-color: #dedede;
+              "
+              class="flex-center"
+            >
+              <vs-icon icon="add" color="white" size="large" class="mt-6" />
+            </vs-card>
+            <vs-prompt
+              title="Create New Organization"
+              button-accept="gradient"
+              color="danger"
+              accept-text="Create"
+              @accept="onCreateNewOrg"
+              @cancel="newOrgName = ''"
+              :active.sync="showNewOrgPopup"
+            >
+              <div class="pa-24">
+                Name:
+                <vs-input v-model="newOrgName" class="full-width" />
+              </div>
+            </vs-prompt>
+          </div>
         </vs-col>
         <vs-col vs-w="9">
           <div class="pa-36 mt-10">
@@ -164,6 +180,8 @@ export default {
   },
   data() {
     return {
+      showNewOrgPopup: false,
+      newOrgName: "",
       orgFilterTerm: "",
       orgList: [
         {
@@ -225,7 +243,12 @@ export default {
   computed: {
     ...mapState(["userProfile"]),
   },
-  methods: {},
+  methods: {
+    async onCreateNewOrg() {
+      console.log(this.newOrgName);
+      this.newOrgName = "";
+    },
+  },
 };
 </script>
 
