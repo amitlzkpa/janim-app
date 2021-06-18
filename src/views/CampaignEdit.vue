@@ -302,6 +302,21 @@
               <div style="text-align: center">
                 <div class="my-10" @click="showGeographicTargetingPopup = true">
                   <CountryListViewer
+                    class="pa-8"
+                    :style="`color: ${
+                      JSON.stringify(campaign.targetCountries) !==
+                      JSON.stringify(editedCampaign.targetCountries)
+                        ? '#ff0080'
+                        : 'grey'
+                    };
+                    border: 1px dashed ${
+                      JSON.stringify(campaign.targetCountries) !==
+                      JSON.stringify(editedCampaign.targetCountries)
+                        ? '#ff0080'
+                        : 'transparent'
+                    };
+                    border-radius: 8px;
+                    `"
                     :countries="editedCampaign.targetCountries"
                   />
                   <vs-popup
@@ -331,6 +346,7 @@
                             width: 100%;
                             overflow-x: hidden;
                             overflow-wrap: break-word;
+                            color: grey;
                           "
                           class="pa-8 ma-8"
                         >
