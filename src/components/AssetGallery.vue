@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div
+      v-if="editMode && assets.length < 1"
+      style="text-align: center"
+      class="py-24"
+    >
+      <p style="font-weight: 200; font-style: italic">(no assets uploaded)</p>
+    </div>
     <vs-images style="max-height: 800px; overflow-y: hidden; overflow-y: auto">
       <AssetThumbnail
         v-for="(asset, idx) in bigSizedAssets"
@@ -19,6 +26,7 @@
       />
     </vs-images>
     <ImageUploader
+      class="px-18"
       v-if="editMode"
       :basePath="uploadBasepath"
       :height="60"

@@ -43,7 +43,7 @@
                   overflow-y: auto;
                   font-family: 'Lato', sans-serif;
                   font-size: 18px;
-                  color: black;
+                  color: #4d4d4d;
                 "
               >
                 {{ activityItem.content }}

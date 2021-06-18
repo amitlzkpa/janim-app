@@ -2,7 +2,7 @@
   <div v-if="campaign.id">
     <vs-row class="px-10">
       <vs-col vs-w="3">
-        <div class="mt-20 pa-10">
+        <div class="mt-20">
           <AssetGallery :assets="campaign.assets" />
         </div>
       </vs-col>
@@ -154,13 +154,7 @@
                 <vs-divider />
 
                 <div class="my-10">
-                  <div
-                    style="
-                      flex-direction: column;
-                      font-weight: 200;
-                      font-size: 24px;
-                    "
-                  >
+                  <div style="flex-direction: column; font-weight: 200">
                     <div class="py-20 mb-20">
                       <span> TARGET PROFILE </span>
                       <div v-if="campaign.ageRange[0]" class="flex-center">
@@ -179,6 +173,7 @@
 
                     <div
                       v-if="campaign.targetDescriptors.join('') !== ''"
+                      style="font-size: 24px"
                     >
                       <div class="my-48 px-8">
                         {{ campaign.targetDescriptors[0] }}

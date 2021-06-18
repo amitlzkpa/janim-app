@@ -3,7 +3,7 @@
     <vs-row class="px-10">
       <vs-col vs-w="3">
         <div
-          class="mt-20 pa-10"
+          class="mt-20"
           :style="`
             border: 1px dashed ${
               JSON.stringify(campaign.assets) !==
@@ -32,10 +32,7 @@
                 <vs-dropdown>
                   <a href="#">
                     Stanton Media
-                    <vs-icon
-                      style="font-size: 12px"
-                      icon="expand_more"
-                    ></vs-icon>
+                    <vs-icon size="12px" icon="expand_more"></vs-icon>
                   </a>
 
                   <vs-dropdown-menu>
@@ -99,7 +96,7 @@
                   color: ${
                     campaign.description !== editedCampaign.description
                       ? '#ff0080'
-                      : 'black'
+                      : '#4d4d4d'
                   };
                   font-family: 'Lato', sans-serif;
                   font-size: 20px;
