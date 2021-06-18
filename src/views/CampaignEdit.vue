@@ -316,6 +316,7 @@
                         : 'transparent'
                     };
                     border-radius: 8px;
+                    cursor: pointer;
                     `"
                     :countries="editedCampaign.targetCountries"
                   />
@@ -395,32 +396,73 @@
                       font-size: 24px;
                     "
                   >
-                    <span> TARGET PROFILE </span>
-                    <div v-if="editedCampaign.ageRange[0]" class="flex-center">
-                      <vs-icon
-                        class="material-icons-outlined"
-                        icon="supervisor_account"
-                        color="grey"
-                        size="75px"
-                      ></vs-icon>
-                      <span class="ml-8" style="font-size: 36px">
-                        {{ editedCampaign.ageRange[0] }}-{{
-                          editedCampaign.ageRange[1]
-                        }}
-                        yo
-                      </span>
+                    <div
+                      class="pa-8"
+                      :style="`color: ${
+                        JSON.stringify(campaign.ageRange) !==
+                        JSON.stringify(editedCampaign.ageRange)
+                          ? '#ff0080'
+                          : 'grey'
+                      };
+                      border: 1px dashed ${
+                        JSON.stringify(campaign.ageRange) !==
+                        JSON.stringify(editedCampaign.ageRange)
+                          ? '#ff0080'
+                          : 'transparent'
+                      };
+                      border-radius: 8px;
+                      cursor: pointer;
+                      `"
+                    >
+                      <span> TARGET PROFILE </span>
+                      <div
+                        v-if="editedCampaign.ageRange[0]"
+                        class="flex-center"
+                      >
+                        <vs-icon
+                          class="material-icons-outlined"
+                          icon="supervisor_account"
+                          color="grey"
+                          size="75px"
+                        ></vs-icon>
+                        <span class="ml-8" style="font-size: 36px">
+                          {{ editedCampaign.ageRange[0] }}-{{
+                            editedCampaign.ageRange[1]
+                          }}
+                          yo
+                        </span>
+                      </div>
                     </div>
 
-                    <div class="my-48 px-8">
-                      {{ editedCampaign.targetDescriptors[0] }}
-                    </div>
+                    <div
+                      class="pa-8"
+                      :style="`color: ${
+                        JSON.stringify(campaign.targetDescriptors) !==
+                        JSON.stringify(editedCampaign.targetDescriptors)
+                          ? '#ff0080'
+                          : 'grey'
+                      };
+                      border: 1px dashed ${
+                        JSON.stringify(campaign.targetDescriptors) !==
+                        JSON.stringify(editedCampaign.targetDescriptors)
+                          ? '#ff0080'
+                          : 'transparent'
+                      };
+                      border-radius: 8px;
+                      cursor: pointer;
+                      `"
+                    >
+                      <div class="my-48 px-8">
+                        {{ editedCampaign.targetDescriptors[0] }}
+                      </div>
 
-                    <div class="my-48 px-8">
-                      {{ editedCampaign.targetDescriptors[1] }}
-                    </div>
+                      <div class="my-48 px-8">
+                        {{ editedCampaign.targetDescriptors[1] }}
+                      </div>
 
-                    <div class="my-48 px-8">
-                      {{ editedCampaign.targetDescriptors[2] }}
+                      <div class="my-48 px-8">
+                        {{ editedCampaign.targetDescriptors[2] }}
+                      </div>
                     </div>
                   </div>
 
@@ -469,7 +511,30 @@
                 <vs-divider />
 
                 <div class="my-10" @click="showKeywordTargetingPopup = true">
-                  <KeywordsViewer :keywords="editedCampaign.targetKeywords" />
+                  <div
+                    class="pa-8"
+                    :style="`
+                      color: ${
+                        JSON.stringify(campaign.targetKeywords) !==
+                        JSON.stringify(editedCampaign.targetKeywords)
+                          ? '#ff0080'
+                          : 'grey'
+                      };
+                      border: 1px dashed ${
+                        JSON.stringify(campaign.targetKeywords) !==
+                        JSON.stringify(editedCampaign.targetKeywords)
+                          ? '#ff0080'
+                          : 'transparent'
+                      };
+                      border-radius: 8px;
+                      cursor: pointer;
+                      height: 120px;
+                      overflow-y: auto;
+                      resize: vertical;
+                    `"
+                  >
+                    <KeywordsViewer :keywords="editedCampaign.targetKeywords" />
+                  </div>
 
                   <vs-popup
                     title="Keyword Targeting"
@@ -484,7 +549,7 @@
                             v-model="nextKeyword"
                             icon-after="true"
                             icon="add"
-                            v-on:icon-click="addNextKeyword"
+                            @icon-click="addNextKeyword"
                           />
                         </vs-col>
                         <vs-col vs-w="7" class="pa-8">
@@ -492,6 +557,10 @@
                             class="mx-4"
                             v-for="(kw, idx) of editedCampaign.targetKeywords"
                             :key="idx"
+                            closable
+                            @click="
+                              editedCampaign.targetKeywords.splice(idx, 1)
+                            "
                             >#{{ kw }}</vs-chip
                           >
                         </vs-col>
@@ -581,7 +650,7 @@ export default {
     },
     addNextKeyword() {
       if (
-        this.nextKeyword ||
+        !this.nextKeyword ||
         this.editedCampaign.targetKeywords.includes(
           this.nextKeyword.toLowerCase()
         )
