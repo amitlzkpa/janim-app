@@ -53,7 +53,9 @@
                 :styleText="`
                   cursor: select;
                   border: 1px dashed ${
-                    campaign.title !== editedCampaign.title ? '#ff0080' : 'grey'
+                    campaign.title !== editedCampaign.title
+                      ? '#ff0080'
+                      : '#dedede'
                   };
                   border-radius: 8px;
                   color: ${
@@ -80,13 +82,13 @@
                   border: 1px dashed ${
                     campaign.description !== editedCampaign.description
                       ? '#ff0080'
-                      : 'grey'
+                      : '#dedede'
                   };
                   border-radius: 8px;
                   color: ${
                     campaign.description !== editedCampaign.description
                       ? '#ff0080'
-                      : '#4d4d4d'
+                      : 'grey'
                   };
                   font-family: 'Lato', sans-serif;
                   font-size: 20px;
@@ -313,7 +315,7 @@
                       JSON.stringify(campaign.targetCountries) !==
                       JSON.stringify(editedCampaign.targetCountries)
                         ? '#ff0080'
-                        : 'transparent'
+                        : '#dedede'
                     };
                     border-radius: 8px;
                     cursor: pointer;
@@ -394,8 +396,8 @@
                   @click="showDemographicTargetingPopup = true"
                 >
                   <div
-                    class="pt-48 text--grey"
                     style="
+                      cursor: pointer;
                       flex-direction: column;
                       font-family: 'Roboto', sans-serif;
                       font-weight: 200;
@@ -403,21 +405,21 @@
                     "
                   >
                     <div
-                      class="pa-8"
-                      :style="`color: ${
-                        JSON.stringify(campaign.ageRange) !==
-                        JSON.stringify(editedCampaign.ageRange)
-                          ? '#ff0080'
-                          : 'grey'
-                      };
-                      border: 1px dashed ${
-                        JSON.stringify(campaign.ageRange) !==
-                        JSON.stringify(editedCampaign.ageRange)
-                          ? '#ff0080'
-                          : 'transparent'
-                      };
-                      border-radius: 8px;
-                      cursor: pointer;
+                      class="py-20 mb-20"
+                      :style="`
+                        color: ${
+                          JSON.stringify(campaign.ageRange) !==
+                          JSON.stringify(editedCampaign.ageRange)
+                            ? '#ff0080'
+                            : 'grey'
+                        };
+                        border: 1px dashed ${
+                          JSON.stringify(campaign.ageRange) !==
+                          JSON.stringify(editedCampaign.ageRange)
+                            ? '#ff0080'
+                            : '#dedede'
+                        };
+                        border-radius: 8px;
                       `"
                     >
                       <span> TARGET PROFILE </span>
@@ -428,7 +430,12 @@
                         <vs-icon
                           class="material-icons-outlined"
                           icon="supervisor_account"
-                          color="grey"
+                          :color="
+                            JSON.stringify(campaign.ageRange) !==
+                            JSON.stringify(editedCampaign.ageRange)
+                              ? '#ff0080'
+                              : 'grey'
+                          "
                           size="75px"
                         ></vs-icon>
                         <span class="ml-8" style="font-size: 36px">
@@ -452,7 +459,7 @@
                         JSON.stringify(campaign.targetDescriptors) !==
                         JSON.stringify(editedCampaign.targetDescriptors)
                           ? '#ff0080'
-                          : 'transparent'
+                          : '#dedede'
                       };
                       border-radius: 8px;
                       cursor: pointer;
@@ -530,7 +537,7 @@
                         JSON.stringify(campaign.targetKeywords) !==
                         JSON.stringify(editedCampaign.targetKeywords)
                           ? '#ff0080'
-                          : 'transparent'
+                          : '#dedede'
                       };
                       border-radius: 8px;
                       cursor: pointer;
