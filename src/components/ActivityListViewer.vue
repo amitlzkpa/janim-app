@@ -3,7 +3,7 @@
     <div
       v-for="activityItem in activityItems"
       :key="activityItem.id"
-      class="flex-center"
+      class="flex-center fade-in"
     >
       <vs-row>
         <vs-col vs-w="3" class="flex-center pt-48">
@@ -84,14 +84,20 @@ export default {
   methods: {
     async refreshData() {
       if (!this.campaignId) return;
-      this.activityItems = [];
+      let animItems = [];
       let res = await fb.activityPostsCollection
         .where("assocCampaignId", "==", this.campaignId)
         .orderBy("createdOn", "desc")
         .get();
       res.forEach((r) => {
-        this.activityItems.push(r.data());
+        animItems.push(r.data());
       });
+
+      this.activityItems = [];
+      for (let anI of animItems) {
+        this.activityItems.push(anI);
+        await this.wait(200);
+      }
     },
   },
   beforeDestroy() {
