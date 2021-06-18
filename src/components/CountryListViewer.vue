@@ -60,7 +60,7 @@ export default {
         });
         sm = dm.getSVG({
           radius: 0.5,
-          color: "#ff0080",
+          color: "#ff9000",
           shape: "circle",
           backgroundColor: "transparent",
         });
