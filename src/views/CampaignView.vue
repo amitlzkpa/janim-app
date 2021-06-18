@@ -177,16 +177,20 @@
                       </div>
                     </div>
 
-                    <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[0] }}
-                    </div>
+                    <div
+                      v-if="campaign.targetDescriptors.join('') !== ''"
+                    >
+                      <div class="my-48 px-8">
+                        {{ campaign.targetDescriptors[0] }}
+                      </div>
 
-                    <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[1] }}
-                    </div>
+                      <div class="my-48 px-8">
+                        {{ campaign.targetDescriptors[1] }}
+                      </div>
 
-                    <div class="my-48 px-8">
-                      {{ campaign.targetDescriptors[2] }}
+                      <div class="my-48 px-8">
+                        {{ campaign.targetDescriptors[2] }}
+                      </div>
                     </div>
                   </div>
                 </div>

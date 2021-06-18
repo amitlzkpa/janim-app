@@ -412,7 +412,6 @@
                       cursor: pointer;
                       flex-direction: column;
                       font-weight: 200;
-                      font-size: 24px;
                     "
                   >
                     <div
@@ -472,20 +471,33 @@
                           ? '#ff0080'
                           : '#dedede'
                       };
+                      min-height: 60px;
                       border-radius: 8px;
                       cursor: pointer;
+                      overflow-y: auto;
+                      resize: vertical;
                       `"
                     >
-                      <div class="my-48 px-8">
-                        {{ editedCampaign.targetDescriptors[0] }}
-                      </div>
+                      <div
+                        v-if="editedCampaign.targetDescriptors.join('') !== ''"
+                        style="font-size: 24px"
+                      >
+                        <div class="my-48 px-8">
+                          {{ editedCampaign.targetDescriptors[0] }}
+                        </div>
 
-                      <div class="my-48 px-8">
-                        {{ editedCampaign.targetDescriptors[1] }}
-                      </div>
+                        <div class="my-48 px-8">
+                          {{ editedCampaign.targetDescriptors[1] }}
+                        </div>
 
-                      <div class="my-48 px-8">
-                        {{ editedCampaign.targetDescriptors[2] }}
+                        <div class="my-48 px-8">
+                          {{ editedCampaign.targetDescriptors[2] }}
+                        </div>
+                      </div>
+                      <div class="pa-24" v-else>
+                        <p style="font-weight: 200; font-style: italic">
+                          (no descriptors)
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -536,7 +548,7 @@
 
                 <div class="my-10" @click="showKeywordTargetingPopup = true">
                   <div
-                    class="pa-8"
+                    class="pa-24"
                     :style="`
                       color: ${
                         JSON.stringify(campaign.targetKeywords) !==
@@ -552,7 +564,7 @@
                       };
                       border-radius: 8px;
                       cursor: pointer;
-                      height: 120px;
+                      min-height: 60px;
                       overflow-y: auto;
                       resize: vertical;
                     `"
