@@ -36,6 +36,8 @@ let store = new Vuex.Store({
       );
       await fb.usersCollection.doc(user.uid).set({
         name: form.name,
+        email: form.email,
+        id: user.uid,
       });
       dispatch("refreshUserProfile", user);
     },

@@ -45,6 +45,11 @@
                   <br />
                   <span style="font-weight: 600; font-size: 24px">
                     {{ org.name }}
+                    <vs-icon
+                      v-if="userProfile.id === org.owner.id"
+                      icon="verified_user"
+                      size="16px"
+                    />
                   </span>
                   <p
                     :style="`
@@ -63,13 +68,13 @@
                   />
                   <br />
                   <div>
-                    <vs-icon icon="person"></vs-icon>
-                    <span style="font-size: 20px">
+                    <vs-icon icon="person" size="12px" />
+                    <span style="font-size: 18px">
                       {{ org.perms.length }}
                     </span>
                     <span class="mx-8" />
-                    <vs-icon icon="campaign"></vs-icon>
-                    <span style="font-size: 20px"> 4 </span>
+                    <vs-icon icon="campaign" size="12px" />
+                    <span style="font-size: 18px"> 4 </span>
                   </div>
                 </div>
               </vs-card>
@@ -138,11 +143,14 @@
                           </vs-td>
 
                           <vs-td :data="data[indextr].holderType">
-                            {{ data[indextr].holderType }}
+                            {{ data[indextr].holder.email }}
                           </vs-td>
 
                           <vs-td :data="data[indextr].id">
-                            {{ data[indextr].permissions.admin }}
+                            <vs-icon
+                              v-if="data[indextr].permissions.admin"
+                              icon="done"
+                            />
                           </vs-td>
                         </vs-tr>
                       </template>
