@@ -21,8 +21,9 @@ let storage = firebase.storage();
 // collection references
 let usersCollection = db.collection("users");
 let campaignsCollection = db.collection("campaign");
-
 let activityPostsCollection = db.collection("activityPosts");
+let organizationsCollection = db.collection("organization");
+let permissionsCollection = db.collection("permission");
 
 // export utils/refs
 export {
@@ -32,4 +33,6 @@ export {
   usersCollection,
   campaignsCollection,
   activityPostsCollection,
+  organizationsCollection,
+  permissionsCollection,
 };

@@ -4,6 +4,7 @@ import * as fb from "@/firebase";
 import router from "@/router/index";
 
 import campaignSchema from "@/schemas/campaign";
+import * as orgSvc from "@/services/orgSvc";
 
 Vue.use(Vuex);
 
@@ -115,6 +116,11 @@ let store = new Vuex.Store({
         userName: state.userProfile.name,
       });
       dispatch("refreshCampaign", state.campaign.id);
+    },
+
+    async createOrg({ state, dispatch }, newOrgData) {
+      let newOrgFbData = await orgSvc.createNewOrg(newOrgData);
+      console.log(newOrgFbData);
     },
   },
 

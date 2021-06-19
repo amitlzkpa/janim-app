@@ -245,7 +245,9 @@ export default {
   },
   methods: {
     async onCreateNewOrg() {
-      console.log(this.newOrgName);
+      this.$store.dispatch("createOrg", {
+        name: this.newOrgName,
+      });
       this.newOrgName = "";
     },
   },
