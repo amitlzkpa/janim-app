@@ -25,8 +25,26 @@ export async function createNewOrg(newOrgData) {
   return retData;
 }
 
-export async function getOrgsUserCanAccess() {
-  let perms = await db_getPerms({ holderId: fb.auth.currentUser.uid });
+export async function addUserToOrg(opts) {
+  let { email, orgId, permissions } = opts;
+  let userObj = await db_getUser({ email: email });
+  console.log(userObj);
+
+  let newPermObjRef = await fb.permissionsCollection.doc();
+  newPermObjRef.set({
+    resource: `org_${orgId}`,
+    holder: userObj.id,
+    holderType: "user",
+    permissions: permissions,
+  });
+  console.log(newPermObjRef);
+
+  return true;
+}
+
+export async function getOrgsUserCanAccess(opts) {
+  let { userId } = opts;
+  let perms = await db_getPerms({ holderId: userId });
   let orgs = [];
   for (let p of perms) {
     let o = await getFullOrg({ orgId: p.resource.replace("org_", "") });
@@ -83,10 +101,18 @@ async function db_getOrg(opts) {
 async function db_getUser(opts) {
   let omitKeys = [];
 
-  let { userId } = opts;
-  let res = fb.usersCollection.doc(userId);
-  res = await res.get();
-  res = res.data();
+  let { userId, email } = opts;
+  let res;
+  if (userId) {
+    res = fb.usersCollection.doc(userId);
+    res = await res.get();
+    res = res.data();
+  } else if (email) {
+    res = fb.usersCollection.where("email", "==", email);
+    res = await res.get();
+    res = utils.convertToArray(res);
+    res = res[0];
+  }
   res = _.omit(res, omitKeys);
   return res;
 }

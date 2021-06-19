@@ -118,6 +118,17 @@
 
               <vs-tabs class="mt-8">
                 <vs-tab label="Users">
+                  <div class="my-16">
+                    <vs-input
+                      v-model="newUserEmail"
+                      class="full-width"
+                      type="email"
+                      label="Invite User"
+                      placeholder="Email"
+                      icon="add"
+                      @icon-click="inviteUser"
+                    />
+                  </div>
                   <div>
                     <vs-table :data="selectedOrg.perms">
                       <template slot="thead">
@@ -179,6 +190,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as fb from "@/firebase";
 import * as orgSvc from "@/services/orgSvc";
 
 import ContentEditable from "@/components/ContentEditable";
@@ -195,6 +207,7 @@ export default {
       filteredOrgList: [],
       fullOrgList: [],
       selectedOrg: {},
+      newUserEmail: "",
     };
   },
   watch: {
@@ -212,7 +225,9 @@ export default {
     ...mapState(["userProfile"]),
   },
   async mounted() {
-    this.fullOrgList = await orgSvc.getOrgsUserCanAccess();
+    this.fullOrgList = await orgSvc.getOrgsUserCanAccess({
+      userId: fb.auth.currentUser.uid,
+    });
     this.filteredOrgList = this.fullOrgList.map((o) => o);
   },
   methods: {
@@ -221,6 +236,26 @@ export default {
         name: this.newOrgName,
       });
       this.newOrgName = "";
+    },
+    async inviteUser() {
+      if (!/\S+@\S+\.\S+/.test(this.newUserEmail)) {
+        this.$vs.notify({
+          title: "Invalid Email",
+          text: "Please check the email address",
+          color: "danger",
+        });
+        return;
+      }
+      await orgSvc.addUserToOrg({
+        email: this.newUserEmail,
+        orgId: this.selectedOrg.id,
+        permissions: {},
+      });
+      this.$vs.notify({
+        title: "Invite Sent",
+        text: "Invitation to join organization has been sent!",
+        color: "primary",
+      });
     },
   },
 };
