@@ -1,4 +1,5 @@
 import * as fb from "@/firebase";
+import * as utils from "@/utils";
 import _ from "lodash";
 
 import organizationSchema from "@/schemas/organization";
@@ -36,6 +37,8 @@ export async function getFullOrg(opts) {
   return org;
 }
 
+// DB ACCESS
+
 async function db_getPerms(opts) {
   let { rsrcId } = opts;
 
@@ -43,7 +46,7 @@ async function db_getPerms(opts) {
     .where("resource", "==", rsrcId)
     .get();
 
-  let perms = getArray(permissionRefs);
+  let perms = utils.convertToArray(permissionRefs);
   for (let p of perms) {
     p.holder = await db_getUser({ userId: p.holder });
   }
@@ -68,12 +71,4 @@ async function db_getUser(opts) {
   res = res.data();
   res = _.omit(res, omitKeys);
   return res;
-}
-
-function getArray(refs) {
-  let regArr = [];
-  refs.forEach((r) => {
-    regArr.push(r.data());
-  });
-  return regArr;
 }
