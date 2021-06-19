@@ -25,7 +25,7 @@
           />
           <div class="mt-8">
             <div
-              v-for="org in orgList"
+              v-for="org in filteredOrgList"
               :key="org.id"
               @click="selectedOrg = org"
               class="flex-center"
@@ -192,15 +192,28 @@ export default {
       showNewOrgPopup: false,
       newOrgName: "",
       orgFilterTerm: "",
-      orgList: [],
+      filteredOrgList: [],
+      fullOrgList: [],
       selectedOrg: {},
     };
+  },
+  watch: {
+    orgFilterTerm(val) {
+      if (!val) {
+        this.filteredOrgList = this.fullOrgList.map((o) => o);
+        return;
+      }
+      this.filteredOrgList = this.fullOrgList.filter((o) =>
+        o.name.toLowerCase().includes(val.toLowerCase())
+      );
+    },
   },
   computed: {
     ...mapState(["userProfile"]),
   },
   async mounted() {
-    this.orgList = await orgSvc.getOrgsUserCanAccess();
+    this.fullOrgList = await orgSvc.getOrgsUserCanAccess();
+    this.filteredOrgList = this.fullOrgList.map((o) => o);
   },
   methods: {
     async onCreateNewOrg() {
