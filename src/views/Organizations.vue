@@ -65,7 +65,7 @@
                   <div>
                     <vs-icon icon="person"></vs-icon>
                     <span style="font-size: 20px">
-                      {{ org.users.length }}
+                      {{ org.perms.length }}
                     </span>
                     <span class="mx-8" />
                     <vs-icon icon="campaign"></vs-icon>
@@ -114,7 +114,7 @@
               <vs-tabs class="mt-8">
                 <vs-tab label="Users">
                   <div>
-                    <vs-table :data="selectedOrg.users">
+                    <vs-table :data="selectedOrg.perms">
                       <template slot="thead">
                         <vs-th> Name </vs-th>
                         <vs-th> Email </vs-th>
@@ -133,16 +133,16 @@
                           :key="indextr"
                           v-for="(tr, indextr) in data"
                         >
-                          <vs-td :data="data[indextr].name">
-                            {{ data[indextr].name }}
+                          <vs-td :data="data[indextr].holder.name">
+                            {{ data[indextr].holder.name }}
                           </vs-td>
 
-                          <vs-td :data="data[indextr].email">
-                            {{ data[indextr].email }}
+                          <vs-td :data="data[indextr].holderType">
+                            {{ data[indextr].holderType }}
                           </vs-td>
 
                           <vs-td :data="data[indextr].id">
-                            <vs-checkbox />
+                            {{ data[indextr].permissions.admin }}
                           </vs-td>
                         </vs-tr>
                       </template>
@@ -171,6 +171,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as orgSvc from "@/services/orgSvc";
 
 import ContentEditable from "@/components/ContentEditable";
 
@@ -183,65 +184,15 @@ export default {
       showNewOrgPopup: false,
       newOrgName: "",
       orgFilterTerm: "",
-      orgList: [
-        {
-          id: "QWx9DmwlkQRbCK2aXbj4",
-          name: "Fendi Winter Drop",
-          users: [
-            {
-              id: 1,
-              name: "Leanne Graham",
-              email: "Sincere@april.biz",
-            },
-            {
-              id: 2,
-              name: "Ervin Howell",
-              email: "Shanna@melissa.tv",
-            },
-            {
-              id: 3,
-              name: "Clementine Bauch",
-              email: "Nathan@yesenia.net",
-            },
-          ],
-        },
-        {
-          id: "2QWlkQaXx9DRbCKmwbj4",
-          name: "Trenton Buzz",
-          users: [
-            {
-              id: 4,
-              name: "Patricia Lebsack",
-              email: "Julianne.OConner@kory.org",
-            },
-            {
-              id: 5,
-              name: "Chelsey Dietrich",
-              email: "Lucio_Hettinger@annie.ca",
-            },
-            {
-              id: 6,
-              name: "Mrs. Dennis Schulist",
-              email: "Karley_Dach@jasper.info",
-            },
-            {
-              id: 7,
-              name: "Kurtis Weissnat",
-              email: "Telly.Hoeger@billy.biz",
-            },
-            {
-              id: 8,
-              name: "Nicholas Runolfsdottir V",
-              email: "Sherwood@rosamond.me",
-            },
-          ],
-        },
-      ],
+      orgList: [],
       selectedOrg: {},
     };
   },
   computed: {
     ...mapState(["userProfile"]),
+  },
+  async mounted() {
+    this.orgList = await orgSvc.getOrgsUserCanAccess();
   },
   methods: {
     async onCreateNewOrg() {

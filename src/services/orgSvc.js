@@ -25,6 +25,16 @@ export async function createNewOrg(newOrgData) {
   return retData;
 }
 
+export async function getOrgsUserCanAccess() {
+  let perms = await db_getPerms({ holderId: fb.auth.currentUser.uid });
+  let orgs = [];
+  for (let p of perms) {
+    let o = await getFullOrg({ orgId: p.resource.replace("org_", "") });
+    orgs.push(o);
+  }
+  return orgs;
+}
+
 export async function getFullOrg(opts) {
   let { orgId } = opts;
 
@@ -40,11 +50,19 @@ export async function getFullOrg(opts) {
 // DB ACCESS
 
 async function db_getPerms(opts) {
-  let { rsrcId } = opts;
+  let { rsrcId, holderId } = opts;
 
-  let permissionRefs = await fb.permissionsCollection
-    .where("resource", "==", rsrcId)
-    .get();
+  let permissionRefs;
+
+  if (holderId) {
+    permissionRefs = await fb.permissionsCollection
+      .where("holder", "==", holderId)
+      .get();
+  } else if (rsrcId) {
+    permissionRefs = await fb.permissionsCollection
+      .where("resource", "==", rsrcId)
+      .get();
+  }
 
   let perms = utils.convertToArray(permissionRefs);
   for (let p of perms) {
