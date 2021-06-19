@@ -1,5 +1,6 @@
 let permissionSchema = {
   holder: null,
+  holderType: null,
   resource: null,
   permissions: {},
 };

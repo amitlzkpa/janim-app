@@ -1,4 +1,5 @@
 import * as fb from "@/firebase";
+import _ from "lodash";
 
 import organizationSchema from "@/schemas/organization";
 import permissionSchema from "@/schemas/permission";
@@ -12,8 +13,9 @@ export async function createNewOrg(newOrgData) {
 
   let newPermObjRef = await fb.permissionsCollection.doc();
   newPermObjRef.set({
-    resource: newOrgRef.id,
+    resource: `org_${newOrgRef.id}`,
     holder: fb.auth.currentUser.uid,
+    holderType: "user",
     permissions: { admin: true },
   });
 
@@ -27,7 +29,7 @@ export async function getFullOrg(opts) {
 
   let org = await db_getOrg({ orgId: orgId });
   let owner = await db_getUser({ userId: org.owner });
-  let perms = await db_getPerms({ rsrcId: orgId });
+  let perms = await db_getPerms({ rsrcId: `org_${orgId}` });
 
   org.owner = owner;
   org.perms = perms;
@@ -58,10 +60,14 @@ async function db_getOrg(opts) {
 }
 
 async function db_getUser(opts) {
+  let omitKeys = [];
+
   let { userId } = opts;
   let res = fb.usersCollection.doc(userId);
   res = await res.get();
-  return res.data();
+  res = res.data();
+  res = _.omit(res, omitKeys);
+  return res;
 }
 
 function getArray(refs) {
