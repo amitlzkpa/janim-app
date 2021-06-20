@@ -4,7 +4,6 @@ import * as fb from "@/firebase";
 import router from "@/router/index";
 
 import campaignSchema from "@/schemas/campaign";
-import * as orgSvc from "@/services/orgSvc";
 
 Vue.use(Vuex);
 

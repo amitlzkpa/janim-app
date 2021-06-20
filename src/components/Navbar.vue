@@ -15,10 +15,10 @@
       <vs-navbar-item v-if="isLoggedIn">
         <vs-dropdown>
           <a class="a-icon" href.prevent>
-            <span class="mb-8">
+            <span>
               {{ userProfile.name }}
             </span>
-            <vs-icon size="small" icon="expand_more"></vs-icon>
+            <vs-icon size="12px" icon="expand_more"></vs-icon>
           </a>
 
           <vs-dropdown-menu style="width: 200px">

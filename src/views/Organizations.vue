@@ -141,17 +141,7 @@
                       </template>
 
                       <template slot-scope="{ data }">
-                        <vs-tr
-                          :state="
-                            indextr == 2 || indextr == 5
-                              ? 'success'
-                              : indextr == 6
-                              ? 'danger'
-                              : null
-                          "
-                          :key="indextr"
-                          v-for="(tr, indextr) in data"
-                        >
+                        <vs-tr v-for="(tr, indextr) in data" :key="indextr">
                           <vs-td :data="data[indextr].holder.name">
                             <span
                               style="cursor: pointer"
