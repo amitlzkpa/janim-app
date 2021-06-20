@@ -23,10 +23,7 @@ let store = new Vuex.Store({
   },
   actions: {
     async login({ dispatch }, form) {
-      let { user } = await fb.auth.signInWithEmailAndPassword(
-        form.email,
-        form.password
-      );
+      let user = await userSvc.signIn(form);
       dispatch("refreshUserProfile", user);
     },
     async signup({ dispatch }, form) {
@@ -34,25 +31,25 @@ let store = new Vuex.Store({
       dispatch("refreshUserProfile", user);
     },
     async reset({ dispatch }, form) {
-      await fb.auth.sendPasswordResetEmail(form.email);
+      await userSvc.resetPassword(form);
     },
     async logout({ commit }) {
-      await fb.auth.signOut();
+      await userSvc.signOut();
       commit("setUserProfile", {});
       router.push("/login");
     },
 
     async refreshUserProfile({ commit }, userObj) {
-      let user = await userSvc.getUser({ userId: userObj.uid });
+      let user = await userSvc.getUser({ userId: userObj.id });
       commit("setUserProfile", user);
       if (router.currentRoute.path === "/login") {
         router.push("/home");
       }
     },
     async saveUserProfile({ dispatch }, user) {
-      let userId = fb.auth.currentUser.uid;
+      let userId = await userSvc.currentUser();
 
-      dispatch("refreshUserProfile", { uid: userId });
+      dispatch("refreshUserProfile", { id: userId });
 
       let postDocs = await fb.activityPostsCollection
         .where("userId", "==", userId)
@@ -101,12 +98,13 @@ let store = new Vuex.Store({
     },
 
     async createActivityPost({ state, dispatch }, post) {
+      let u = await userSvc.currentUser();
       await fb.activityPostsCollection.add({
         createdOn: new Date(),
         content: post.content,
         type: post.type,
         assocCampaignId: post.assocCampaignId,
-        userId: fb.auth.currentUser.uid,
+        userId: u.id,
         userName: state.userProfile.name,
       });
       dispatch("refreshCampaign", state.campaign.id);

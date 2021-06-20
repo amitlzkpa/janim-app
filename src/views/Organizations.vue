@@ -210,7 +210,7 @@
 
 <script>
 import { mapState } from "vuex";
-import * as fb from "@/firebase";
+import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
 
 import ContentEditable from "@/components/ContentEditable";
@@ -245,8 +245,9 @@ export default {
     ...mapState(["userProfile"]),
   },
   async mounted() {
+    let u = await userSvc.currentUser();
     this.fullOrgList = await orgSvc.getOrgsUserCanAccess({
-      userId: fb.auth.currentUser.uid,
+      userId: u.id,
     });
     this.filteredOrgList = this.fullOrgList.map((o) => o);
 

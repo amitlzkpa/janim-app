@@ -1,12 +1,15 @@
 import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
+import * as userSvc from "@/services/userSvc";
 import _ from "lodash";
 
 export async function createNewOrg(newOrgData) {
+  let u = await userSvc.currentUser();
+
   let newOrgRef = await fb.organizationsCollection.doc();
   await newOrgRef.set({
     name: newOrgData.name,
-    owner: fb.auth.currentUser.uid,
+    owner: u.id,
     createdOn: new Date(),
   });
 
@@ -14,7 +17,7 @@ export async function createNewOrg(newOrgData) {
   newPermObjRef.set({
     id: newPermObjRef.id,
     resource: `org_${newOrgRef.id}`,
-    holder: fb.auth.currentUser.uid,
+    holder: u.id,
     holderType: "user",
     permissions: { admin: true },
   });
@@ -75,11 +78,13 @@ export async function getOrgsUserCanAccess(opts) {
 export async function getFullOrg(opts) {
   let { orgId } = opts;
 
+  let u = await userSvc.currentUser();
+
   let org = await dbMethods.getOrg({ orgId: orgId });
   let owner = await dbMethods.getUser({ userId: org.owner });
   let perms = await dbMethods.getPerms({ rsrcId: `org_${orgId}` });
 
-  org.currUserPerm = perms.find((p) => p.holder.id === fb.auth.currentUser.uid);
+  org.currUserPerm = perms.find((p) => p.holder.id === u.id);
 
   org.owner = owner;
   org.perms = perms;

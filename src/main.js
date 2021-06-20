@@ -31,6 +31,7 @@ auth.onAuthStateChanged((user) => {
   }
 
   if (user) {
+    user.id = user.uid;
     store.dispatch("refreshUserProfile", user);
   }
 });
