@@ -265,7 +265,7 @@ export default {
       this.selectedOrg = org;
     },
     async onCreateNewOrg() {
-      this.$store.dispatch("createOrg", {
+      let updOrg = await orgSvc.createNewOrg({
         name: this.newOrgName,
       });
       this.newOrgName = "";

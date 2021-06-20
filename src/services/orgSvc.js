@@ -10,19 +10,20 @@ export async function createNewOrg(newOrgData) {
   await newOrgRef.set({
     name: newOrgData.name,
     owner: fb.auth.currentUser.uid,
+    createdOn: new Date(),
   });
 
   let newPermObjRef = await fb.permissionsCollection.doc();
   newPermObjRef.set({
+    id: newPermObjRef.id,
     resource: `org_${newOrgRef.id}`,
     holder: fb.auth.currentUser.uid,
     holderType: "user",
     permissions: { admin: true },
   });
 
-  let retData = await getFullOrg({ orgId: newOrgRef.id });
-
-  return retData;
+  let updatedOrg = await getFullOrg({ orgId: newOrgRef.id });
+  return updatedOrg;
 }
 
 export async function addUserToOrg(opts) {

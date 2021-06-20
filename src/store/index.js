@@ -119,11 +119,6 @@ let store = new Vuex.Store({
       });
       dispatch("refreshCampaign", state.campaign.id);
     },
-
-    async createOrg({ state, dispatch }, newOrgData) {
-      let newOrgFbData = await orgSvc.createNewOrg(newOrgData);
-      console.log(newOrgFbData);
-    },
   },
 
   getters: {
