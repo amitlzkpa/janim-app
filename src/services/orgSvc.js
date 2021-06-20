@@ -48,6 +48,9 @@ export async function getOrgsUserCanAccess(opts) {
   let orgs = [];
   for (let p of perms) {
     let o = await getFullOrg({ orgId: p.resource.replace("org_", "") });
+    o.currUserPerm = o.perms.find(
+      (p) => p.holder.id === fb.auth.currentUser.uid
+    );
     orgs.push(o);
   }
   return orgs;

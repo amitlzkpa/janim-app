@@ -27,7 +27,7 @@
             <div
               v-for="org in filteredOrgList"
               :key="org.id"
-              @click="selectedOrg = org"
+              @click="updateSelectedOrg(org)"
               class="flex-center"
             >
               <vs-card
@@ -118,7 +118,10 @@
 
               <vs-tabs class="mt-8">
                 <vs-tab label="Users">
-                  <div class="my-16">
+                  <div
+                    v-if="selectedOrg.currUserPerm.permissions.admin"
+                    class="my-16"
+                  >
                     <vs-input
                       v-model="newUserEmail"
                       class="full-width"
@@ -231,6 +234,9 @@ export default {
     this.filteredOrgList = this.fullOrgList.map((o) => o);
   },
   methods: {
+    async updateSelectedOrg(org) {
+      this.selectedOrg = org;
+    },
     async onCreateNewOrg() {
       this.$store.dispatch("createOrg", {
         name: this.newOrgName,
