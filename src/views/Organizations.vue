@@ -294,6 +294,14 @@ export default {
       this.selectedOrg = updOrg;
     },
     async removeUser(userPerm) {
+      if (this.selectedOrg.perms.length === 1) {
+        this.$vs.notify({
+          title: "Last User",
+          text: "Organizations must have at least one account associated",
+          color: "danger",
+        });
+        return;
+      }
       let updOrg = await orgSvc.remUserFmOrg({
         orgId: this.selectedOrg.id,
         permObj: userPerm,
@@ -307,8 +315,19 @@ export default {
       this.fullOrgList[orgIdxInList] = updOrg;
       this.selectedOrg = updOrg;
     },
-    async updatePermissionForUsrForOrg(permObj, isAdmin) {
-      permObj.permissions.admin = isAdmin;
+    async updatePermissionForUsrForOrg(permObj, statusToUpdateTo) {
+      let adminCnt = this.selectedOrg.perms.filter(
+        (p) => !!p.permissions.admin
+      ).length;
+      if (!statusToUpdateTo && adminCnt === 1) {
+        this.$vs.notify({
+          title: "Last Admin",
+          text: "Organizations must have at least one admin",
+          color: "danger",
+        });
+        return;
+      }
+      permObj.permissions.admin = statusToUpdateTo;
       let updOrg = await orgSvc.updUserFmOrg({
         orgId: this.selectedOrg.id,
         permObj,
