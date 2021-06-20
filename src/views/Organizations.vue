@@ -259,6 +259,12 @@ export default {
       userId: fb.auth.currentUser.uid,
     });
     this.filteredOrgList = this.fullOrgList.map((o) => o);
+
+    let orgId = this.$route.params.orgId;
+    let orgIdxInList = this.fullOrgList.findIndex((o) => o.id === orgId);
+    if (orgId && orgIdxInList > 0) {
+      this.selectedOrg = this.fullOrgList[orgIdxInList];
+    }
   },
   methods: {
     async updateSelectedOrg(org) {
@@ -269,6 +275,7 @@ export default {
         name: this.newOrgName,
       });
       this.newOrgName = "";
+      this.fullOrgList.push(updOrg);
     },
     async inviteUser() {
       if (!/\S+@\S+\.\S+/.test(this.newUserEmail)) {

@@ -26,7 +26,7 @@ let routes = [
     },
   },
   {
-    path: "/organizations",
+    path: "/organizations/:orgId?",
     name: "organizations",
     component: () =>
       import(
