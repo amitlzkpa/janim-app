@@ -40,6 +40,15 @@ export async function addUserToOrg(opts) {
   return true;
 }
 
+export async function remUserFmOrg(opts) {
+  let { permId } = opts;
+
+  let newPermObjRef = await fb.permissionsCollection.doc(permId);
+  await newPermObjRef.delete();
+
+  return true;
+}
+
 export async function getOrgsUserCanAccess(opts) {
   let { userId } = opts;
   let perms = await db_getPerms({ holderId: userId });

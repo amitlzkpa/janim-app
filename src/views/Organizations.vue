@@ -153,7 +153,16 @@
                           v-for="(tr, indextr) in data"
                         >
                           <vs-td :data="data[indextr].holder.name">
-                            {{ data[indextr].holder.name }}
+                            <span
+                              style="cursor: pointer"
+                              v-if="selectedOrg.currUserPerm.permissions.admin"
+                              @click="removeUser(data[indextr])"
+                            >
+                              <vs-icon icon="close" size="12px" class="mr-8" />
+                            </span>
+                            <span style="font-size: 16px">
+                              {{ data[indextr].holder.name }}
+                            </span>
                           </vs-td>
 
                           <vs-td :data="data[indextr].holderType">
@@ -161,10 +170,24 @@
                           </vs-td>
 
                           <vs-td :data="data[indextr].id">
-                            <vs-icon
-                              v-if="data[indextr].permissions.admin"
-                              icon="done"
-                            />
+                            <span
+                              style="cursor: pointer"
+                              v-if="selectedOrg.currUserPerm.permissions.admin"
+                              @click="
+                                updatePermissionForUsrForOrg(
+                                  data[indextr],
+                                  'admin',
+                                  !data[indextr].permissions.admin
+                                )
+                              "
+                            >
+                              <vs-icon
+                                v-if="data[indextr].permissions.admin"
+                                icon="check_box"
+                              />
+                              <vs-icon v-else icon="check_box_outline_blank" />
+                              {{ data[indextr].permissions.admin }}
+                            </span>
                           </vs-td>
                         </vs-tr>
                       </template>
@@ -262,6 +285,23 @@ export default {
         text: "Invitation to join organization has been sent!",
         color: "primary",
       });
+      await this.refreshOrgList();
+    },
+    async removeUser(userPerm) {
+      await orgSvc.remUserFmOrg({
+        permId: userPerm.id,
+      });
+      this.$vs.notify({
+        title: "User Removed",
+        text: "User has been removed from organization.",
+        color: "primary",
+      });
+      await this.refreshOrgList();
+    },
+    async updatePermissionForUsrForOrg(permObj, permSetting, isAdmin) {
+      console.log(permObj, permSetting, isAdmin);
+      permObj.permissions[permSetting] = isAdmin;
+      console.log(permObj, permSetting, isAdmin);
     },
   },
 };
