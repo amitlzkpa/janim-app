@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import * as fb from "@/firebase";
 import router from "@/router/index";
 
+import * as userSvc from "@/services/userSvc";
 import campaignSchema from "@/schemas/campaign";
 
 Vue.use(Vuex);
@@ -29,15 +30,7 @@ let store = new Vuex.Store({
       dispatch("refreshUserProfile", user);
     },
     async signup({ dispatch }, form) {
-      let { user } = await fb.auth.createUserWithEmailAndPassword(
-        form.email,
-        form.password
-      );
-      await fb.usersCollection.doc(user.uid).set({
-        name: form.name,
-        email: form.email,
-        id: user.uid,
-      });
+      let user = await userSvc.createUser(form);
       dispatch("refreshUserProfile", user);
     },
     async reset({ dispatch }, form) {
@@ -49,9 +42,9 @@ let store = new Vuex.Store({
       router.push("/login");
     },
 
-    async refreshUserProfile({ commit }, user) {
-      let userProfile = await fb.usersCollection.doc(user.uid).get();
-      commit("setUserProfile", userProfile.data());
+    async refreshUserProfile({ commit }, userObj) {
+      let user = await userSvc.getUser({ userId: userObj.uid });
+      commit("setUserProfile", user);
       if (router.currentRoute.path === "/login") {
         router.push("/home");
       }
