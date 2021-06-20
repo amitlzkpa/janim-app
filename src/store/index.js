@@ -23,6 +23,8 @@ let store = new Vuex.Store({
   },
   actions: {
     async login({ dispatch }, form) {
+      let u = await userSvc.currentUser();
+      if (u && u.id) await userSvc.signOut();
       let user = await userSvc.signIn(form);
       dispatch("refreshUserProfile", user);
     },
