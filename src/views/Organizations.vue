@@ -137,11 +137,7 @@
                       <template slot="thead">
                         <vs-th> Name </vs-th>
                         <vs-th> Email </vs-th>
-                        <vs-th
-                          v-if="selectedOrg.currUserPerm.permissions.admin"
-                        >
-                          Admin
-                        </vs-th>
+                        <vs-th> Admin </vs-th>
                       </template>
 
                       <template slot-scope="{ data }">
@@ -173,11 +169,8 @@
                             {{ data[indextr].holder.email }}
                           </vs-td>
 
-                          <vs-td
-                            v-if="selectedOrg.currUserPerm.permissions.admin"
-                            :data="data[indextr].id"
-                          >
-                            <p
+                          <vs-td :data="data[indextr].id">
+                            <span
                               style="cursor: pointer"
                               v-if="selectedOrg.currUserPerm.permissions.admin"
                               @click="
@@ -192,7 +185,13 @@
                                 icon="check_box"
                               />
                               <vs-icon v-else icon="check_box_outline_blank" />
-                            </p>
+                            </span>
+                            <span v-else>
+                              <vs-icon
+                                v-if="data[indextr].permissions.admin"
+                                icon="done"
+                              />
+                            </span>
                           </vs-td>
                         </vs-tr>
                       </template>
