@@ -29,24 +29,38 @@ export async function addUserToOrg(opts) {
   let { email, orgId, permissions } = opts;
   let userObj = await db_getUser({ email: email });
 
-  let newPermObjRef = await fb.permissionsCollection.doc();
-  newPermObjRef.set({
+  let newPermObjRef = fb.permissionsCollection.doc();
+  await newPermObjRef.set({
+    id: newPermObjRef.id,
     resource: `org_${orgId}`,
     holder: userObj.id,
     holderType: "user",
     permissions: permissions,
   });
 
-  return true;
+  let updatedOrg = await getFullOrg({ orgId });
+  return updatedOrg;
 }
 
 export async function remUserFmOrg(opts) {
-  let { permId } = opts;
+  let { orgId, permObj } = opts;
 
-  let newPermObjRef = await fb.permissionsCollection.doc(permId);
+  let newPermObjRef = await fb.permissionsCollection.doc(permObj.id);
   await newPermObjRef.delete();
 
-  return true;
+  let updatedOrg = await getFullOrg({ orgId });
+  return updatedOrg;
+}
+
+export async function updUserFmOrg(opts) {
+  let { orgId, permObj } = opts;
+
+  let newPermObjRef = await fb.permissionsCollection.doc(permObj.id);
+  permObj.holder = permObj.holder.id;
+  await newPermObjRef.set(permObj);
+
+  let updatedOrg = await getFullOrg({ orgId });
+  return updatedOrg;
 }
 
 export async function getOrgsUserCanAccess(opts) {
@@ -55,9 +69,6 @@ export async function getOrgsUserCanAccess(opts) {
   let orgs = [];
   for (let p of perms) {
     let o = await getFullOrg({ orgId: p.resource.replace("org_", "") });
-    o.currUserPerm = o.perms.find(
-      (p) => p.holder.id === fb.auth.currentUser.uid
-    );
     orgs.push(o);
   }
   return orgs;
@@ -69,6 +80,8 @@ export async function getFullOrg(opts) {
   let org = await db_getOrg({ orgId: orgId });
   let owner = await db_getUser({ userId: org.owner });
   let perms = await db_getPerms({ rsrcId: `org_${orgId}` });
+
+  org.currUserPerm = perms.find((p) => p.holder.id === fb.auth.currentUser.uid);
 
   org.owner = owner;
   org.perms = perms;
