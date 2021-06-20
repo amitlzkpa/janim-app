@@ -28,7 +28,6 @@ export async function createNewOrg(newOrgData) {
 export async function addUserToOrg(opts) {
   let { email, orgId, permissions } = opts;
   let userObj = await db_getUser({ email: email });
-  console.log(userObj);
 
   let newPermObjRef = await fb.permissionsCollection.doc();
   newPermObjRef.set({
@@ -37,7 +36,6 @@ export async function addUserToOrg(opts) {
     holderType: "user",
     permissions: permissions,
   });
-  console.log(newPermObjRef);
 
   return true;
 }
