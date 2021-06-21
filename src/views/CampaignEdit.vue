@@ -31,14 +31,20 @@
               <div class="full-width" style="display: flex">
                 <vs-dropdown>
                   <a href="#">
-                    Stanton Media
+                    {{
+                      selectedOrg.id ? selectedOrg.name : "select organization"
+                    }}
                     <vs-icon size="12px" icon="expand_more"></vs-icon>
                   </a>
 
                   <vs-dropdown-menu>
-                    <vs-dropdown-item> Stanton Media </vs-dropdown-item>
-                    <vs-dropdown-item> Zephyr Adverts </vs-dropdown-item>
-                    <vs-dropdown-item> Nova Agency </vs-dropdown-item>
+                    <vs-dropdown-item
+                      v-for="userOrg of userOrgs"
+                      :key="userOrg.id"
+                      @click="selectedOrg = userOrg"
+                    >
+                      {{ userOrg.name }}
+                    </vs-dropdown-item>
                   </vs-dropdown-menu>
                 </vs-dropdown>
                 <span style="flex-grow: 1" />
@@ -196,7 +202,10 @@
                     </vs-col>
                     <vs-col vs-w="9">
                       <div
-                        v-if="!!editedCampaign.totalBudget && !!editedCampaign.hitsGoal"
+                        v-if="
+                          !!editedCampaign.totalBudget &&
+                          !!editedCampaign.hitsGoal
+                        "
                         class="info-item pt-24"
                         style="text-align: center"
                       >
@@ -620,6 +629,7 @@
 import { mapState } from "vuex";
 import * as fb from "@/firebase";
 import { v4 as uuidv4 } from "uuid";
+import * as orgSvc from "@/services/orgSvc";
 
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
@@ -647,6 +657,8 @@ export default {
   },
   data() {
     return {
+      userOrgs: [],
+      selectedOrg: {},
       editedCampaign: {},
       showCampaignTimelinePopup: false,
       showCampaignBudgetPopup: false,
@@ -667,10 +679,15 @@ export default {
     },
   },
   async mounted() {
+    while (!this.userProfile.id) await this.wait(200);
     campaignUpdateSub = this.$store.subscribe(async (mutation, state) => {
       if (mutation.type === "setCampaign") {
         await this.refreshData();
       }
+    });
+
+    this.userOrgs = await orgSvc.getOrgsUserCanAccess({
+      userId: this.userProfile.id,
     });
 
     this.$store.dispatch("refreshCampaign", this.$route.params.campaignId);

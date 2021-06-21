@@ -22,7 +22,10 @@
           </a>
 
           <vs-dropdown-menu style="width: 200px">
-            <vs-dropdown-item to="/organizations">
+            <vs-dropdown-item to="/campaign/new">
+              New Campaign
+            </vs-dropdown-item>
+            <vs-dropdown-item to="/organizations" divider>
               Organizations
             </vs-dropdown-item>
             <vs-dropdown-item to="/settings"> Settings </vs-dropdown-item>
