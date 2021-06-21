@@ -48,13 +48,12 @@ let store = new Vuex.Store({
         router.push("/home");
       }
     },
-    async saveUserProfile({ dispatch }, user) {
-      let userId = await userSvc.currentUser();
-
-      dispatch("refreshUserProfile", { id: userId });
+    async saveUserProfile({ dispatch }, valsForUpdatedUser) {
+      let user = await userSvc.updateUser(valsForUpdatedUser);
+      dispatch("refreshUserProfile", user);
 
       let postDocs = await fb.activityPostsCollection
-        .where("userId", "==", userId)
+        .where("userId", "==", user.id)
         .get();
       postDocs.forEach((doc) => {
         fb.activityPostsCollection.doc(doc.id).update({

@@ -42,6 +42,18 @@ export async function createUser(opts) {
   return user;
 }
 
+export async function updateUser(opts) {
+  let { name } = opts;
+  let u = await currentUser();
+  let userRef = fb.usersCollection.doc(u.id);
+  await userRef.set({
+    name: name,
+    id: u.id,
+  });
+  let user = await getUser({ userId: u.id });
+  return user;
+}
+
 export async function getUser(opts) {
   let { userId } = opts;
   let user = await dbMethods.getUser({ userId });
