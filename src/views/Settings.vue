@@ -18,7 +18,6 @@
               <vs-input
                 disabled
                 label="Email"
-                placeholder="you@email.com"
                 v-model="userProfile.email"
                 class="full-width py-8"
               />

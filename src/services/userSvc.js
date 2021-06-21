@@ -46,9 +46,8 @@ export async function updateUser(opts) {
   let { name } = opts;
   let u = await currentUser();
   let userRef = fb.usersCollection.doc(u.id);
-  await userRef.set({
+  await userRef.update({
     name: name,
-    id: u.id,
   });
   let user = await getUser({ userId: u.id });
   return user;
