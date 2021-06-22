@@ -1,5 +1,6 @@
 import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
+import * as orgSvc from "@/services/orgSvc";
 import campaignSchema from "@/schemas/campaign";
 import _ from "lodash";
 
@@ -9,6 +10,7 @@ export async function saveCampaign(campaignData) {
     let c = await fb.campaignsCollection.add(campaignData);
     campaignData.campaign.id = c.id;
   }
+  campaignData.campaign.organization = campaignData.campaign.organization.id;
   // quick-hack start
   // convert to Date object for firebase save
   campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
@@ -35,6 +37,10 @@ export async function getCampaign(campaignId) {
   // convert to pure js Date object from the firebase timestamp format
   campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
   // quick-hack end
+
+  campaignData.organization = await orgSvc.getFullOrg({
+    orgId: campaignData.organization,
+  });
 
   return campaignData;
 }
