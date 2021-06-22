@@ -9,6 +9,7 @@ export async function createNewOrg(newOrgData) {
   let newOrgRef = await fb.organizationsCollection.doc();
   await newOrgRef.set({
     name: newOrgData.name,
+    id: newOrgRef.id,
     owner: u.id,
     createdOn: new Date(),
   });

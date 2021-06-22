@@ -6,6 +6,7 @@ let campaignSchema = {
   hitsGoal: null,
   id: "new",
   isActive: false,
+  organization: {},
   targetCountries: [],
   targetDescriptors: [],
   targetKeywords: [],

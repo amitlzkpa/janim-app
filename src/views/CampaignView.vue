@@ -12,7 +12,12 @@
           <vs-row>
             <vs-col vs-w="12">
               <div class="full-width" style="display: flex">
-                <span class="mt-12" style="font-size: 12px">Stanton Media</span>
+                <span
+                  v-if="campaign.organization.id"
+                  class="mt-12"
+                  style="font-size: 12px"
+                  >{{ campaign.organization.name }}</span
+                >
                 <span style="flex-grow: 1" />
                 <vs-button
                   class="mb-10"

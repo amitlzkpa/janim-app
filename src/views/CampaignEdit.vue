@@ -32,7 +32,7 @@
                 <vs-dropdown>
                   <a href="#">
                     {{
-                      selectedOrg.id ? selectedOrg.name : "select organization"
+                      editedCampaign.organization.id ? editedCampaign.organization.name : "select organization"
                     }}
                     <vs-icon size="12px" icon="expand_more"></vs-icon>
                   </a>
@@ -41,7 +41,7 @@
                     <vs-dropdown-item
                       v-for="userOrg of userOrgs"
                       :key="userOrg.id"
-                      @click="selectedOrg = userOrg"
+                      @click="editedCampaign.organization = userOrg"
                     >
                       {{ userOrg.name }}
                     </vs-dropdown-item>
@@ -658,7 +658,6 @@ export default {
   data() {
     return {
       userOrgs: [],
-      selectedOrg: {},
       editedCampaign: {},
       showCampaignTimelinePopup: false,
       showCampaignBudgetPopup: false,
