@@ -4,7 +4,7 @@ import * as fb from "@/firebase";
 import router from "@/router/index";
 
 import * as userSvc from "@/services/userSvc";
-import campaignSchema from "@/schemas/campaign";
+import * as campaignSvc from "@/services/campaignSvc";
 
 Vue.use(Vuex);
 
@@ -63,37 +63,14 @@ let store = new Vuex.Store({
     },
 
     async refreshCampaign({ commit }, campaignId) {
-      let campaignData;
-      if (campaignId) {
-        let doc = await fb.campaignsCollection.doc(campaignId).get();
-        campaignData = doc.data().campaign;
-      } else {
-        campaignData = JSON.parse(JSON.stringify(campaignSchema));
-      }
-      // quick-hack start
-      // convert to pure js Date object from the firebase timestamp format
-      campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
-      // quick-hack end
+      let campaignData = await campaignSvc.getCampaign(campaignId);
       commit("setCampaign", campaignData);
     },
     async saveCampaign({ dispatch }, campaignData) {
       if (!campaignData.campaign.title) return;
-      if (!campaignData.campaign.id || campaignData.campaign.id === "new") {
-        delete campaignData.campaign.id;
-        let c = await fb.campaignsCollection.add(campaignData);
-        campaignData.campaign.id = c.id;
-      }
-      // quick-hack start
-      // convert to Date object for firebase save
-      campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
-        (d) => new Date(d)
-      );
-      // quick-hack end
-      await fb.campaignsCollection
-        .doc(campaignData.campaign.id)
-        .update({ campaign: campaignData.campaign });
-      dispatch("refreshCampaign", campaignData.campaign.id);
-      let reroutePath = `/campaign/edit/${campaignData.campaign.id}`;
+      let updatedCampaign = await campaignSvc.saveCampaign(campaignData);
+      dispatch("refreshCampaign", updatedCampaign.campaign.id);
+      let reroutePath = `/campaign/edit/${updatedCampaign.campaign.id}`;
       if (router.currentRoute.fullPath !== reroutePath)
         router.push(reroutePath);
     },
