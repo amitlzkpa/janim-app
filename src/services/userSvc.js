@@ -1,7 +1,5 @@
 import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
-import * as activityPostsSvc from "@/services/activityPostsSvc";
-import * as utils from "@/utils";
 import _ from "lodash";
 
 let _currentUser;
@@ -51,7 +49,6 @@ export async function updateUser(opts) {
     name: name,
   });
   let user = await getUser({ userId: u.id });
-  activityPostsSvc.updatePostsAuthor(user);
   return user;
 }
 

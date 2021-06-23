@@ -1,18 +1,6 @@
 import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
 import * as userSvc from "@/services/userSvc";
-import _ from "lodash";
-
-export async function updatePostsAuthor(user) {
-  let postDocs = await fb.activityPostsCollection
-    .where("userId", "==", user.id)
-    .get();
-  postDocs.forEach((doc) => {
-    fb.activityPostsCollection.doc(doc.id).update({
-      userName: user.name,
-    });
-  });
-}
 
 export async function createPost(postData) {
   let u = await userSvc.currentUser();
@@ -21,9 +9,8 @@ export async function createPost(postData) {
     modifiedOn: new Date(),
     content: postData.content,
     type: postData.type,
-    assocCampaignId: postData.assocCampaignId,
-    userId: u.id,
-    userName: u.name,
+    campaign: postData.assocCampaignId,
+    user: u.id,
   });
 }
 

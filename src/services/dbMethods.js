@@ -4,11 +4,14 @@ import _ from "lodash";
 
 export async function getPosts(opts) {
   let { campaignId } = opts;
-  let res = await fb.activityPostsCollection
-    .where("assocCampaignId", "==", campaignId)
+  let postRefs = await fb.activityPostsCollection
+    .where("campaign", "==", campaignId)
     .orderBy("createdOn", "desc")
     .get();
-  let posts = utils.convertToArray(res);
+  let posts = utils.convertToArray(postRefs);
+  for (let p of posts) {
+    p.user = await getUser({ userId: p.user });
+  }
   return posts;
 }
 
