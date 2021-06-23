@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import * as fb from "@/firebase";
+import * as activityPostsSvc from "@/services/activityPostsSvc";
 
 let campaignUpdateSub;
 
@@ -84,17 +84,11 @@ export default {
   methods: {
     async refreshData() {
       if (!this.campaignId) return;
-      let animItems = [];
-      let res = await fb.activityPostsCollection
-        .where("assocCampaignId", "==", this.campaignId)
-        .orderBy("createdOn", "desc")
-        .get();
-      res.forEach((r) => {
-        animItems.push(r.data());
+      let aItems = await activityPostsSvc.getPosts({
+        campaignId: this.campaignId,
       });
-
       this.activityItems = [];
-      for (let anI of animItems) {
+      for (let anI of aItems) {
         this.activityItems.push(anI);
         await this.wait(200);
       }

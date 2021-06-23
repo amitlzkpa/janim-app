@@ -2,6 +2,16 @@ import * as fb from "@/firebase";
 import * as utils from "@/utils";
 import _ from "lodash";
 
+export async function getPosts(opts) {
+  let { campaignId } = opts;
+  let res = await fb.activityPostsCollection
+    .where("assocCampaignId", "==", campaignId)
+    .orderBy("createdOn", "desc")
+    .get();
+  let posts = utils.convertToArray(res);
+  return posts;
+}
+
 export async function getPerms(opts) {
   let { rsrcId, holderId } = opts;
 

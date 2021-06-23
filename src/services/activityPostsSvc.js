@@ -26,3 +26,8 @@ export async function createPost(postData) {
     userName: u.name,
   });
 }
+
+export async function getPosts(opts) {
+  let posts = await dbMethods.getPosts(opts);
+  return posts;
+}
