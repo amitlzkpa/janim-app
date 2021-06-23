@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import * as fb from "@/firebase";
 import router from "@/router/index";
 
 import * as userSvc from "@/services/userSvc";
 import * as campaignSvc from "@/services/campaignSvc";
+import * as activityPostsSvc from "@/services/activityPostsSvc";
 
 Vue.use(Vuex);
 
@@ -51,15 +51,6 @@ let store = new Vuex.Store({
     async saveUserProfile({ dispatch }, valsForUpdatedUser) {
       let user = await userSvc.updateUser(valsForUpdatedUser);
       dispatch("refreshUserProfile", user);
-
-      let postDocs = await fb.activityPostsCollection
-        .where("userId", "==", user.id)
-        .get();
-      postDocs.forEach((doc) => {
-        fb.activityPostsCollection.doc(doc.id).update({
-          userName: user.name,
-        });
-      });
     },
 
     async refreshCampaign({ commit }, campaignId) {
@@ -76,15 +67,7 @@ let store = new Vuex.Store({
     },
 
     async createActivityPost({ state, dispatch }, post) {
-      let u = await userSvc.currentUser();
-      await fb.activityPostsCollection.add({
-        createdOn: new Date(),
-        content: post.content,
-        type: post.type,
-        assocCampaignId: post.assocCampaignId,
-        userId: u.id,
-        userName: state.userProfile.name,
-      });
+      activityPostsSvc.createPost(post);
       dispatch("refreshCampaign", state.campaign.id);
     },
   },
