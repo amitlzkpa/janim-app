@@ -36,6 +36,13 @@
               <i>
                 {{ moment(activityItem.createdOn.toDate()).fromNow() }}
               </i>
+              <div style="font-weight: bold">
+                {{
+                  activityItem.type === "hits-stats-update"
+                    ? "Campaign Team"
+                    : activityItem.user.name
+                }}
+              </div>
               <div
                 style="
                   height: 100px;
