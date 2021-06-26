@@ -28,8 +28,7 @@ export async function getCampaign(campaignId) {
   let campaignData;
 
   if (campaignId) {
-    let doc = await fb.campaignsCollection.doc(campaignId).get();
-    campaignData = doc.data().campaign;
+    campaignData = await dbMethods.getCampaign({ campaignId });
   } else {
     campaignData = JSON.parse(JSON.stringify(campaignSchema));
   }

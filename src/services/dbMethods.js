@@ -37,6 +37,23 @@ export async function getPerms(opts) {
   return perms;
 }
 
+export async function getCampaign(opts) {
+  let { campaignId } = opts;
+  let res = await fb.campaignsCollection.doc(campaignId).get();
+  let cData = res.data().campaign;
+  cData.id = campaignId;
+  return cData;
+}
+
+export async function getCampaigns(opts) {
+  let { orgId } = opts;
+  let res = await fb.campaignsCollection
+    .where("campaign.organization", "==", orgId)
+    .get();
+  let campaigns = utils.convertToArray(res);
+  return campaigns;
+}
+
 export async function getOrg(opts) {
   let { orgId } = opts;
   let res = fb.organizationsCollection.doc(orgId);

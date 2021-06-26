@@ -81,13 +81,15 @@ export async function getFullOrg(opts) {
 
   let u = await userSvc.currentUser();
 
-  let org = await dbMethods.getOrg({ orgId: orgId });
+  let org = await dbMethods.getOrg({ orgId });
   let owner = await dbMethods.getUser({ userId: org.owner });
   let perms = await dbMethods.getPerms({ rsrcId: `org_${orgId}` });
+  let campaigns = await dbMethods.getCampaigns({ orgId: orgId });
 
   org.currUserPerm = perms.find((p) => p.holder.id === u.id);
 
   org.owner = owner;
   org.perms = perms;
+  org.campaigns = campaigns;
   return org;
 }

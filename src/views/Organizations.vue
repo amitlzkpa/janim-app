@@ -190,6 +190,48 @@
                 </vs-tab>
                 <vs-tab label="Campaigns">
                   <div>Campaigns</div>
+                  <a
+                    v-for="campaign in selectedOrg.campaigns"
+                    :key="campaign.campaign.id"
+                    :href="`/campaign/edit/${campaign.campaign.id}`"
+                    style="text-decoration: none"
+                  >
+                    <vs-card
+                      actionable
+                      style="
+                        height: 90px;
+                        border-radius: 8px;
+                        background-color: #dedede;
+                      "
+                      class="my-10"
+                    >
+                      <p
+                        style="
+                          color: #696969;
+                          font-size: 20px;
+                          font-weight: 600;
+                        "
+                      >
+                        {{ campaign.campaign.title }}
+                      </p>
+                      <hr />
+                      <p style="color: #696969" class="my-10">
+                        {{
+                          moment(
+                            campaign.campaign.dateRange[0].toDate()
+                          ).format("MMM Do YYYY")
+                        }}
+                        -
+                        {{
+                          moment(
+                            campaign.campaign.dateRange[1].toDate()
+                          ).format("MMM Do YYYY")
+                        }}
+                        <br />
+                        ${{ campaign.campaign.totalBudget }}
+                      </p>
+                    </vs-card>
+                  </a>
                 </vs-tab>
                 <vs-tab label="Accounts">
                   <div>Accounts</div>

@@ -12,12 +12,7 @@
 </template>
 
 <script>
-import moment from "moment";
-
-function processToTimestamp(dateObject) {
-  let ret = dateObject ? moment(dateObject) : null;
-  return ret ? ret.format("MMM Do YYYY") : "-";
-}
+import * as utils from "@/utils";
 
 export default {
   props: {
@@ -28,10 +23,10 @@ export default {
   },
   computed: {
     startDate() {
-      return processToTimestamp(this.dateRange[0]);
+      return utils.processToTimestamp(this.dateRange[0]);
     },
     endDate() {
-      return processToTimestamp(this.dateRange[1]);
+      return utils.processToTimestamp(this.dateRange[1]);
     },
     hasValidDates() {
       return this.startDate !== "-" && this.endDate !== "-";
