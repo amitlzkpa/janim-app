@@ -84,6 +84,7 @@
                 color="danger"
                 type="gradient"
                 icon="person_add"
+                @click="joinCampaign()"
               ></vs-button>
               <span class="ml-8"> JOIN </span>
             </vs-col>
@@ -210,6 +211,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as campaignSvc from "@/services/campaignSvc";
 
 import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
@@ -239,6 +241,9 @@ export default {
       let campaignId = this.$route.params.campaignId;
       if (!campaignId) return;
       this.$store.dispatch("refreshCampaign", campaignId);
+    },
+    async joinCampaign() {
+      await campaignSvc.joinCampaign();
     },
   },
 };

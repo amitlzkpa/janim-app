@@ -45,3 +45,7 @@ export async function getCampaign(campaignId) {
 
   return campaignData;
 }
+
+export async function joinCampaign() {
+  console.log("foo");
+}
