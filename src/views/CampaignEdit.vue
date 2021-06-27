@@ -32,7 +32,9 @@
                 <vs-dropdown>
                   <a href="#">
                     {{
-                      editedCampaign.organization.id ? editedCampaign.organization.name : "select organization"
+                      editedCampaign.organization.id
+                        ? editedCampaign.organization.name
+                        : "select organization"
                     }}
                     <vs-icon size="12px" icon="expand_more"></vs-icon>
                   </a>

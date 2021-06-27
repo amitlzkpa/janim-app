@@ -37,9 +37,11 @@ export async function getCampaign(campaignId) {
   campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
   // quick-hack end
 
-  campaignData.organization = await orgSvc.getFullOrg({
-    orgId: campaignData.organization,
-  });
+  if (campaignData.organization.orgId) {
+    campaignData.organization = await orgSvc.getFullOrg({
+      orgId: campaignData.organization,
+    });
+  }
 
   return campaignData;
 }
