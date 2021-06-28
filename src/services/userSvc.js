@@ -5,7 +5,7 @@ import _ from "lodash";
 let _currentUser;
 
 export async function currentUser() {
-  if (!_currentUser) {
+  if (!_currentUser && fb.auth.currentUser) {
     _currentUser = await getUser({ userId: fb.auth.currentUser.uid });
   }
   return _currentUser;
