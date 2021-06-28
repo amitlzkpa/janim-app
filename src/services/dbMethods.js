@@ -37,6 +37,18 @@ export async function getPerms(opts) {
   return perms;
 }
 
+export async function getJoins(opts) {
+  let { campaignId } = opts;
+  let joinRefs = await fb.campaignJoinsCollection
+    .where("campaign", "==", campaignId)
+    .get();
+  let joins = utils.convertToArray(joinRefs);
+  for (let j of joins) {
+    j.user = await getUser({ userId: j.user });
+  }
+  return joins;
+}
+
 export async function getCampaign(opts) {
   let { campaignId } = opts;
   let res = await fb.campaignsCollection.doc(campaignId).get();

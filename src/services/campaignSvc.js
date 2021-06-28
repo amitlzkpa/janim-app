@@ -44,6 +44,14 @@ export async function getCampaign(campaignId) {
     });
   }
 
+  campaignData.campaignJoins = await dbMethods.getJoins({
+    campaignId,
+  });
+
+  let usr = await userSvc.currentUser();
+  campaignData.currUserHasJoined =
+    campaignData.campaignJoins.filter((j) => j.user.id === usr.id).length > 0;
+
   return campaignData;
 }
 
