@@ -133,24 +133,12 @@
                   <div>
                     <vs-list>
                       <vs-list-item
-                        title="Steve Jobes"
-                        subtitle="Tarcu id augue ultrices feugiat"
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                      <vs-list-item
-                        title="Matt"
-                        subtitle="Oligula at mollis egestas."
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                      <vs-list-item
-                        title="Wilfred Menzes"
-                        subtitle="Rendrerit sapien vitae felis viverra, quis efficitur velit blandit."
+                        v-for="j in campaign.campaignJoins"
+                        :key="j.id"
+                        :title="j.user.name"
+                        :subtitle="
+                          moment(j.createdOn.toDate()).format('MMM Do YYYY')
+                        "
                       >
                         <template slot="avatar">
                           <vs-avatar />
