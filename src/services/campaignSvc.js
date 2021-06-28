@@ -1,4 +1,5 @@
 import * as fb from "@/firebase";
+import * as utils from "@/utils";
 import * as dbMethods from "@/services/dbMethods";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
@@ -55,7 +56,8 @@ export async function getCampaign(campaignId) {
   return campaignData;
 }
 
-export async function joinCampaign(campaignId) {
+export async function joinCampaign(opts) {
+  let { campaignId } = opts;
   let u = await userSvc.currentUser();
   let cjRef = await fb.campaignJoinsCollection.add({
     user: u.id,
@@ -63,4 +65,18 @@ export async function joinCampaign(campaignId) {
     createdOn: new Date(),
   });
   return cjRef;
+}
+
+export async function unjoinCampaign(opts) {
+  let { campaignId } = opts;
+  let u = await userSvc.currentUser();
+  let joinRefs = await fb.campaignJoinsCollection
+    .where("campaign", "==", campaignId)
+    .where("user", "==", u.id)
+    .get();
+  let joins = utils.convertToArray(joinRefs);
+  for (let j of joins) {
+    await fb.campaignJoinsCollection.doc(j.id).delete();
+  }
+  return joinRefs;
 }

@@ -79,14 +79,25 @@
           <vs-divider />
 
           <vs-row style="height: 60px">
-            <vs-col vs-w="1" class="flex-center">
-              <vs-button
-                color="danger"
-                type="gradient"
-                icon="person_add"
-                @click="joinCampaign()"
-              ></vs-button>
-              <span class="ml-8"> JOIN </span>
+            <vs-col vs-w="1">
+              <div v-if="campaign.currUserHasJoined" class="flex-center">
+                <vs-button
+                  color="dark"
+                  type="gradient"
+                  icon="person_remove"
+                  @click="unjoinCampaign()"
+                ></vs-button>
+                <span class="ml-8"> UNJOIN </span>
+              </div>
+              <div v-else class="flex-center">
+                <vs-button
+                  color="danger"
+                  type="gradient"
+                  icon="person_add"
+                  @click="joinCampaign()"
+                ></vs-button>
+                <span class="ml-8"> JOIN </span>
+              </div>
             </vs-col>
             <vs-col vs-w="5" class="flex-center">
               <span class="ml-8" v-if="campaign.dateRange[1]">
@@ -243,7 +254,11 @@ export default {
       this.$store.dispatch("refreshCampaign", campaignId);
     },
     async joinCampaign() {
-      let cj = await campaignSvc.joinCampaign(this.campaign.id);
+      await campaignSvc.joinCampaign({ campaignId: this.campaign.id });
+      await this.refreshData();
+    },
+    async unjoinCampaign() {
+      await campaignSvc.unjoinCampaign({ campaignId: this.campaign.id });
       await this.refreshData();
     },
   },
