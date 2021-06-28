@@ -243,7 +243,8 @@ export default {
       this.$store.dispatch("refreshCampaign", campaignId);
     },
     async joinCampaign() {
-      await campaignSvc.joinCampaign();
+      let cj = await campaignSvc.joinCampaign(this.campaign.id);
+      await this.refreshData();
     },
   },
 };

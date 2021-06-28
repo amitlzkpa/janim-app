@@ -1,5 +1,6 @@
 import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
+import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
 import campaignSchema from "@/schemas/campaign";
 import _ from "lodash";
@@ -46,6 +47,12 @@ export async function getCampaign(campaignId) {
   return campaignData;
 }
 
-export async function joinCampaign() {
-  console.log("foo");
+export async function joinCampaign(campaignId) {
+  let u = await userSvc.currentUser();
+  let cjRef = await fb.campaignJoinsCollection.add({
+    user: u.id,
+    campaign: campaignId,
+    createdOn: new Date(),
+  });
+  return cjRef;
 }
