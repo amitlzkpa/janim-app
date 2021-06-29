@@ -19,22 +19,35 @@
         </vs-row>
         <vs-row class="mt-8">
           <vs-col>
-            <span class="mx-4">
-              {{ asset.id }}
-            </span>
             <vs-row>
-              <vs-col vs-w="8">
+              <vs-col vs-w="12">
+                <span style="font-size: 12px; font-style: italics">
+                  {{ asset.id }}
+                </span>
+
+                <vs-input
+                  v-if="editMode"
+                  size="small"
+                  placeholder="Target URL"
+                  v-model="asset.targetUrl"
+                  class="full-width my-8"
+                />
+                <div v-else class="full-width my-8">
+                  <a :href="asset.targetUrl" target="_blank">
+                    {{ asset.targetUrl }}
+                  </a>
+                </div>
+
                 <vs-textarea
                   v-if="editMode"
                   v-model="asset.description"
-                  class="full-width mt-18"
+                  class="full-width"
                   style="height: 120px"
                 />
                 <div v-else class="full-width" style="height: 120px">
                   {{ asset.description }}
                 </div>
-              </vs-col>
-              <vs-col vs-w="4" class="pl-8">
+
                 <vs-input
                   v-if="editMode"
                   size="large"
@@ -53,7 +66,7 @@
                 >
               </vs-col>
             </vs-row>
-            <div v-if="editMode" style="display: flex">
+            <div v-if="editMode" style="display: flex" class="mt-20">
               <vs-switch
                 v-if="editMode"
                 color="success"
