@@ -29,29 +29,31 @@ export async function saveCampaign(campaignData) {
 export async function getCampaign(campaignId) {
   let campaignData;
 
-  if (campaignId) {
-    campaignData = await dbMethods.getCampaign({ campaignId });
-  } else {
+  let isNew = !campaignId;
+
+  if (isNew) {
     campaignData = JSON.parse(JSON.stringify(campaignSchema));
+  } else {
+    campaignData = await dbMethods.getCampaign({ campaignId });
   }
   // quick-hack start
   // convert to pure js Date object from the firebase timestamp format
   campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
   // quick-hack end
 
-  if (campaignData.organization.orgId) {
+  if (!isNew) {
     campaignData.organization = await orgSvc.getFullOrg({
       orgId: campaignData.organization,
     });
+
+    campaignData.campaignJoins = await dbMethods.getJoins({
+      campaignId,
+    });
+
+    let usr = await userSvc.currentUser();
+    campaignData.currUserHasJoined =
+      campaignData.campaignJoins.filter((j) => j.user.id === usr.id).length > 0;
   }
-
-  campaignData.campaignJoins = await dbMethods.getJoins({
-    campaignId,
-  });
-
-  let usr = await userSvc.currentUser();
-  campaignData.currUserHasJoined =
-    campaignData.campaignJoins.filter((j) => j.user.id === usr.id).length > 0;
 
   return campaignData;
 }

@@ -32,7 +32,7 @@
                 <vs-dropdown>
                   <a href="#">
                     {{
-                      editedCampaign.organization.id
+                      editedCampaign.organization
                         ? editedCampaign.organization.name
                         : "select organization"
                     }}
@@ -53,7 +53,11 @@
                 <vs-button
                   class="mb-10"
                   :color="hasPendingSaves ? 'danger' : 'primary'"
-                  :disabled="!hasPendingSaves"
+                  :disabled="
+                    !hasPendingSaves ||
+                    !editedCampaign.title ||
+                    !editedCampaign.organization
+                  "
                   :type="hasPendingSaves ? 'gradient' : 'flat'"
                   @click="saveCampaign()"
                   >Save</vs-button
@@ -696,12 +700,6 @@ export default {
   methods: {
     async refreshData() {
       this.editedCampaign = JSON.parse(JSON.stringify(this.campaign));
-      // quick-hack start
-      // convert the string to pure js Date object
-      this.editedCampaign.dateRange = this.editedCampaign.dateRange.map(
-        (d) => new Date(d)
-      );
-      // quick-hack end
     },
     addNextKeyword() {
       if (
