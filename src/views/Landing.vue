@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-row style="height: 400px">
+    <vs-row style="height: 700px">
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="6">
         <div style="width: 100%; height: 100%">
           <AnimLines />
@@ -8,13 +8,11 @@
       </vs-col>
       <vs-col vs-type="flex" vs-justify="left" vs-align="center" vs-w="6">
         <div style="display: flex; flex-direction: column">
-          <h1>vyrall</h1>
-          <p>The gig economy for influencers.</p>
+          <p style="font-size: 92px; font-weight: 100">vyrall</p>
+          <h1>The gig economy for influencers.</h1>
         </div>
       </vs-col>
     </vs-row>
-
-    <vs-divider />
   </div>
 </template>
 
