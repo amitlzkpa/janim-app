@@ -22,6 +22,7 @@ let storage = firebase.storage();
 let usersCollection = db.collection("users");
 let campaignsCollection = db.collection("campaign");
 let campaignJoinsCollection = db.collection("campaignJoins");
+let hotLinksCollection = db.collection("hotLinks");
 let activityPostsCollection = db.collection("activityPosts");
 let organizationsCollection = db.collection("organization");
 let permissionsCollection = db.collection("permission");
@@ -34,6 +35,7 @@ export {
   usersCollection,
   campaignsCollection,
   campaignJoinsCollection,
+  hotLinksCollection,
   activityPostsCollection,
   organizationsCollection,
   permissionsCollection,
