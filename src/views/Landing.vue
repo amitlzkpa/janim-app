@@ -2,7 +2,9 @@
   <div>
     <vs-row style="height: 400px">
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="6">
-        -
+        <div style="width: 100%; height: 100%">
+          <AnimLines />
+        </div>
       </vs-col>
       <vs-col vs-type="flex" vs-justify="left" vs-align="center" vs-w="6">
         <div style="display: flex; flex-direction: column">
@@ -18,8 +20,12 @@
 
 <script>
 import { mapState } from "vuex";
+import AnimLines from "@/components/AnimLines";
 
 export default {
+  components: {
+    AnimLines,
+  },
   data() {
     return {
       number: 4,
@@ -34,4 +40,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
