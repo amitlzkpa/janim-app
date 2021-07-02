@@ -51,6 +51,63 @@
         </div>
       </vs-col>
     </vs-row>
+
+    <vs-row>
+      <vs-col>
+        <div style="height: 400px">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <h1>influencers understand their audience very well</h1>
+          </div>
+        </div>
+      </vs-col>
+    </vs-row>
+
+    <vs-row>
+      <vs-col>
+        <div style="height: 400px">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <h1>
+              use their expertise to inform where and how you showcase your
+              brand
+            </h1>
+          </div>
+        </div>
+      </vs-col>
+    </vs-row>
+
+    <vs-row>
+      <vs-col>
+        <div style="height: 400px">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <h1>connect globally with experts from everywhere</h1>
+          </div>
+        </div>
+      </vs-col>
+    </vs-row>
   </div>
 </template>
 
