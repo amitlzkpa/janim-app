@@ -21,7 +21,9 @@
                   align-items: center;
                 "
               >
-                <p style="font-size: 92px; font-weight: 100">vyrall</p>
+                <p style="font-size: 92px; font-weight: 100; color: #9900ff">
+                  vyrall
+                </p>
                 <h1>The gig economy for influencers.</h1>
               </div>
             </div>

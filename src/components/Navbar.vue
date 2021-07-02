@@ -7,7 +7,7 @@
           style="text-decoration: none"
         >
           <vs-navbar-title>
-            <h1>vyrall</h1>
+            <h1 style="color: #9900ff">vyrall</h1>
           </vs-navbar-title>
         </router-link>
       </div>
