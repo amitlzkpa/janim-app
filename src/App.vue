@@ -119,6 +119,10 @@ $sides: (top, bottom, left, right);
   font-weight: 300;
 }
 
+.soft-shadow-text {
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+
 .vs-image--img {
   background-size: cover !important;
 }

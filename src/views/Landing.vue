@@ -20,6 +20,7 @@
                   justify-content: center;
                   align-items: center;
                 "
+                class="soft-shadow-text"
               >
                 <p style="font-size: 92px; font-weight: 100; color: #9900ff">
                   vyrall
@@ -69,7 +70,9 @@
               alt="Queen Icon"
               height="240"
             />
-            <h1>influencers understand their audience very well</h1>
+            <h1 style="color: #ff0080" class="soft-shadow-text">
+              influencers understand their audience very well
+            </h1>
           </div>
         </div>
       </vs-col>
@@ -92,7 +95,7 @@
               alt="Chat Icon"
               height="240"
             />
-            <h1>
+            <h1 style="color: #ff0080" class="soft-shadow-text">
               use their expertise to inform where and how you showcase your
               brand
             </h1>
@@ -115,10 +118,12 @@
           >
             <img
               src="/images/icons/earth-globe-svgrepo-com.svg"
-              alt="Chat Icon"
+              alt="Earth Icon"
               height="240"
             />
-            <h1>connect globally with experts from everywhere</h1>
+            <h1 style="color: #ff0080" class="soft-shadow-text">
+              connect globally with experts from everywhere
+            </h1>
           </div>
         </div>
       </vs-col>
