@@ -10,6 +10,7 @@ let rapydConfig = {
     rapyd_access_key: "DE32A63299B2DA25527F",
     rapyd_secret_key:
       "5107cd2907bb8b8f30227fc2fe0cd3353109e735efd5addf06bab44d1c77362a5944453d9ee9cfa6",
+    "access-control-allow-origin": "*",
   },
 };
 
