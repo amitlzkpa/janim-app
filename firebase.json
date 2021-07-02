@@ -12,6 +12,10 @@
         "function": "test"
       },
       {
+        "source": "/api/rapyd",
+        "function": "rapyd"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
+import api from "@/api";
 import { auth } from "@/firebase";
 
 import Vuesax from "vuesax";
@@ -13,6 +14,8 @@ import vueFilterPrettyBytes from "vue-filter-pretty-bytes";
 Vue.use(Vuesax, {});
 Vue.prototype.moment = moment;
 Vue.use(vueFilterPrettyBytes);
+
+Vue.prototype.$api = api;
 
 Vue.config.productionTip = false;
 

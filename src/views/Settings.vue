@@ -28,16 +28,40 @@
                   >Update</vs-button
                 >
               </div>
+              <vs-divider class="my-8" />
               <vs-divider />
-              <vs-divider />
-              <div class="full-width" style="display: flex">
-                <vs-button
-                  type="filled"
-                  @click="createRapydWallet()"
-                  class="mx-4"
-                  style="flex-grow: 1"
-                  >Create Rapyd Wallet</vs-button
-                >
+              <div class="py-8">
+                <div class="full-width" style="display: flex">
+                  <vs-button
+                    type="filled"
+                    @click="createRapydWallet()"
+                    class="mx-4"
+                    style="flex-grow: 1"
+                    >Create Rapyd Wallet</vs-button
+                  >
+                </div>
+              </div>
+              <div class="py-8">
+                <div class="full-width" style="display: flex">
+                  <vs-button
+                    type="filled"
+                    @click="getRapydWallet()"
+                    class="mx-4"
+                    style="flex-grow: 1"
+                    >Get Rapyd Wallet</vs-button
+                  >
+                </div>
+              </div>
+              <div class="py-8">
+                <div class="full-width" style="display: flex">
+                  <vs-button
+                    type="filled"
+                    @click="startRapydVerification()"
+                    class="mx-4"
+                    style="flex-grow: 1"
+                    >Verify Identity</vs-button
+                  >
+                </div>
               </div>
             </div>
           </vs-card>
@@ -49,12 +73,13 @@
 
 <script>
 import { mapState } from "vuex";
-import * as rapidSvc from "@/services/rapidSvc";
+import * as rapydSvc from "@/services/rapydSvc";
 
 export default {
   data() {
     return {
       name: "",
+      residenceCountry: null,
     };
   },
   computed: {
@@ -68,7 +93,16 @@ export default {
       this.name = "";
     },
     async createRapydWallet() {
-      await rapidSvc.createRapydWallet();
+      await rapydSvc.createRapydWallet();
+    },
+    async getRapydWallet() {
+      await rapydSvc.getRapydWallet();
+    },
+    async startRapydVerification() {
+      this.residenceCountry = "US";
+      await rapydSvc.getVerificationDocuments({
+        residenceCountry: this.residenceCountry,
+      });
     },
   },
 };

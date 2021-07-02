@@ -11,6 +11,7 @@
     "@fontsource/lato": "^4.4.5",
     "@fontsource/roboto": "^4.4.5",
     "animejs": "^3.2.1",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dotted-map": "^2.1.1",
     "firebase": "^8.6.3",
