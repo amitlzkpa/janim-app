@@ -28,6 +28,17 @@
                   >Update</vs-button
                 >
               </div>
+              <vs-divider />
+              <vs-divider />
+              <div class="full-width" style="display: flex">
+                <vs-button
+                  type="filled"
+                  @click="createRapydWallet()"
+                  class="mx-4"
+                  style="flex-grow: 1"
+                  >Create Rapyd Wallet</vs-button
+                >
+              </div>
             </div>
           </vs-card>
         </div>
@@ -38,6 +49,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as rapidSvc from "@/services/rapidSvc";
 
 export default {
   data() {
@@ -54,6 +66,9 @@ export default {
         name: this.name !== "" ? this.name : this.userProfile.name,
       });
       this.name = "";
+    },
+    async createRapydWallet() {
+      await rapidSvc.createRapydWallet();
     },
   },
 };
