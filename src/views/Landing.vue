@@ -20,12 +20,20 @@
                   justify-content: center;
                   align-items: center;
                 "
-                class="soft-shadow-text"
               >
-                <p style="font-size: 92px; font-weight: 100; color: #9900ff">
+                <p
+                  style="
+                    font-size: 92px;
+                    font-weight: 100;
+                    color: #9900ff;
+                    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+                  "
+                >
                   vyrall
                 </p>
-                <h1>The gig economy for influencers.</h1>
+                <h1 class="soft-shadow-text">
+                  The gig economy for influencers.
+                </h1>
               </div>
             </div>
           </div>
