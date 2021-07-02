@@ -64,6 +64,11 @@
               align-items: center;
             "
           >
+            <img
+              src="/images/icons/queen-svgrepo-com.svg"
+              alt="Queen Icon"
+              height="240"
+            />
             <h1>influencers understand their audience very well</h1>
           </div>
         </div>
@@ -82,6 +87,11 @@
               align-items: center;
             "
           >
+            <img
+              src="/images/icons/chat-svgrepo-com.svg"
+              alt="Chat Icon"
+              height="240"
+            />
             <h1>
               use their expertise to inform where and how you showcase your
               brand
@@ -103,6 +113,11 @@
               align-items: center;
             "
           >
+            <img
+              src="/images/icons/earth-globe-svgrepo-com.svg"
+              alt="Chat Icon"
+              height="240"
+            />
             <h1>connect globally with experts from everywhere</h1>
           </div>
         </div>
