@@ -43,6 +43,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    dotColor: {
+      type: String,
+      default: "#bbbbbb",
+    },
   },
   data() {
     return {
@@ -60,7 +64,7 @@ export default {
         });
         sm = dm.getSVG({
           radius: 0.5,
-          color: "#5b3cc4",
+          color: "#ff0080",
           shape: "circle",
           backgroundColor: "transparent",
         });
@@ -75,7 +79,7 @@ export default {
     dottedMap = new DottedMap({ map: dottedMapJson });
     svgMap = dottedMap.getSVG({
       radius: 0.5,
-      color: "#bbbbbb",
+      color: this.dotColor,
       shape: "circle",
       backgroundColor: "#ffffff",
     });

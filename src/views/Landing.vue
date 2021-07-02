@@ -1,15 +1,51 @@
 <template>
   <div>
-    <vs-row style="height: 700px">
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="6">
-        <div style="width: 100%; height: 100%">
-          <AnimLines />
-        </div>
-      </vs-col>
-      <vs-col vs-type="flex" vs-justify="left" vs-align="center" vs-w="6">
-        <div style="display: flex; flex-direction: column">
-          <p style="font-size: 92px; font-weight: 100">vyrall</p>
-          <h1>The gig economy for influencers.</h1>
+    <vs-row>
+      <vs-col>
+        <div id="wrapper">
+          <div class="content">
+            <div
+              style="
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <p style="font-size: 92px; font-weight: 100">vyrall</p>
+                <h1>The gig economy for influencers.</h1>
+              </div>
+            </div>
+          </div>
+          <div class="background">
+            <div style="position: relative">
+              <div style="object-fit: cover; width: 100%; z-index: -9999">
+                <CountryListViewer :countries="[]" dotColor="#efefef" />
+              </div>
+              <div
+                style="
+                  object-fit: cover;
+                  width: 100%;
+                  height: 700px;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  z-index: 10;
+                "
+              >
+                <AnimLines />
+              </div>
+            </div>
+          </div>
         </div>
       </vs-col>
     </vs-row>
@@ -18,10 +54,12 @@
 
 <script>
 import { mapState } from "vuex";
+import CountryListViewer from "@/components/CountryListViewer";
 import AnimLines from "@/components/AnimLines";
 
 export default {
   components: {
+    CountryListViewer,
     AnimLines,
   },
   data() {
@@ -39,4 +77,25 @@ export default {
 </script>
 
 <style scoped>
+#wrapper {
+  position: relative;
+  width: 100%;
+  height: 700px;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
 </style>
