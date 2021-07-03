@@ -72,8 +72,12 @@ export async function getRapydWallet(opts) {
 
 export async function getVerificationDocuments(opts) {
   let { residenceCountry } = opts;
-  let url = `${rapydEndpt}/identities/types?country=${residenceCountry}`;
+  // let url = `${rapydEndpt}/identities/types?country=${residenceCountry}`;
+  // console.log(url);
+  // let res = await api.get(url, rapydConfig);
+
+  let url = `/api/rapyd`;
   console.log(url);
-  let res = await api.get(url, rapydConfig);
+  let res = await api.get(url);
   console.log(res);
 }
