@@ -41,8 +41,22 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
       },
     };
 
-    let nRes = await axios.get(url, rapydConfig);
-    res.send(nRes.data.data);
+    let nRes;
+    switch (rapydQueryType.toLowerCase()) {
+      case "post": {
+        nRes = await axios.post(url, rapydQueryBody, rapydConfig);
+        break;
+      }
+      case "get": {
+        nRes = await axios.get(url, rapydConfig);
+        break;
+      }
+      default: {
+        console.log(`Unsupported request type: ${rapydQueryType}`);
+        break;
+      }
+    }
+    return res.send(nRes.data.data);
   } catch (err) {
     console.error(err);
   }

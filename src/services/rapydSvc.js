@@ -11,7 +11,6 @@ export async function createRapydWallet(opts) {
   let newWalletInfo = {
     first_name: u.name,
     email: u.email,
-    ewallet_reference_id: u.id,
     metadata: {
       merchant_defined: true,
     },
@@ -22,9 +21,7 @@ export async function createRapydWallet(opts) {
     rapydQueryPath: `/v1/user`,
     rapydQueryBody: JSON.stringify(newWalletInfo),
   };
-  console.log(postBody);
   let res = await api.post(rapypApiProxyEndpt, postBody);
-  console.log(res.data);
   u.walletId = res.data.id;
   await userSvc.saveUser();
 }

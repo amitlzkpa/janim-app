@@ -44,7 +44,7 @@ export async function createUser(opts) {
 export async function saveUser(opts) {
   let userRef = fb.usersCollection.doc(_currentUser.id);
   await userRef.update(_currentUser);
-  let user = await getUser({ userId: u.id });
+  let user = await getUser({ userId: _currentUser.id });
   return user;
 }
 
