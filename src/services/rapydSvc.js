@@ -23,7 +23,8 @@ export async function createRapydWallet(opts) {
   };
   let res = await api.post(rapypApiProxyEndpt, postBody);
   u.walletId = res.data.id;
-  await userSvc.saveUser();
+  let savedUser = await userSvc.saveUser();
+  this.$store.dispatch("saveUserProfile", savedUser);
 }
 
 export async function getRapydWallet(opts) {
