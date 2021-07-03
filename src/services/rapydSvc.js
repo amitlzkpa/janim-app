@@ -18,7 +18,9 @@ export async function createRapydWallet(opts) {
 }
 
 export async function getRapydWallet(opts) {
-  let { ewalletId } = opts;
+  let u = await userSvc.currentUser();
+  let { ewalletId } = opts || {};
+  ewalletId = u.walletIds.self;
 
   let postBody = {
     rapydQueryType: "get",
