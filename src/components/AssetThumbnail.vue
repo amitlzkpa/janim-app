@@ -21,9 +21,10 @@
           <vs-col>
             <vs-row>
               <vs-col vs-w="12">
-                <span style="font-size: 12px; font-style: italics">
-                  {{ asset.id }}
-                </span>
+                <CopyToClipboard
+                  :token="`${pageOrigin}/go/${asset.id}`"
+                  label="Hot Link"
+                />
 
                 <vs-input
                   v-if="editMode"
@@ -88,7 +89,12 @@
 </template>
 
 <script>
+import CopyToClipboard from "@/components/CopyToClipboard";
+
 export default {
+  components: {
+    CopyToClipboard,
+  },
   props: {
     asset: {
       type: Object,
@@ -108,6 +114,11 @@ export default {
       popupIsOpen: false,
       nextTag: "",
     };
+  },
+  computed: {
+    pageOrigin() {
+      return window.location.origin;
+    }
   },
   methods: {
     addNextTag() {
