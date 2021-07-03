@@ -30,18 +30,7 @@
               </div>
               <vs-divider class="my-8" />
               <vs-divider />
-              <div class="py-8">
-                <div class="full-width" style="display: flex">
-                  <vs-button
-                    type="filled"
-                    @click="createRapydWallet()"
-                    class="mx-4"
-                    style="flex-grow: 1"
-                    >Create Rapyd Wallet</vs-button
-                  >
-                </div>
-              </div>
-              <div class="py-8">
+              <div v-if="userProfile.walletId" class="py-8">
                 <div class="full-width" style="display: flex">
                   <vs-button
                     type="filled"
@@ -52,14 +41,14 @@
                   >
                 </div>
               </div>
-              <div class="py-8">
+              <div v-else class="py-8">
                 <div class="full-width" style="display: flex">
                   <vs-button
                     type="filled"
-                    @click="startRapydVerification()"
+                    @click="createRapydWallet()"
                     class="mx-4"
                     style="flex-grow: 1"
-                    >Verify Identity</vs-button
+                    >Create Rapyd Wallet</vs-button
                   >
                 </div>
               </div>
@@ -96,13 +85,8 @@ export default {
       await rapydSvc.createRapydWallet();
     },
     async getRapydWallet() {
+      console.log(this.userProfile);
       await rapydSvc.getRapydWallet();
-    },
-    async startRapydVerification() {
-      this.residenceCountry = "US";
-      await rapydSvc.getVerificationDocuments({
-        residenceCountry: this.residenceCountry,
-      });
     },
   },
 };

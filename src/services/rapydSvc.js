@@ -20,23 +20,11 @@ export async function createRapydWallet(opts) {
 export async function getRapydWallet(opts) {
   let u = await userSvc.currentUser();
   let { ewalletId } = opts || {};
-  ewalletId = u.walletIds.self;
+  ewalletId = u.walletId;
 
   let postBody = {
     rapydQueryType: "get",
     rapydQueryPath: `/v1/user/${ewalletId}`,
-    rapydQueryBody: "",
-  };
-  let res = await api.post(rapypApiProxyEndpt, postBody);
-  console.log(res.data);
-}
-
-export async function getVerificationDocuments(opts) {
-  let { residenceCountry } = opts;
-
-  let postBody = {
-    rapydQueryType: "get",
-    rapydQueryPath: `/v1/identities/types?country=${residenceCountry}`,
     rapydQueryBody: "",
   };
   let res = await api.post(rapypApiProxyEndpt, postBody);
