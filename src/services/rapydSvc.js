@@ -7,14 +7,26 @@ import api from "@/api";
 const rapypApiProxyEndpt = `/api/rapyd`;
 
 export async function createRapydWallet(opts) {
-  console.log("Unimplmented method");
-  // let postBody = {
-  //   rapydQueryType: "post",
-  //   rapydQueryPath: `/v1/user`,
-  //   rapydQueryBody: JSON.stringify(newWalletInfo),
-  // };
-  // let res = await api.post(rapypApiProxyEndpt, postBody);
-  // console.log(res.data);
+  let u = await userSvc.currentUser();
+  let newWalletInfo = {
+    first_name: u.name,
+    email: u.email,
+    ewallet_reference_id: u.id,
+    metadata: {
+      merchant_defined: true,
+    },
+    type: "person",
+  };
+  let postBody = {
+    rapydQueryType: "post",
+    rapydQueryPath: `/v1/user`,
+    rapydQueryBody: JSON.stringify(newWalletInfo),
+  };
+  console.log(postBody);
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  console.log(res.data);
+  u.walletId = res.data.id;
+  await userSvc.saveUser();
 }
 
 export async function getRapydWallet(opts) {
