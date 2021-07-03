@@ -23,3 +23,11 @@ exports.calculateSignature = function (
   );
   return crypto.enc.Base64.stringify(crypto.enc.Utf8.parse(signature));
 };
+
+exports.sanitizeBody = function (inp) {
+  let ret = "";
+  if (JSON.stringify(inp) !== "{}" && inp !== "" && typeof inp !== "object") {
+    ret = JSON.stringify(JSON.parse(inp));
+  }
+  return ret;
+};

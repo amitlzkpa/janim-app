@@ -4,80 +4,39 @@ import * as userSvc from "@/services/userSvc";
 
 import api from "@/api";
 
-let rapydEndpt = `https://sandboxapi.rapyd.net/v1`;
-let rapydConfig = {
-  headers: {
-    rapyd_access_key: "DE32A63299B2DA25527F",
-    rapyd_secret_key:
-      "5107cd2907bb8b8f30227fc2fe0cd3353109e735efd5addf06bab44d1c77362a5944453d9ee9cfa6",
-    "access-control-allow-origin": "*",
-  },
-};
+const rapypApiProxyEndpt = `/api/rapyd`;
 
 export async function createRapydWallet(opts) {
-  let postBody = {
-    first_name: "John",
-    last_name: "Doe",
-    email: "",
-    ewallet_reference_id: "John-Doe-02152020",
-    metadata: {
-      merchant_defined: true,
-    },
-    phone_number: "",
-    type: "person",
-    contact: {
-      phone_number: "+14155551311",
-      email: "johndoe@rapyd.net",
-      first_name: "John",
-      last_name: "Doe",
-      mothers_name: "Jane Smith",
-      contact_type: "personal",
-      address: {
-        name: "John Doe",
-        line_1: "123 Main Street",
-        line_2: "",
-        line_3: "",
-        city: "Anytown",
-        state: "NY",
-        country: "US",
-        zip: "12345",
-        phone_number: "+14155551111",
-        metadata: {},
-        canton: "",
-        district: "",
-      },
-      identification_type: "PA",
-      identification_number: "1234567890",
-      date_of_birth: "11/22/2000",
-      country: "US",
-      nationality: "FR",
-      metadata: {
-        merchant_defined: true,
-      },
-    },
-  };
-  let url = `${rapydEndpt}/user`;
-  console.log(url);
-  let res = await api.post(url, postBody, rapydConfig);
-  console.log(res);
+  console.log("Unimplmented method");
+  // let postBody = {
+  //   rapydQueryType: "post",
+  //   rapydQueryPath: `/v1/user`,
+  //   rapydQueryBody: JSON.stringify(newWalletInfo),
+  // };
+  // let res = await api.post(rapypApiProxyEndpt, postBody);
+  // console.log(res.data);
 }
 
 export async function getRapydWallet(opts) {
-  let ewallet_id = `ewallet_be16896ff549239d672e51541135b218`;
-  let url = `${rapydEndpt}/user/${ewallet_id}`;
-  console.log(url);
-  let res = await api.get(url, rapydConfig);
-  console.log(res);
+  let { ewalletId } = opts;
+
+  let postBody = {
+    rapydQueryType: "get",
+    rapydQueryPath: `/v1/user/${ewalletId}`,
+    rapydQueryBody: "",
+  };
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  console.log(res.data);
 }
 
 export async function getVerificationDocuments(opts) {
   let { residenceCountry } = opts;
-  // let url = `${rapydEndpt}/identities/types?country=${residenceCountry}`;
-  // console.log(url);
-  // let res = await api.get(url, rapydConfig);
 
-  let url = `/api/rapyd`;
-  console.log(url);
-  let res = await api.get(url);
-  console.log(res);
+  let postBody = {
+    rapydQueryType: "get",
+    rapydQueryPath: `/v1/identities/types?country=${residenceCountry}`,
+    rapydQueryBody: "",
+  };
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  console.log(res.data);
 }

@@ -96,7 +96,11 @@ export default {
       await rapydSvc.createRapydWallet();
     },
     async getRapydWallet() {
-      await rapydSvc.getRapydWallet();
+      let ewalletId = "ewallet_be16896ff549239d672e51541135b218";
+
+      await rapydSvc.getRapydWallet({
+        ewalletId,
+      });
     },
     async startRapydVerification() {
       this.residenceCountry = "US";
