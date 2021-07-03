@@ -2,6 +2,7 @@ import * as fb from "@/firebase";
 import * as dbMethods from "@/services/dbMethods";
 import * as userSvc from "@/services/userSvc";
 
+import store from "@/store";
 import api from "@/api";
 
 const rapypApiProxyEndpt = `/api/rapyd`;
@@ -24,7 +25,7 @@ export async function createRapydWallet(opts) {
   let res = await api.post(rapypApiProxyEndpt, postBody);
   u.walletId = res.data.id;
   let savedUser = await userSvc.saveUser();
-  this.$store.dispatch("saveUserProfile", savedUser);
+  store.dispatch("saveUserProfile", savedUser);
 }
 
 export async function getRapydWallet(opts) {
