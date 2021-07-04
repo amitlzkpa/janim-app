@@ -133,7 +133,11 @@
                     />
                   </div>
                   <div>
-                    <vs-table :data="selectedOrg.perms">
+                    <vs-table
+                      :data="selectedOrg.perms"
+                      style="background-color: transparent"
+                      class="soft-shadow-text"
+                    >
                       <template slot="thead">
                         <vs-th> Name </vs-th>
                         <vs-th> Email </vs-th>
@@ -141,7 +145,14 @@
                       </template>
 
                       <template slot-scope="{ data }">
-                        <vs-tr v-for="(tr, indextr) in data" :key="indextr">
+                        <vs-tr
+                          v-for="(tr, indextr) in data"
+                          :key="indextr"
+                          style="
+                            background-color: transparent;
+                            border-bottom: 1px solid #dedede;
+                          "
+                        >
                           <vs-td :data="data[indextr].holder.name">
                             <span
                               style="cursor: pointer"
@@ -198,11 +209,7 @@
                   >
                     <vs-card
                       actionable
-                      style="
-                        height: 90px;
-                        border-radius: 8px;
-                        background-color: #dedede;
-                      "
+                      style="height: 90px; border-radius: 8px"
                       class="my-10"
                     >
                       <p
