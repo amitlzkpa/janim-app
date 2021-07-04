@@ -61,3 +61,9 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
     console.error(err);
   }
 });
+
+exports.go = functions.https.onRequest(async (req, res) => {
+  console.log("go");
+  console.log(req.query.uuid);
+  return res.send("go");
+});
