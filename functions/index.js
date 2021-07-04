@@ -4,6 +4,11 @@ const axios = require("axios");
 
 const rapyd = require("./rapyd");
 
+let app = admin.initializeApp();
+let db = app.firestore();
+let usersCollection = db.collection("users");
+let hotLinksCollection = db.collection("hotLinks");
+
 exports.test = functions.https.onRequest(async (req, res) => {
   functions.logger.info("Test success!", { structuredData: true });
   res.send("Hello from Vyrall!");
@@ -64,14 +69,20 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
 });
 
 exports.go = functions.https.onRequest(async (req, res) => {
-  console.log("go");
-  console.log(req.query.uuid);
-  return res.send("go");
+  try {
+    console.log(req.query);
+    let id = req.query.uuid;
+    console.log(id);
+    let hotLinkRef = hotLinksCollection.doc(id);
+    let hl = await hotLinkRef.get();
+    let hlDoc = hl.data();
+    functions.logger.info(hlDoc, { structuredData: true });
+    return res.redirect(hlDoc.redirectPath);
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send();
+  }
 });
-
-let app = admin.initializeApp();
-let db = app.firestore();
-let usersCollection = db.collection("users");
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
   let benInfo = req.body.data;
