@@ -75,10 +75,8 @@ let usersCollection = db.collection("users");
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
   let benInfo = req.body;
-  console.log(benInfo);
-  let r = await usersCollection
-    .doc(benInfo.beneficiary_optional_fields.vyrall_user_id)
-    .get();
+  functions.logger.info(benInfo, { structuredData: true });
+  let r = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
   let u = r.data();
   u.beneficiaryAcct = benInfo;
   r.update(u);
