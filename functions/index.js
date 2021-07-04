@@ -75,23 +75,14 @@ let db = app.firestore();
 let usersCollection = db.collection("users");
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
-  let benInfo = req.body;
+  let benInfo = req.body.data;
   functions.logger.info(benInfo, { structuredData: true });
-
-  let q = await getUser("05Uercv9NwUXo7t2IdxiK9iuBww1");
-  console.log(q);
 
   let vyrallId = benInfo.merchant_reference_id;
   let uRef = usersCollection.doc(vyrallId);
-  let u = await getUser(vyrallId);
+  let uDoc = await uRef.get();
+  let u = uDoc.data();
   u.beneficiaryAcct = benInfo;
   uRef.update(u);
   return res.send(u);
 });
-
-async function getUser(id) {
-  let uRef = usersCollection.doc(id);
-  let uDoc = await uRef.get();
-  let u = uDoc.data();
-  return u;
-}
