@@ -117,3 +117,21 @@ export async function createRapydTransfer(opts) {
   let res = await api.post(rapypApiProxyEndpt, postBody);
   console.log(res.data);
 }
+
+export async function connectRapydBeneficiaryAcct(opts) {
+  let u = await userSvc.currentUser();
+  let newBeneficiaryPageInfo = {
+    beneficiary_entity_type: "individual",
+    sender_country: "US",
+    sender_entity_type: "individual",
+  };
+  let postBody = {
+    rapydQueryType: "post",
+    rapydQueryPath: `/v1/hosted/disburse/beneficiary`,
+    rapydQueryBody: JSON.stringify(newBeneficiaryPageInfo),
+  };
+  console.log(newBeneficiaryPageInfo);
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  console.log(res.data);
+  window.open(res.data.redirect_url, "_blank").focus();
+}

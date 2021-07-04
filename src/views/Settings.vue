@@ -66,6 +66,18 @@
                     >
                   </div>
                 </div>
+
+                <div class="py-8">
+                  <div class="full-width" style="display: flex">
+                    <vs-button
+                      type="filled"
+                      @click="connectRapydBeneficiaryAcct()"
+                      class="mx-4"
+                      style="flex-grow: 1"
+                      >Connect Receiving Account</vs-button
+                    >
+                  </div>
+                </div>
               </div>
 
               <div v-else>
@@ -121,6 +133,9 @@ export default {
     },
     async createRapydTransfer() {
       await rapydSvc.createRapydTransfer();
+    },
+    async connectRapydBeneficiaryAcct() {
+      await rapydSvc.connectRapydBeneficiaryAcct();
     },
   },
 };
