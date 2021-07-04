@@ -82,12 +82,15 @@ exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
   admin.initializeApp(firebaseConfig);
   let db = admin.firestore();
 
-  functions.logger.info("wh_beneficiary_created");
-  functions.logger.info(req.headers, { structuredData: true });
-  functions.logger.info(req.body, { structuredData: true });
+  console.log("wh_beneficiary_created");
+  console.log(req.headers);
+  console.log(req.body);
 
   let usersCollection = db.collection("users");
-  let u = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
-  functions.logger.info(u);
-  return res.send("wh_beneficiary_created");
+  let r = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
+  let u = r.data();
+  console.log();
+  console.log(u);
+  console.log();
+  return res.send(u);
 });
