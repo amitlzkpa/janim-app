@@ -76,7 +76,8 @@ exports.go = functions.https.onRequest(async (req, res) => {
     let hl = await hotLinkRef.get();
     let hlDoc = hl.data();
     if (hlDoc.isActive && !!hlDoc.redirectPath) {
-      hlDoc.hits = hlDoc.hits + 1;
+      let curHtCt = hlDoc.hits || 0;
+      hlDoc.hits = curHtCt + 1;
       hotLinkRef.update(hlDoc);
       return res.redirect(hlDoc.redirectPath);
     } else {

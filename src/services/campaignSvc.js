@@ -25,7 +25,6 @@ export async function saveCampaign(campaignData) {
     let opts = {
       campaignId: campaignData.campaign.id,
       assetId: asset.id,
-      hits: asset.hotLinkData.hits || 0,
       isActive:
         asset.isActive.toString() === "true" &&
         (!asset.isHidden).toString() === "true",
