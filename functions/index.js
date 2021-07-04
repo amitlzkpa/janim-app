@@ -1,5 +1,5 @@
 const functions = require("firebase-functions");
-const firebase = require("firebase");
+const admin = require("firebase-admin");
 const axios = require("axios");
 
 const rapyd = require("./rapyd");
@@ -79,8 +79,8 @@ exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
     appId: "1:429094377009:web:19364668bb00df5fb52710",
     measurementId: "G-SB0E11C90Y",
   };
-  firebase.initializeApp(firebaseConfig);
-  let db = firebase.firestore();
+  admin.initializeApp(firebaseConfig);
+  let db = admin.firestore();
 
   functions.logger.info("wh_beneficiary_created");
   functions.logger.info(req.headers, { structuredData: true });
