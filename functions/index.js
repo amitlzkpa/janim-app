@@ -69,13 +69,18 @@ exports.go = functions.https.onRequest(async (req, res) => {
   return res.send("go");
 });
 
+let app = admin.initializeApp();
+let db = app.firestore();
+let usersCollection = db.collection("users");
+
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
-  let db = admin.firestore();
-  let usersCollection = db.collection("users");
-  console.log(req.body);
-  let r = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
+  let benInfo = req.body;
+  console.log(benInfo);
+  let r = await usersCollection
+    .doc(benInfo.beneficiary_optional_fields.vyrall_user_id)
+    .get();
   let u = r.data();
-  u.beneficiaryAcct = req.body;
+  u.beneficiaryAcct = benInfo;
   r.update(u);
   return res.send(u);
 });
