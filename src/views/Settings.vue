@@ -54,6 +54,18 @@
                     >
                   </div>
                 </div>
+
+                <div class="py-8">
+                  <div class="full-width" style="display: flex">
+                    <vs-button
+                      type="filled"
+                      @click="createRapydTransfer()"
+                      class="mx-4"
+                      style="flex-grow: 1"
+                      >Create Rapyd Transfer</vs-button
+                    >
+                  </div>
+                </div>
               </div>
 
               <div v-else>
@@ -106,6 +118,9 @@ export default {
     },
     async createRapydPayout() {
       await rapydSvc.createRapydPayout();
+    },
+    async createRapydTransfer() {
+      await rapydSvc.createRapydTransfer();
     },
   },
 };

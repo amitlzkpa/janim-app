@@ -99,3 +99,21 @@ export async function createRapydPayout(opts) {
   let res = await api.post(rapypApiProxyEndpt, postBody);
   console.log(res.data);
 }
+
+export async function createRapydTransfer(opts) {
+  let u = await userSvc.currentUser();
+  let newTransferInfo = {
+    source_ewallet: "ewallet_532a14d92715f4238cdd75e04576b6ad",
+    amount: 8,
+    currency: "USD",
+    destination_ewallet: "ewallet_5528d177012763345eec576ee9d11057",
+  };
+  let postBody = {
+    rapydQueryType: "post",
+    rapydQueryPath: `/v1/account/transfer`,
+    rapydQueryBody: JSON.stringify(newTransferInfo),
+  };
+  console.log(newTransferInfo);
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  console.log(res.data);
+}
