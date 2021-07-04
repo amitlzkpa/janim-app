@@ -70,18 +70,11 @@ exports.go = functions.https.onRequest(async (req, res) => {
 });
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
-  let serviceAccount = require("./keys/vyrall-firebase-adminsdk.json");
-  let app = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-  let db = app.firestore();
-  console.log(app.name);
-
-  console.log("--------------------");
-
+  let db = admin.firestore();
   let usersCollection = db.collection("users");
   let r = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
   let u = r.data();
-  console.log(u);
+  u.beneficiaryAcct = req.body;
+  r.update(u);
   return res.send(u);
 });
