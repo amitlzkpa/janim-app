@@ -3,6 +3,7 @@ import * as utils from "@/utils";
 import * as dbMethods from "@/services/dbMethods";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
+import * as hotlinksSvc from "@/services/hotLinksSvc";
 import campaignSchema from "@/schemas/campaign";
 import _ from "lodash";
 
@@ -18,6 +19,18 @@ export async function saveCampaign(campaignData) {
   campaignData.campaign.dateRange = campaignData.campaign.dateRange.map(
     (d) => new Date(d)
   );
+
+  // update hotlinks
+  for (let asset of campaignData.campaign.assets) {
+    let opts = {
+      campaignId: campaignData.campaign.id,
+      assetId: asset.id,
+      hits: asset.hotLinkData.hits || 0,
+      isActive: asset.isActive || true,
+      redirectPath: asset.targetUrl || "",
+    };
+    hotlinksSvc.updateOrAddHotLink(opts);
+  }
   // quick-hack end
   await fb.campaignsCollection
     .doc(campaignData.campaign.id)
@@ -40,6 +53,13 @@ export async function getCampaign(campaignId) {
   // convert to pure js Date object from the firebase timestamp format
   campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
   // quick-hack end
+
+  // get hotlinks
+  let hls = await hotlinksSvc.getCampaignHotLinks({ campaignId });
+  campaignData.assets.forEach((a) => {
+    a.hotLinkData = hls.find((h) => h.assetId === a.id);
+  });
+  console.log(campaignData.assets);
 
   if (!isNew) {
     campaignData.organization = await orgSvc.getFullOrg({

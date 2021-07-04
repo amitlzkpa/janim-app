@@ -3,7 +3,6 @@ const admin = require("firebase-admin");
 const axios = require("axios");
 
 const rapyd = require("./rapyd");
-const { upperFirst } = require("lodash");
 
 exports.test = functions.https.onRequest(async (req, res) => {
   functions.logger.info("Test success!", { structuredData: true });
@@ -76,8 +75,6 @@ let usersCollection = db.collection("users");
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
   let benInfo = req.body.data;
-  functions.logger.info(benInfo, { structuredData: true });
-
   let vyrallId = benInfo.merchant_reference_id;
   let uRef = usersCollection.doc(vyrallId);
   let uDoc = await uRef.get();
