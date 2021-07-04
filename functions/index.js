@@ -2,18 +2,6 @@ const functions = require("firebase-functions");
 const firebase = require("firebase");
 const axios = require("axios");
 
-let firebaseConfig = {
-  apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
-  authDomain: "vyrall.firebaseapp.com",
-  projectId: "vyrall",
-  storageBucket: "vyrall.appspot.com",
-  messagingSenderId: "429094377009",
-  appId: "1:429094377009:web:19364668bb00df5fb52710",
-  measurementId: "G-SB0E11C90Y",
-};
-firebase.initializeApp(firebaseConfig);
-let db = firebase.firestore();
-
 const rapyd = require("./rapyd");
 
 exports.test = functions.https.onRequest(async (req, res) => {
@@ -82,6 +70,18 @@ exports.go = functions.https.onRequest(async (req, res) => {
 });
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
+  let firebaseConfig = {
+    apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
+    authDomain: "vyrall.firebaseapp.com",
+    projectId: "vyrall",
+    storageBucket: "vyrall.appspot.com",
+    messagingSenderId: "429094377009",
+    appId: "1:429094377009:web:19364668bb00df5fb52710",
+    measurementId: "G-SB0E11C90Y",
+  };
+  firebase.initializeApp(firebaseConfig);
+  let db = firebase.firestore();
+
   functions.logger.info("wh_beneficiary_created");
   functions.logger.info(req.headers, { structuredData: true });
   functions.logger.info(req.body, { structuredData: true });
