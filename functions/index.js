@@ -67,3 +67,10 @@ exports.go = functions.https.onRequest(async (req, res) => {
   console.log(req.query.uuid);
   return res.send("go");
 });
+
+exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
+  functions.logger.info("wh_beneficiary_created");
+  functions.logger.info(req.headers, { structuredData: true });
+  functions.logger.info(req.body, { structuredData: true });
+  return res.send("wh_beneficiary_created");
+});

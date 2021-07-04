@@ -35,6 +35,10 @@
         "function": "go"
       },
       {
+        "source": "/webhook/beneficiary_created",
+        "function": "wh_beneficiary_created"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
