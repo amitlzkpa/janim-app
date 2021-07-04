@@ -30,26 +30,43 @@
               </div>
               <vs-divider class="my-8" />
               <vs-divider />
-              <div v-if="userProfile.walletId" class="py-8">
-                <div class="full-width" style="display: flex">
-                  <vs-button
-                    type="filled"
-                    @click="getRapydWallet()"
-                    class="mx-4"
-                    style="flex-grow: 1"
-                    >Get Rapyd Wallet</vs-button
-                  >
+              <div v-if="userProfile.walletId">
+                <div class="py-8">
+                  <div class="full-width" style="display: flex">
+                    <vs-button
+                      type="filled"
+                      @click="getRapydWallet()"
+                      class="mx-4"
+                      style="flex-grow: 1"
+                      >Get Rapyd Wallet</vs-button
+                    >
+                  </div>
+                </div>
+
+                <div class="py-8">
+                  <div class="full-width" style="display: flex">
+                    <vs-button
+                      type="filled"
+                      @click="createRapydPayout()"
+                      class="mx-4"
+                      style="flex-grow: 1"
+                      >Create Rapyd Payout</vs-button
+                    >
+                  </div>
                 </div>
               </div>
-              <div v-else class="py-8">
-                <div class="full-width" style="display: flex">
-                  <vs-button
-                    type="filled"
-                    @click="createRapydWallet()"
-                    class="mx-4"
-                    style="flex-grow: 1"
-                    >Create Rapyd Wallet</vs-button
-                  >
+
+              <div v-else>
+                <div class="py-8">
+                  <div class="full-width" style="display: flex">
+                    <vs-button
+                      type="filled"
+                      @click="createRapydWallet()"
+                      class="mx-4"
+                      style="flex-grow: 1"
+                      >Create Rapyd Wallet</vs-button
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -85,8 +102,10 @@ export default {
       await rapydSvc.createRapydWallet();
     },
     async getRapydWallet() {
-      console.log(this.userProfile);
       await rapydSvc.getRapydWallet();
+    },
+    async createRapydPayout() {
+      await rapydSvc.createRapydPayout();
     },
   },
 };
