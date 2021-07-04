@@ -76,7 +76,8 @@ exports.go = functions.https.onRequest(async (req, res) => {
     let hotLinkRef = hotLinksCollection.doc(id);
     let hl = await hotLinkRef.get();
     let hlDoc = hl.data();
-    functions.logger.info(hlDoc, { structuredData: true });
+    hlDoc.hits = hlDoc.hits + 1;
+    hotLinkRef.update(hlDoc);
     return res.redirect(hlDoc.redirectPath);
   } catch (err) {
     console.log(err);
