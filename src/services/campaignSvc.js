@@ -26,10 +26,13 @@ export async function saveCampaign(campaignData) {
       campaignId: campaignData.campaign.id,
       assetId: asset.id,
       hits: asset.hotLinkData.hits || 0,
-      isActive: asset.isActive.toString() === "true",
+      isActive:
+        asset.isActive.toString() === "true" &&
+        (!asset.isHidden).toString() === "true",
       redirectPath: asset.targetUrl || "",
     };
     hotlinksSvc.updateOrAddHotLink(opts);
+    delete asset.hotLinkData;
   }
   // quick-hack end
   await fb.campaignsCollection
