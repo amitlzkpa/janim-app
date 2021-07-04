@@ -6,6 +6,7 @@
         opacity: ${asset.isActive ? '1' : '0.4'};
         padding: ${asset.isActive ? '0' : '12'}px;
         width: 100%; height: 100%;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
       `"
     />
     <vs-popup :title="asset.name" :active.sync="popupIsOpen">
@@ -118,7 +119,7 @@ export default {
   computed: {
     pageOrigin() {
       return window.location.origin;
-    }
+    },
   },
   methods: {
     addNextTag() {

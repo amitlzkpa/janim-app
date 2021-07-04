@@ -81,7 +81,7 @@ export default {
       radius: 0.5,
       color: this.dotColor,
       shape: "circle",
-      backgroundColor: "#ffffff",
+      backgroundColor: "transparent",
     });
     this.baseMap = encodeURIComponent(svgMap);
   },

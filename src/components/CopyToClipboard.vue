@@ -8,6 +8,7 @@
       padding: 2px;
       font-size: 12px;
       font-style: italics;
+      cursor: copy;
     "
   >
     <div @click="copyApiToken">

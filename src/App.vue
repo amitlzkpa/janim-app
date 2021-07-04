@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    <div
+      style="
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(30deg, #f4f0ec, transparent);
+        z-index: -99999;
+      "
+    ></div>
     <Navbar />
     <router-view />
   </div>

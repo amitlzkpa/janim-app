@@ -31,7 +31,7 @@
                 >
                   vyrall
                 </p>
-                <h1 class="soft-shadow-text">
+                <h1 class="soft-shadow-text" style="font-weight: 300">
                   The gig economy for influencers.
                 </h1>
               </div>
@@ -63,7 +63,7 @@
 
     <vs-row>
       <vs-col>
-        <div style="height: 400px">
+        <div style="height: 600px">
           <div
             style="
               display: flex;
@@ -78,7 +78,16 @@
               alt="Queen Icon"
               height="240"
             />
-            <h1 style="color: #ff0080" class="soft-shadow-text">
+            <h1
+              style="
+                color: #ff0080;
+                font-weight: 200;
+                font-size: 48px;
+                max-width: 800px;
+                text-align: center;
+              "
+              class="soft-shadow-text"
+            >
               influencers understand their audience very well
             </h1>
           </div>
@@ -88,7 +97,7 @@
 
     <vs-row>
       <vs-col>
-        <div style="height: 400px">
+        <div style="height: 600px">
           <div
             style="
               display: flex;
@@ -103,7 +112,16 @@
               alt="Chat Icon"
               height="240"
             />
-            <h1 style="color: #ff0080" class="soft-shadow-text">
+            <h1
+              style="
+                color: #ff0080;
+                font-weight: 200;
+                font-size: 48px;
+                max-width: 800px;
+                text-align: center;
+              "
+              class="soft-shadow-text"
+            >
               use their expertise to inform where and how you showcase your
               brand
             </h1>
@@ -114,7 +132,7 @@
 
     <vs-row>
       <vs-col>
-        <div style="height: 400px">
+        <div style="height: 600px">
           <div
             style="
               display: flex;
@@ -129,7 +147,16 @@
               alt="Earth Icon"
               height="240"
             />
-            <h1 style="color: #ff0080" class="soft-shadow-text">
+            <h1
+              style="
+                color: #ff0080;
+                font-weight: 200;
+                font-size: 48px;
+                max-width: 800px;
+                text-align: center;
+              "
+              class="soft-shadow-text"
+            >
               connect globally with experts from everywhere
             </h1>
           </div>
