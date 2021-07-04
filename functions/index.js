@@ -72,14 +72,16 @@ exports.go = functions.https.onRequest(async (req, res) => {
   try {
     console.log(req.query);
     let id = req.query.uuid;
-    console.log(id);
     let hotLinkRef = hotLinksCollection.doc(id);
     let hl = await hotLinkRef.get();
     let hlDoc = hl.data();
-    functions.logger.info(hlDoc, { structuredData: true });
-    hlDoc.hits = hlDoc.hits + 1;
-    hotLinkRef.update(hlDoc);
-    return res.redirect(hlDoc.redirectPath);
+    if (hlDoc.isActive && !!hlDoc.redirectPath) {
+      hlDoc.hits = hlDoc.hits + 1;
+      hotLinkRef.update(hlDoc);
+      return res.redirect(hlDoc.redirectPath);
+    } else {
+      return res.redirect("https://www.youtube.com/watch?v=iik25wqIuFo");
+    }
   } catch (err) {
     console.log(err);
     return res.status(404).send();

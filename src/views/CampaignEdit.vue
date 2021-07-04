@@ -636,6 +636,7 @@ import { mapState } from "vuex";
 import * as fb from "@/firebase";
 import { v4 as uuidv4 } from "uuid";
 import * as orgSvc from "@/services/orgSvc";
+import * as hotlinksSvc from "@/services/hotLinksSvc";
 
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
@@ -744,6 +745,12 @@ export default {
       let delAssetIdx = this.editedCampaign.assets.findIndex(
         (a) => a.id === assetToDelete.id
       );
+      let opts = {
+        campaignId: this.editedCampaign.id,
+        assetId: this.editedCampaign.assets[delAssetIdx].id,
+        isActive: false,
+      };
+      hotlinksSvc.setHotLinkActiveStatus(opts);
       this.editedCampaign.assets.splice(delAssetIdx, 1);
     },
   },

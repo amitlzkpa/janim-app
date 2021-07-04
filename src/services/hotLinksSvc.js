@@ -6,9 +6,21 @@ import * as userSvc from "@/services/userSvc";
 export async function updateOrAddHotLink(opts) {
   let newId = `${opts.campaignId}_${opts.assetId}`;
   opts.id = newId;
-  let newHlDoc = fb.hotLinksCollection.doc(newId);
-  let hl = await newHlDoc.set(opts, { merge: true });
-  return hl;
+  let newHlRef = fb.hotLinksCollection.doc(newId);
+  let hlDoc = await newHlRef.set(opts, { merge: true });
+  return hlDoc;
+}
+
+export async function setHotLinkActiveStatus(opts) {
+  let id = `${opts.campaignId}_${opts.assetId}`;
+  let hotLinkRef = fb.hotLinksCollection.doc(id);
+  let hlDoc = await hotLinkRef.set(
+    {
+      isActive: opts.isActive,
+    },
+    { merge: true }
+  );
+  return hlDoc;
 }
 
 export async function getHotLinkItem(opts) {
