@@ -2,6 +2,16 @@ const functions = require("firebase-functions");
 const firebase = require("firebase");
 const axios = require("axios");
 
+let firebaseConfig = {
+  apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
+  authDomain: "vyrall.firebaseapp.com",
+  projectId: "vyrall",
+  storageBucket: "vyrall.appspot.com",
+  messagingSenderId: "429094377009",
+  appId: "1:429094377009:web:19364668bb00df5fb52710",
+  measurementId: "G-SB0E11C90Y",
+};
+firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore();
 
 const rapyd = require("./rapyd");
