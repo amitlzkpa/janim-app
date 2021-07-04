@@ -70,27 +70,18 @@ exports.go = functions.https.onRequest(async (req, res) => {
 });
 
 exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
-  let firebaseConfig = {
-    apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
-    authDomain: "vyrall.firebaseapp.com",
-    projectId: "vyrall",
-    storageBucket: "vyrall.appspot.com",
-    messagingSenderId: "429094377009",
-    appId: "1:429094377009:web:19364668bb00df5fb52710",
-    measurementId: "G-SB0E11C90Y",
-  };
-  admin.initializeApp(firebaseConfig);
-  let db = admin.firestore();
+  let serviceAccount = require("./keys/vyrall-firebase-adminsdk.json");
+  let app = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+  let db = app.firestore();
+  console.log(app.name);
 
-  console.log("wh_beneficiary_created");
-  console.log(req.headers);
-  console.log(req.body);
+  console.log("--------------------");
 
   let usersCollection = db.collection("users");
   let r = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
   let u = r.data();
-  console.log();
   console.log(u);
-  console.log();
   return res.send(u);
 });
