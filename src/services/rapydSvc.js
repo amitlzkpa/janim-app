@@ -124,6 +124,7 @@ export async function connectRapydBeneficiaryAcct(opts) {
     beneficiary_entity_type: "individual",
     sender_country: "US",
     sender_entity_type: "individual",
+    merchant_reference_id: u.id,
     beneficiary_optional_fields: {
       vyrall_user_id: u.id,
     },
