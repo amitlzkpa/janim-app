@@ -1,5 +1,8 @@
 const functions = require("firebase-functions");
+const firebase = require("firebase");
 const axios = require("axios");
+
+let db = firebase.firestore();
 
 const rapyd = require("./rapyd");
 
@@ -72,5 +75,9 @@ exports.wh_beneficiary_created = functions.https.onRequest(async (req, res) => {
   functions.logger.info("wh_beneficiary_created");
   functions.logger.info(req.headers, { structuredData: true });
   functions.logger.info(req.body, { structuredData: true });
+
+  let usersCollection = db.collection("users");
+  let u = await usersCollection.doc("05Uercv9NwUXo7t2IdxiK9iuBww1").get();
+  functions.logger.info(u);
   return res.send("wh_beneficiary_created");
 });

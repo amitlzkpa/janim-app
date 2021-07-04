@@ -124,6 +124,9 @@ export async function connectRapydBeneficiaryAcct(opts) {
     beneficiary_entity_type: "individual",
     sender_country: "US",
     sender_entity_type: "individual",
+    beneficiary_optional_fields: {
+      vyrall_user_id: u.id,
+    },
   };
   let postBody = {
     rapydQueryType: "post",
