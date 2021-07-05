@@ -127,8 +127,8 @@
           >
             <RapydWalletCard :walletAddress="userProfile.walletId" />
             <div>
-              <h4 style="font-weight: 600">Campaigns Joined</h4>
-              <div class="mt-8">
+              <h2>Campaigns Joined</h2>
+              <div class="mt-20">
                 <CampaignList />
               </div>
             </div>
