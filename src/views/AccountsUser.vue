@@ -34,6 +34,7 @@
                       ? 'You account is verified!'
                       : 'Verify your Rapyd account to use full features'
                   "
+                  position="bottom"
                 >
                   <div class="mt-8">
                     <img
@@ -49,6 +50,13 @@
                     />
                   </div>
                 </vs-tooltip>
+                <a
+                  v-if="!isRapydVerified"
+                  style="font-size: 12px; font-face: consolas"
+                  target="_blank"
+                  href="/rapyd/verify"
+                  >Click here to verify</a
+                >
               </div>
             </div>
 
