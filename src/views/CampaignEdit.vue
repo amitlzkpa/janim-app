@@ -259,7 +259,7 @@
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="person_outline" color="success"></vs-icon>
-              <span class="ml-8"> {{ editedCampaign.campaignJoins.length }} MEMBERS </span>
+              <span class="ml-8"> 78 MEMBERS </span>
             </vs-col>
           </vs-row>
 
