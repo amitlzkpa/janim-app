@@ -52,6 +52,16 @@
                 <span style="flex-grow: 1" />
                 <vs-button
                   class="mb-10"
+                  color="primary"
+                  type="flat"
+                  :disabled="
+                    editedCampaign.id === 'new'
+                  "
+                  :to="`/campaign/view/${editedCampaign.id}`"
+                  >View</vs-button
+                >
+                <vs-button
+                  class="mb-10"
                   :color="hasPendingSaves ? 'danger' : 'primary'"
                   :disabled="
                     !hasPendingSaves ||
