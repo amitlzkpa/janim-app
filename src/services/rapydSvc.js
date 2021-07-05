@@ -39,7 +39,7 @@ export async function getRapydWallet(opts) {
     rapydQueryBody: "",
   };
   let res = await api.post(rapypApiProxyEndpt, postBody);
-  console.log(res.data);
+  return res.data;
 }
 
 export async function createRapydPayout(opts) {
