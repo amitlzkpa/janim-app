@@ -140,28 +140,27 @@ export async function connectRapydBeneficiaryAcct(opts) {
 }
 
 export async function connectRapydSenderAcct(opts) {
-  let u = await userSvc.currentUser();
+  let currencyCode = opts.currencyCode;
+  let senderName = opts.name;
   let newSenderInfo = {
     country: "US",
-    currency: "USD",
+    currency: currencyCode,
     entity_type: "company",
-    name: "ACME Inc.",
+    name: senderName,
     identification_type: "identification_id",
     identification_value: "987654321",
     // Fields from 'sender_required_fields' in the response to 'Get Payout Method Type Required Fields'
     date_of_birth: "12/12/2000",
     address: "1 Second Street",
-    city: "Montreal",
-    state: "Quebec",
-    postcode: "12345",
+    city: "New York",
+    state: "NY",
+    postcode: "11001",
   };
   let postBody = {
     rapydQueryType: "post",
-    rapydQueryPath: `/v1/hosted/payouts/sender`,
+    rapydQueryPath: `/v1/payouts/sender`,
     rapydQueryBody: JSON.stringify(newSenderInfo),
   };
-  console.log(newSenderInfo);
-  // let res = await api.post(rapypApiProxyEndpt, postBody);
-  // console.log(res.data);
-  // window.open(res.data.redirect_url, "_blank").focus();
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  return res.data;
 }

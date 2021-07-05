@@ -93,3 +93,11 @@ export async function getFullOrg(opts) {
   org.campaigns = campaigns;
   return org;
 }
+
+export async function saveOrgSenderAcct(opts) {
+  let orgId = opts.orgId;
+  let senderAcctInfo = opts.senderAcctInfo;
+  await fb.organizationsCollection.doc(orgId).update({ senderAcctInfo });
+  let o = await getFullOrg({ orgId });
+  return o;
+}

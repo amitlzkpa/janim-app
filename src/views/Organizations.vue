@@ -397,7 +397,20 @@ export default {
       this.selectedOrg = updOrg;
     },
     async connectRapydSenderAcct() {
-      await rapydSvc.connectRapydSenderAcct();
+      let opts = {
+        currencyCode: this.userProfile.currencyPref
+          ? this.userProfile.currencyPref.code
+          : "USD",
+        name: this.selectedOrg.name,
+      };
+      let res = await rapydSvc.connectRapydSenderAcct(opts);
+      let senderAcctInfo = res;
+      let orgSaveData = {
+        orgId: this.selectedOrg.id,
+        senderAcctInfo: senderAcctInfo,
+      };
+      let updOrg = await orgSvc.saveOrgSenderAcct(orgSaveData);
+      this.selectedOrg = updOrg;
     },
   },
 };
