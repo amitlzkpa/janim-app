@@ -59,48 +59,6 @@
                 >
               </div>
             </div>
-
-            <div style="height: 400px" />
-
-            <summary>
-              <details>
-                <div class="py-8">
-                  <div class="full-width" style="display: flex">
-                    <vs-button
-                      type="filled"
-                      @click="createRapydPayout()"
-                      class="mx-4"
-                      style="flex-grow: 1"
-                      >Create Rapyd Payout</vs-button
-                    >
-                  </div>
-                </div>
-
-                <div class="py-8">
-                  <div class="full-width" style="display: flex">
-                    <vs-button
-                      type="filled"
-                      @click="createRapydTransfer()"
-                      class="mx-4"
-                      style="flex-grow: 1"
-                      >Create Rapyd Transfer</vs-button
-                    >
-                  </div>
-                </div>
-
-                <div class="py-8">
-                  <div class="full-width" style="display: flex">
-                    <vs-button
-                      type="filled"
-                      @click="connectRapydBeneficiaryAcct()"
-                      class="mx-4"
-                      style="flex-grow: 1"
-                      >Connect Receiving Account</vs-button
-                    >
-                  </div>
-                </div>
-              </details>
-            </summary>
           </div>
 
           <div v-else>
@@ -114,7 +72,7 @@
                   text-align: center;
                 "
               >
-                <div style="height: 120px">
+                <div>
                   <div style="font-weight: 300; font-style: italic">
                     Seems like your account is not connected with a wallet.
                   </div>
