@@ -96,17 +96,103 @@
             </div>
           </div>
 
-          <div class="py-4">
-            <div>
-              <h2>High Performers</h2>
-              <div v-if="hpAssets.length < 1" class="mt-8">
+          <div
+            class="py-4"
+            style="
+              min-height: 400px;
+              display: flex;
+              flex-direction: column;
+              max-height: 1200px;
+              overflow-x: auto;
+            "
+          >
+            <h2>High Performers</h2>
+            <div style="flex-grow: 1">
+              <div v-if="hpAssets.length < 1">
                 <span class="flex-center full-width country-label"
                   >No assets found</span
                 >
               </div>
               <div v-else>
                 <div v-for="(hpAsset, idx) of hpAssets" :key="idx">
-                  {{ hpAsset }}
+                  <vs-card actionable class="cardx my-24">
+                    <div slot="header">
+                      <p
+                        style="
+                          color: #696969;
+                          font-size: 20px;
+                          font-weight: 600;
+                        "
+                      >
+                        {{ hpAsset.name }}
+                      </p>
+                    </div>
+                    <div slot="media">
+                      <img :src="hpAsset.imgSrc" />
+                    </div>
+                    <div style="display: flex">
+                      <div style="flex-grow: 1"></div>
+                      <div style="flex-grow: 0">
+                        <div
+                          style="
+                            width: 100px;
+                            color: #696969;
+                            font-weight: 600;
+                            font-size: 18px;
+                          "
+                        >
+                          <vs-tooltip text="Total earned">
+                            <p>
+                              <vs-icon
+                                icon="payments"
+                                size="15px"
+                                color="696969"
+                              />
+                              42
+                              <span style="font-size: 12px; font-weight: 300"
+                                >earned</span
+                              >
+                            </p>
+                          </vs-tooltip>
+                          <vs-tooltip text="Total clicks">
+                            <p>
+                              <vs-icon
+                                icon="ads_click"
+                                size="15px"
+                                color="696969"
+                              />
+                              98
+                              <span style="font-size: 12px; font-weight: 300"
+                                >clicks</span
+                              >
+                            </p>
+                          </vs-tooltip>
+                        </div>
+                      </div>
+                    </div>
+                    <div slot="footer">
+                      <vs-row vs-justify="flex-end">
+                        <vs-tooltip text="Post to campaign">
+                          <vs-button
+                            color="danger"
+                            type="gradient"
+                            class="mx-4"
+                          >
+                            <vs-icon icon="comment" color="white"
+                          /></vs-button>
+                        </vs-tooltip>
+                        <vs-tooltip text="Open details">
+                          <vs-button
+                            color="primary"
+                            type="gradient"
+                            class="mx-4"
+                          >
+                            <vs-icon icon="forward" color="white"
+                          /></vs-button>
+                        </vs-tooltip>
+                      </vs-row>
+                    </div>
+                  </vs-card>
                 </div>
               </div>
             </div>
@@ -123,12 +209,28 @@
 import { mapState } from "vuex";
 import * as rapydSvc from "@/services/rapydSvc";
 
+let sampleHpAsset = [
+  {
+    id: "abc",
+    name: "Sandy_beach",
+    imgSrc: "/images/stock/01.jpg",
+    campaignName: "Where are you going?",
+  },
+  {
+    id: "def",
+    name: "backtrunk_0242.jpg",
+    imgSrc: "/images/stock/02.jpg",
+    campaignName: "Fendi Winter Drop",
+  },
+];
+
 export default {
   data() {
     return {
       rapydWalletLoading: false,
       rapydWalletData: {},
-      hpAssets: [],
+      // hpAssets: [],
+      hpAssets: sampleHpAsset,
     };
   },
   computed: {
