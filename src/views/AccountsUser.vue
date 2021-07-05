@@ -131,11 +131,21 @@
                       <img :src="hpAsset.imgSrc" />
                     </div>
                     <div style="display: flex">
-                      <div style="flex-grow: 1"></div>
+                      <div style="flex-grow: 1">
+                        <p
+                          style="
+                            color: #696969;
+                            font-size: 16px;
+                            font-weight: 400;
+                            font-style: italic;
+                          "
+                        >
+                          {{ hpAsset.campaignName }}
+                        </p>
+                      </div>
                       <div style="flex-grow: 0">
                         <div
                           style="
-                            width: 100px;
                             color: #696969;
                             font-weight: 600;
                             font-size: 18px;
@@ -148,7 +158,7 @@
                                 size="15px"
                                 color="696969"
                               />
-                              42
+                              {{ hpAsset.totalEarned }}
                               <span style="font-size: 12px; font-weight: 300"
                                 >earned</span
                               >
@@ -161,7 +171,7 @@
                                 size="15px"
                                 color="696969"
                               />
-                              98
+                              {{ hpAsset.totalHits }}
                               <span style="font-size: 12px; font-weight: 300"
                                 >clicks</span
                               >
@@ -215,12 +225,16 @@ let sampleHpAsset = [
     name: "Sandy_beach",
     imgSrc: "/images/stock/01.jpg",
     campaignName: "Where are you going?",
+    totalHits: 1482,
+    totalEarned: 52,
   },
   {
     id: "def",
     name: "backtrunk_0242.jpg",
     imgSrc: "/images/stock/02.jpg",
     campaignName: "Fendi Winter Drop",
+    totalHits: 712,
+    totalEarned: 48,
   },
 ];
 
