@@ -122,8 +122,10 @@ export default {
         .includes("not");
     },
   },
-  async mounted() {
-    await this.getRapydWallet();
+  watch: {
+    userProfile() {
+      this.getRapydWallet();
+    },
   },
   methods: {
     async createRapydWallet() {
