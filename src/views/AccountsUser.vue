@@ -57,6 +57,8 @@
                   >Click here to verify</a
                 >
               </div>
+
+              <vs-divider />
             </div>
 
             <div v-else>
@@ -209,7 +211,75 @@
           </div>
         </vs-col>
 
-        <vs-col vs-w="9"> </vs-col>
+        <vs-col vs-w="5"> </vs-col>
+
+        <vs-col vs-w="4">
+          <div
+            class="py-4"
+            style="
+              min-height: 400px;
+              display: flex;
+              flex-direction: column;
+              overflow-x: auto;
+            "
+          >
+            <div>
+              <vs-card>
+                <div style="overflow-x: hidden">
+                  <div class="full-width flex-center">
+                    <h2>Account Balance</h2>
+                  </div>
+                  <vs-divider />
+                  <div class="flex-center full-width" style="height: 200px">
+                    <div style="display: flex; width: 100%">
+                      <CurrencyDropdown
+                        :currValue="62"
+                        currCurrency="US"
+                        cssStyleCurrValue="font-size: 72px; font-weight: 200"
+                        cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
+                      />
+                      <div style="flex-grow: 1">
+                        <CurrencyDropdown
+                          :currValue="2402"
+                          currCurrency="MX"
+                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                        />
+                        <CurrencyDropdown
+                          :currValue="62"
+                          currCurrency="EU"
+                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                        />
+                        <CurrencyDropdown
+                          :currValue="37"
+                          currCurrency="CN"
+                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <vs-divider />
+                  <div>
+                    <vs-button
+                      class="full-width my-4"
+                      :disabled="!isRapydVerified"
+                      >Withdraw</vs-button
+                    >
+                    <vs-button
+                      class="full-width my-4"
+                      type="border"
+                      :disabled="!isRapydVerified"
+                      >Fund</vs-button
+                    >
+                  </div>
+                </div>
+              </vs-card>
+            </div>
+
+            <div>
+              <h4 style="font-weight: 600">Campaigns Joined</h4>
+            </div>
+          </div>
+        </vs-col>
       </vs-row>
     </div>
   </div>
@@ -218,6 +288,8 @@
 <script>
 import { mapState } from "vuex";
 import * as rapydSvc from "@/services/rapydSvc";
+
+import CurrencyDropdown from "@/components/CurrencyDropdown";
 
 let sampleHpAsset = [
   {
@@ -239,6 +311,9 @@ let sampleHpAsset = [
 ];
 
 export default {
+  components: {
+    CurrencyDropdown,
+  },
   data() {
     return {
       rapydWalletLoading: false,
@@ -250,9 +325,11 @@ export default {
   computed: {
     ...mapState(["userProfile"]),
     isRapydVerified() {
-      return !this.rapydWalletData.verification_status
-        .toLowerCase()
-        .includes("not");
+      let hasRapydWallet = !!this.rapydWalletData.email;
+      return (
+        hasRapydWallet &&
+        !this.rapydWalletData.verification_status.toLowerCase().includes("not")
+      );
     },
   },
   watch: {
