@@ -10,16 +10,22 @@
           <div style="display: flex; width: 100%">
             <CurrencyDropdown
               class="flex-center"
-              currPrefix="$"
+              :currPrefix="
+                userProfile.currencyPref
+                  ? userProfile.currencyPref.symbol_native
+                  : ''
+              "
               :currValue="62.124"
-              :currCurrency="currencyPref.twoLetterCode"
+              :currCurrency="
+                userProfile.currencyPref ? userProfile.currencyPref.code : ''
+              "
               cssStyleCurrValue="font-size: 72px; font-weight: 200"
               cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
             />
             <div style="flex-grow: 1">
               <CurrencyDropdown
                 :currValue="29.95"
-                currCurrency="MX"
+                currCurrency="MX$"
                 cssStyleCurrValue="
                             font-size: 18px;
                             font-weight: 400;
@@ -30,7 +36,7 @@
               />
               <CurrencyDropdown
                 :currValue="6.52"
-                currCurrency="EU"
+                currCurrency="EUR"
                 cssStyleCurrValue="
                             font-size: 18px;
                             font-weight: 400;
@@ -41,7 +47,7 @@
               />
               <CurrencyDropdown
                 :currValue="0"
-                currCurrency="CN"
+                currCurrency="CN¥"
                 cssStyleCurrValue="
                             font-size: 18px;
                             font-weight: 400;
@@ -74,6 +80,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import CurrencyDropdown from "@/components/CurrencyDropdown";
 
 export default {
@@ -87,6 +95,7 @@ export default {
     CurrencyDropdown,
   },
   computed: {
+    ...mapState(["userProfile"]),
     isRapydVerified() {
       return false;
     },

@@ -30,13 +30,26 @@
               -
               {{ moment(campaign.endDate).format("MMM Do YYYY") }}
               <br />
-              {{ campaign.totalBudget | currencyForUser }}
+              {{
+                userProfile.currencyPref
+                  ? userProfile.currencyPref.symbol_native
+                  : ""
+              }}
+              {{ campaign.totalBudget | currency }}
             </div>
-            <div style="height: 100%; width: 36px" class="flex-center mr-16">
+            <div
+              style="height: 100%; min-width: 36px; max-width: 72px"
+              class="flex-center mr-16"
+            >
               <vs-tooltip text="Total earned from this campaign">
-                <p style="font-weight: 500; font-size: 36px">
-                  {{ campaign.totalEarned | currencyForUser }}
-                </p>
+                <span style="font-weight: 500; font-size: 36px">
+                  {{
+                    userProfile.currencyPref
+                      ? userProfile.currencyPref.symbol_native
+                      : ""
+                  }}
+                  {{ campaign.totalEarned | currency }}
+                </span>
               </vs-tooltip>
             </div>
           </div>
@@ -48,6 +61,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 let sampleCampaigns = [
   {
     id: "abc",
@@ -79,7 +94,9 @@ export default {
       currentlySelectedCampaign: {},
     };
   },
-  computed: {},
+  computed: {
+    ...mapState(["userProfile"]),
+  },
   async mounted() {
     await this.applyFilter();
     this.currentlySelectedCampaign = this.allCampaigns[1];

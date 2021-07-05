@@ -21,6 +21,18 @@
                 v-model="userProfile.email"
                 class="full-width py-8"
               />
+              <vs-select
+                class="full-width py-8"
+                label="Preferred Currency"
+                v-model="userProfile.currencyPref"
+              >
+                <vs-select-item
+                  :key="idx"
+                  :value="curr"
+                  :text="`${curr.name} (${curr.symbol_native})`"
+                  v-for="(curr, idx) in currencyOptions"
+                />
+              </vs-select>
               <vs-divider />
               <div class="full-width" style="display: flex">
                 <div style="flex-grow: 1"></div>
@@ -40,20 +52,25 @@
 <script>
 import { mapState } from "vuex";
 
+import currencyCodeList from "@/assets/currencyCodeList.json";
+
 export default {
   data() {
     return {
       name: "",
-      residenceCountry: null,
     };
   },
   computed: {
     ...mapState(["userProfile"]),
+    currencyOptions() {
+      return Object.values(currencyCodeList);
+    },
   },
   methods: {
     saveUserProfile() {
       this.$store.dispatch("saveUserProfile", {
         name: this.name !== "" ? this.name : this.userProfile.name,
+        currencyPref: this.userProfile.currencyPref,
       });
       this.name = "";
     },

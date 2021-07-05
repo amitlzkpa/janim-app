@@ -49,11 +49,12 @@ export async function saveUser(opts) {
 }
 
 export async function updateUser(opts) {
-  let { name } = opts;
+  let { name, currencyPref } = opts;
   let u = await currentUser();
   let userRef = fb.usersCollection.doc(u.id);
   await userRef.update({
-    name: name,
+    name,
+    currencyPref,
   });
   let user = await getUser({ userId: u.id });
   return user;

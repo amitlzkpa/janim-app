@@ -32,7 +32,12 @@
                 <vs-tooltip text="Total earned">
                   <p>
                     <vs-icon icon="payments" size="15px" color="696969" />
-                    {{ hpAsset.totalEarned | currencyForUser }}
+                    {{
+                      userProfile.currencyPref
+                        ? userProfile.currencyPref.symbol_native
+                        : ""
+                    }}
+                    {{ hpAsset.totalEarned | currency }}
                   </p>
                 </vs-tooltip>
                 <vs-tooltip text="Total clicks">
@@ -65,6 +70,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 let sampleHpAsset = [
   {
     id: "abc",
@@ -90,6 +97,9 @@ export default {
       // hpAssets: [],
       hpAssets: sampleHpAsset,
     };
+  },
+  computed: {
+    ...mapState(["userProfile"]),
   },
 };
 </script>
