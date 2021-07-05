@@ -32,19 +32,13 @@
                 <vs-tooltip text="Total earned">
                   <p>
                     <vs-icon icon="payments" size="15px" color="696969" />
-                    {{ hpAsset.totalEarned | currency }}
-                    <span style="font-size: 12px; font-weight: 300"
-                      >earned</span
-                    >
+                    {{ hpAsset.totalEarned | currencyForUser }}
                   </p>
                 </vs-tooltip>
                 <vs-tooltip text="Total clicks">
                   <p>
                     <vs-icon icon="ads_click" size="15px" color="696969" />
                     {{ hpAsset.totalHits }}
-                    <span style="font-size: 12px; font-weight: 300"
-                      >clicks</span
-                    >
                   </p>
                 </vs-tooltip>
               </div>

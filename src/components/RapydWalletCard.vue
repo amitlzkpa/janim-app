@@ -10,8 +10,9 @@
           <div style="display: flex; width: 100%">
             <CurrencyDropdown
               class="flex-center"
-              :currValue="62.127"
-              currCurrency="US"
+              currPrefix="$"
+              :currValue="62.124"
+              :currCurrency="currencyPref.twoLetterCode"
               cssStyleCurrValue="font-size: 72px; font-weight: 200"
               cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
             />

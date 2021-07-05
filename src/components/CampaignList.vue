@@ -30,12 +30,12 @@
               -
               {{ moment(campaign.endDate).format("MMM Do YYYY") }}
               <br />
-              {{ campaign.totalBudget | currency }}
+              {{ campaign.totalBudget | currencyForUser }}
             </div>
             <div style="height: 100%; width: 36px" class="flex-center mr-16">
               <vs-tooltip text="Total earned from this campaign">
                 <p style="font-weight: 500; font-size: 36px">
-                  {{ campaign.totalEarned | currency }}
+                  {{ campaign.totalEarned | currencyForUser }}
                 </p>
               </vs-tooltip>
             </div>

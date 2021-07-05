@@ -25,6 +25,17 @@ Vue.use(VueCurrencyFilter, {
 });
 Vue.use(vueFilterPrettyBytes);
 
+Vue.prototype.currencyPref = {
+  symbol: "$",
+  twoLetterCode: "US",
+  threeLetterCode: "USA",
+};
+Vue.filter("currencyForUser", function (value) {
+  if (!value) return "";
+  let retVal = `${Vue.prototype.currencyPref.symbol}${value.toString()}`;
+  return retVal;
+});
+
 Vue.prototype.$api = api;
 
 Vue.config.productionTip = false;

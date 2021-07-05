@@ -9,6 +9,7 @@
     "
   >
     <p :style="cssStyleCurrValue">
+      {{ currPrefix }}
       {{ currValueRendered | currency }}
     </p>
     <p :style="cssStyleCurrCurrency + ';margin-left:4px;'">
@@ -20,6 +21,10 @@
 <script>
 export default {
   props: {
+    currPrefix: {
+      type: String,
+      default: "",
+    },
     currValue: {
       type: Number,
       default: null,
