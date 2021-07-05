@@ -113,7 +113,16 @@
           </div>
         </vs-col>
 
-        <vs-col vs-w="5"> </vs-col>
+        <vs-col vs-w="5">
+          <div
+            style="
+              border-right: 2px solid #ff0080;
+              min-height: 80vh;
+              height: 100%;
+              border-radius: 32px;
+            "
+          ></div>
+        </vs-col>
 
         <vs-col vs-w="4">
           <div
@@ -125,9 +134,11 @@
               overflow-x: auto;
             "
           >
-            <RapydWalletCard :walletAddress="userProfile.walletId" />
+            <div class="pl-20 pr-10">
+              <RapydWalletCard :walletAddress="userProfile.walletId" />
+            </div>
             <div>
-              <h2>Campaigns Joined</h2>
+              <h2 class="pl-20">Campaigns Joined</h2>
               <div class="mt-20">
                 <CampaignList />
               </div>

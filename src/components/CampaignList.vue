@@ -9,13 +9,32 @@
       <div v-for="(campaign, idx) of filteredCampaigns" :key="idx">
         <div
           style="height: 70px"
-          class="soft-shadow-text pa-8 my-8 raiseOnHover"
+          class="soft-shadow-text py-8 pr-8 my-8 raiseOnHover"
+          @click="updateSelectedCampaign(campaign)"
         >
-          <p style="font-weight: 500; font-size: 16px; font-style: italic">
-            {{ campaign.name }}
-          </p>
+          <div style="display: flex">
+            <div style="height: 100%; width: 36px">
+              <vs-icon
+                v-if="campaign.id === currentlySelectedCampaign.id"
+                class="fade-in"
+                icon="chevron_right"
+                size="32px"
+                color="#ff0080"
+              />
+            </div>
+            <div style="font-size: 14px; flex-grow: 1">
+              <p style="font-weight: 500; font-size: 16px; font-style: italic">
+                {{ campaign.name }}
+              </p>
+              {{ moment(campaign.startDate).format("MMM Do YYYY") }}
+              -
+              {{ moment(campaign.endDate).format("MMM Do YYYY") }}
+              <br />
+              ${{ campaign.totalBudget }}
+            </div>
+          </div>
         </div>
-        <vs-divider style="box-shadow: 0 0px 2px #dedede" />
+        <vs-divider style="box-shadow: 0 0px 2px #dedede" class="px-16" />
       </div>
     </div>
   </div>
@@ -28,12 +47,18 @@ let sampleCampaigns = [
     name: "Fendi Winter Drop",
     totalHits: 1482,
     totalEarned: 52,
+    startDate: new Date("10/31/2021"),
+    endDate: new Date("12/30/2021"),
+    totalBudget: 4000,
   },
   {
     id: "def",
     name: "Nike Fall Release",
     totalHits: 712,
     totalEarned: 48,
+    startDate: new Date("08/14/2020"),
+    endDate: new Date("10/14/2020"),
+    totalBudget: 8000,
   },
 ];
 
@@ -44,15 +69,20 @@ export default {
       allCampaigns: sampleCampaigns,
       filteredCampaigns: [],
       filterSettings: {},
+      currentlySelectedCampaign: {},
     };
   },
   computed: {},
   async mounted() {
     await this.applyFilter();
+    this.currentlySelectedCampaign = this.allCampaigns[1];
   },
   methods: {
     async applyFilter() {
       this.filteredCampaigns = this.allCampaigns;
+    },
+    async updateSelectedCampaign(updCampaign) {
+      this.currentlySelectedCampaign = updCampaign;
     },
   },
 };
@@ -67,5 +97,22 @@ export default {
 }
 .raiseOnHover:hover {
   top: -4px;
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
