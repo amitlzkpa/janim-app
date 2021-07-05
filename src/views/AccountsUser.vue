@@ -130,9 +130,11 @@ export default {
       await rapydSvc.createRapydWallet();
     },
     async getRapydWallet() {
+      if (!this.userProfile.walletId) return;
       this.rapydWalletLoading = true;
-      let r = await rapydSvc.getRapydWallet();
-      this.rapydWalletData = r;
+      this.rapydWalletData = await rapydSvc.getRapydWallet({
+        ewalletId: this.userProfile.walletId,
+      });
       this.rapydWalletLoading = false;
     },
     async createRapydPayout() {
