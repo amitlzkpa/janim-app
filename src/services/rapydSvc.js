@@ -10,7 +10,7 @@ const rapypApiProxyEndpt = `/api/rapyd`;
 export async function createRapydWallet(opts) {
   let u = await userSvc.currentUser();
   let newWalletInfo = {
-    name: u.name,
+    first_name: u.name,
     email: u.email,
     metadata: {
       merchant_defined: true,
@@ -49,8 +49,7 @@ export async function createRapydPayout(opts) {
       email: "annabanna@omail.com",
       city: "Anytown",
       country: "US",
-      name: "Bibim",
-      last_name: "Bop",
+      first_name: "",
       state: "NY",
       postcode: "10101",
       aba: "573675777",
