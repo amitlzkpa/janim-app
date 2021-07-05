@@ -255,11 +255,11 @@
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="star_outline" color="rgb(255, 130, 0)"></vs-icon>
-              <span class="ml-8"> 4,702 HITS </span>
+              <span class="ml-8"> {{ pseudoHitsCount }} HITS </span>
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="person_outline" color="success"></vs-icon>
-              <span class="ml-8"> 78 MEMBERS </span>
+              <span class="ml-8"> {{ pseudoMemberCount }} MEMBERS </span>
             </vs-col>
           </vs-row>
 
@@ -650,6 +650,10 @@ import ActivityListViewer from "@/components/ActivityListViewer";
 
 import countryCodesList from "@/assets/countryCodesList.json";
 
+function randomNumber(min, max) {
+  return Math.abs(Math.round(Math.random() * (max - min) + min));
+}
+
 let campaignUpdateSub;
 
 export default {
@@ -664,6 +668,9 @@ export default {
   },
   data() {
     return {
+      pseudoMemberCount: "23",
+      pseudoHitsCount: "47",
+
       userOrgs: [],
       editedCampaign: {},
       showCampaignTimelinePopup: false,
@@ -695,6 +702,11 @@ export default {
     this.userOrgs = await orgSvc.getOrgsUserCanAccess({
       userId: this.userProfile.id,
     });
+
+    // this.pseudoMemberCount = randomNumber(16, 78);
+    // this.pseudoHitsCount = randomNumber(307, 1263);
+    this.pseudoMemberCount = "84";
+    this.pseudoHitsCount = "2,073";
 
     this.$store.dispatch("refreshCampaign", this.$route.params.campaignId);
   },

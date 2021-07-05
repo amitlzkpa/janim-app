@@ -113,11 +113,11 @@
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="star_outline" color="rgb(255, 130, 0)"></vs-icon>
-              <span class="ml-8"> 4,702 HITS </span>
+              <span class="ml-8"> {{ pseudoHitsCount }} HITS </span>
             </vs-col>
             <vs-col vs-w="3" class="flex-center">
               <vs-icon icon="person_outline" color="success"></vs-icon>
-              <span class="ml-8"> 78 MEMBERS </span>
+              <span class="ml-8"> {{ pseudoMemberCount }} MEMBERS </span>
             </vs-col>
           </vs-row>
 
@@ -227,13 +227,21 @@ export default {
     ActivityListViewer,
   },
   data() {
-    return {};
+    return {
+      pseudoMemberCount: "23",
+      pseudoHitsCount: "47",
+    };
   },
   computed: {
     ...mapState(["userProfile", "campaign"]),
   },
   async mounted() {
     await this.refreshData();
+
+    // this.pseudoMemberCount = randomNumber(16, 78);
+    // this.pseudoHitsCount = randomNumber(307, 1263);
+    this.pseudoMemberCount = "84";
+    this.pseudoHitsCount = "2,073";
   },
   methods: {
     async refreshData() {
