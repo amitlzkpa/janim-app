@@ -46,6 +46,17 @@ let routes = [
     },
   },
   {
+    path: "/accounts-user",
+    name: "accounts-user",
+    component: () =>
+      import(
+        /* webpackChunkName: "accounts-user" */ "@/views/AccountsUser.vue"
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/campaign/view/:campaignId",
     name: "campaign-view",
     component: () =>
