@@ -3,9 +3,9 @@
     <div>
       <vs-row>
         <vs-col vs-w="3">
-          <div v-if="userProfile.walletId">
-            <div>
-              <div style="min-height: 12px" class="my-8">
+          <div class="my-4" style="min-height: 180px">
+            <div v-if="userProfile.walletId">
+              <div style="height: 18px">
                 <vs-progress
                   v-if="rapydWalletLoading"
                   indeterminate
@@ -58,40 +58,56 @@
                 >
               </div>
             </div>
+
+            <div v-else>
+              <div class="py-8">
+                <div
+                  style="
+                    border: 3px dashed #dedede;
+                    border-radius: 8px;
+                    padding: 8px;
+                    background-color: #eeeeee;
+                    text-align: center;
+                  "
+                >
+                  <div>
+                    <div style="font-weight: 300; font-style: italic">
+                      Seems like your account is not connected with a wallet.
+                    </div>
+                    <div class="mt-8">
+                      <img
+                        src="/images/rapyd-logo.png"
+                        alt="Rapyd Logo"
+                        style="height: 40px"
+                      />
+                    </div>
+                    <div style="font-weight: 300">
+                      Use Rapyd to get paid internationally!
+                    </div>
+                  </div>
+                  <vs-button
+                    type="filled"
+                    class="full-width"
+                    @click="createRapydWallet()"
+                    >Create Wallet</vs-button
+                  >
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div v-else>
-            <div class="py-8">
-              <div
-                style="
-                  border: 3px dashed #dedede;
-                  border-radius: 8px;
-                  padding: 8px;
-                  background-color: #eeeeee;
-                  text-align: center;
-                "
-              >
-                <div>
-                  <div style="font-weight: 300; font-style: italic">
-                    Seems like your account is not connected with a wallet.
-                  </div>
-                  <div class="mt-8">
-                    <img
-                      src="/images/rapyd-logo.png"
-                      alt="Rapyd Logo"
-                      style="height: 40px"
-                    />
-                  </div>
-                  <div style="font-weight: 300">
-                    Use Rapyd to get paid internationally!
-                  </div>
-                </div>
-                <vs-button
-                  type="filled"
-                  class="full-width"
-                  @click="createRapydWallet()"
-                  >Create Wallet</vs-button
+          <div class="py-4">
+            <div>
+              <h2>High Performers</h2>
+              <div v-if="hpAssets.length < 1" class="mt-8">
+                <span class="flex-center full-width country-label"
+                  >No assets found</span
                 >
+              </div>
+              <div v-else>
+                <div v-for="(hpAsset, idx) of hpAssets" :key="idx">
+                  {{ hpAsset }}
+                </div>
               </div>
             </div>
           </div>
@@ -112,6 +128,7 @@ export default {
     return {
       rapydWalletLoading: false,
       rapydWalletData: {},
+      hpAssets: [],
     };
   },
   computed: {
