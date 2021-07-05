@@ -128,6 +128,9 @@
             <RapydWalletCard :walletAddress="userProfile.walletId" />
             <div>
               <h4 style="font-weight: 600">Campaigns Joined</h4>
+              <div class="mt-8">
+                <CampaignList />
+              </div>
             </div>
           </div>
         </vs-col>
@@ -142,11 +145,13 @@ import * as rapydSvc from "@/services/rapydSvc";
 
 import HighPerformerList from "@/components/HighPerformerList";
 import RapydWalletCard from "@/components/RapydWalletCard";
+import CampaignList from "@/components/CampaignList";
 
 export default {
   components: {
     HighPerformerList,
     RapydWalletCard,
+    CampaignList,
   },
   data() {
     return {
