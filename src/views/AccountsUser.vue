@@ -223,77 +223,7 @@
               overflow-x: auto;
             "
           >
-            <div>
-              <vs-card>
-                <div style="overflow-x: hidden">
-                  <div class="full-width flex-center">
-                    <h2>Account Balance</h2>
-                  </div>
-                  <vs-divider />
-                  <div class="flex-center full-width" style="height: 200px">
-                    <div style="display: flex; width: 100%">
-                      <CurrencyDropdown
-                        class="flex-center"
-                        :currValue="62.127"
-                        currCurrency="US"
-                        cssStyleCurrValue="font-size: 72px; font-weight: 200"
-                        cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
-                      />
-                      <div style="flex-grow: 1">
-                        <CurrencyDropdown
-                          :currValue="29.95"
-                          currCurrency="MX"
-                          cssStyleCurrValue="
-                            font-size: 18px;
-                            font-weight: 400;
-                            width: 80px !important;
-                            overflow: hidden;
-                            text-align: right
-                          "
-                        />
-                        <CurrencyDropdown
-                          :currValue="6.52"
-                          currCurrency="EU"
-                          cssStyleCurrValue="
-                            font-size: 18px;
-                            font-weight: 400;
-                            width: 80px !important;
-                            overflow: hidden;
-                            text-align: right
-                          "
-                        />
-                        <CurrencyDropdown
-                          :currValue="0"
-                          currCurrency="CN"
-                          cssStyleCurrValue="
-                            font-size: 18px;
-                            font-weight: 400;
-                            width: 80px !important;
-                            overflow: hidden;
-                            text-align: right
-                          "
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <vs-divider />
-                  <div>
-                    <vs-button
-                      class="full-width my-4"
-                      :disabled="!isRapydVerified"
-                      >Withdraw</vs-button
-                    >
-                    <vs-button
-                      class="full-width my-4"
-                      type="border"
-                      :disabled="!isRapydVerified"
-                      >Fund</vs-button
-                    >
-                  </div>
-                </div>
-              </vs-card>
-            </div>
-
+            <RapydWalletCard />
             <div>
               <h4 style="font-weight: 600">Campaigns Joined</h4>
             </div>
@@ -308,7 +238,7 @@
 import { mapState } from "vuex";
 import * as rapydSvc from "@/services/rapydSvc";
 
-import CurrencyDropdown from "@/components/CurrencyDropdown";
+import RapydWalletCard from "@/components/RapydWalletCard";
 
 let sampleHpAsset = [
   {
@@ -331,7 +261,7 @@ let sampleHpAsset = [
 
 export default {
   components: {
-    CurrencyDropdown,
+    RapydWalletCard,
   },
   data() {
     return {
