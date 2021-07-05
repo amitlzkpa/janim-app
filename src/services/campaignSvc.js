@@ -56,13 +56,14 @@ export async function getCampaign(campaignId) {
   campaignData.dateRange = campaignData.dateRange.map((d) => d.toDate());
   // quick-hack end
 
-  if (!isNew) {
-    // get hotlinks
-    let hls = await hotlinksSvc.getCampaignHotLinks({ campaignId });
-    campaignData.assets.forEach((a) => {
-      a.hotLinkData = hls.find((h) => h.assetId === a.id);
-    });
+  // get hotlinks
+  let hls = await hotlinksSvc.getCampaignHotLinks({ campaignId });
+  campaignData.assets.forEach((a) => {
+    a.hotLinkData = hls.find((h) => h.assetId === a.id);
+  });
+  console.log(campaignData.assets);
 
+  if (!isNew) {
     campaignData.organization = await orgSvc.getFullOrg({
       orgId: campaignData.organization,
     });
