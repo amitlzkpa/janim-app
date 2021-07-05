@@ -242,6 +242,18 @@
                 </vs-tab>
                 <vs-tab label="Accounts">
                   <div>Accounts</div>
+
+                  <div class="py-8">
+                    <div class="full-width" style="display: flex">
+                      <vs-button
+                        type="filled"
+                        @click="connectRapydSenderAcct()"
+                        class="mx-4"
+                        style="flex-grow: 1"
+                        >Connect Sending Account</vs-button
+                      >
+                    </div>
+                  </div>
                 </vs-tab>
               </vs-tabs>
             </div>
@@ -261,6 +273,7 @@
 import { mapState } from "vuex";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
+import * as rapydSvc from "@/services/rapydSvc";
 
 import ContentEditable from "@/components/ContentEditable";
 
@@ -382,6 +395,9 @@ export default {
       let orgIdxInList = this.fullOrgList.findIndex((o) => o.id === updOrg.id);
       this.fullOrgList[orgIdxInList] = updOrg;
       this.selectedOrg = updOrg;
+    },
+    async connectRapydSenderAcct() {
+      await rapydSvc.connectRapydSenderAcct();
     },
   },
 };

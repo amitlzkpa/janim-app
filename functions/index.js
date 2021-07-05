@@ -70,7 +70,6 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
 
 exports.go = functions.https.onRequest(async (req, res) => {
   try {
-    console.log(req.query);
     let id = req.query.uuid;
     let hotLinkRef = hotLinksCollection.doc(id);
     let hl = await hotLinkRef.get();
