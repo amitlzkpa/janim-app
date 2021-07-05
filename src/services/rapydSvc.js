@@ -11,7 +11,9 @@ export async function createRapydWallet(opts) {
   let u = await userSvc.currentUser();
   let newWalletInfo = {
     first_name: u.name,
+    last_name: "",
     email: u.email,
+    ewallet_reference_id: u.id,
     metadata: {
       merchant_defined: true,
     },
