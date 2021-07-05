@@ -241,19 +241,69 @@
                   </a>
                 </vs-tab>
                 <vs-tab label="Accounts">
-                  <div>Accounts</div>
+                  <vs-row>
+                    <vs-col vs-w="4">
+                      <div class="py-8">
+                        <div>
+                          <div
+                            class="py-8 full-width"
+                            style="text-align: center; min-height: 140px"
+                          >
+                            <vs-divider />
 
-                  <div class="py-8">
-                    <div class="full-width" style="display: flex">
-                      <vs-button
-                        type="filled"
-                        @click="connectRapydSenderAcct()"
-                        class="mx-4"
-                        style="flex-grow: 1"
-                        >Connect Sending Account</vs-button
-                      >
-                    </div>
-                  </div>
+                            <div
+                              style="font-weight: 300; font-size: 12px"
+                              class="my-8"
+                            >
+                              Payment Account
+                            </div>
+
+                            <div v-if="selectedOrg.senderAcctInfo">
+                              <div style="font-weight: 400; font-size: 20px">
+                                {{ selectedOrg.senderAcctInfo.name }}
+                              </div>
+                              <div style="font-weight: 300; font-style: italic">
+                                {{ selectedOrg.senderAcctInfo.city }},
+                                {{ selectedOrg.senderAcctInfo.country }}
+                              </div>
+                              <vs-tooltip
+                                text="You account is connected!"
+                                position="bottom"
+                              >
+                                <div class="mt-8">
+                                  <img
+                                    src="/images/rapyd-logo.png"
+                                    alt="Rapyd Logo"
+                                    style="height: 16px"
+                                  />
+                                  <vs-icon
+                                    icon="verified_user"
+                                    size="18px"
+                                    class="mr-2"
+                                  />
+                                </div>
+                              </vs-tooltip>
+                            </div>
+                            <div v-else>
+                              <div style="font-weight: 300; font-size: 12px">
+                                Link a payment account to disburse funds to your
+                                campaigners.
+                              </div>
+                              <vs-button
+                                type="filled"
+                                @click="connectRapydSenderAcct()"
+                                class="ma-4 full-width"
+                                >Create Sending Account</vs-button
+                              >
+                            </div>
+                          </div>
+
+                          <vs-divider />
+                        </div>
+                      </div>
+                    </vs-col>
+                    <vs-col vs-w="8"></vs-col>
+                  </vs-row>
                 </vs-tab>
               </vs-tabs>
             </div>
