@@ -5,10 +5,11 @@
       flex-grow: 1;
       text-align: center;
       align-items: flex-end;
+      overflow: auto;
     "
   >
     <p :style="cssStyleCurrValue">
-      {{ currValueRendered }}
+      {{ currValueRendered | currency }}
     </p>
     <p :style="cssStyleCurrCurrency + ';margin-left:4px;'">
       {{ currCurrencyRendered }}

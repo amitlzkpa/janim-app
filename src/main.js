@@ -9,10 +9,20 @@ import Vuesax from "vuesax";
 import "vuesax/dist/vuesax.css";
 import "material-icons/iconfont/material-icons.css";
 import moment from "moment";
+import VueCurrencyFilter from "vue-currency-filter";
 import vueFilterPrettyBytes from "vue-filter-pretty-bytes";
 
 Vue.use(Vuesax, {});
 Vue.prototype.moment = moment;
+Vue.use(VueCurrencyFilter, {
+  symbol: "",
+  thousandsSeparator: ",",
+  fractionCount: 2,
+  fractionSeparator: ".",
+  symbolPosition: "front",
+  symbolSpacing: true,
+  avoidEmptyDecimals: "",
+});
 Vue.use(vueFilterPrettyBytes);
 
 Vue.prototype.$api = api;

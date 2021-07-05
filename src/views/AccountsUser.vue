@@ -233,26 +233,45 @@
                   <div class="flex-center full-width" style="height: 200px">
                     <div style="display: flex; width: 100%">
                       <CurrencyDropdown
-                        :currValue="62"
+                        class="flex-center"
+                        :currValue="62.127"
                         currCurrency="US"
                         cssStyleCurrValue="font-size: 72px; font-weight: 200"
                         cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
                       />
                       <div style="flex-grow: 1">
                         <CurrencyDropdown
-                          :currValue="2402"
+                          :currValue="29.95"
                           currCurrency="MX"
-                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                          cssStyleCurrValue="
+                            font-size: 18px;
+                            font-weight: 400;
+                            width: 80px !important;
+                            overflow: hidden;
+                            text-align: right
+                          "
                         />
                         <CurrencyDropdown
-                          :currValue="62"
+                          :currValue="6.52"
                           currCurrency="EU"
-                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                          cssStyleCurrValue="
+                            font-size: 18px;
+                            font-weight: 400;
+                            width: 80px !important;
+                            overflow: hidden;
+                            text-align: right
+                          "
                         />
                         <CurrencyDropdown
-                          :currValue="37"
+                          :currValue="0"
                           currCurrency="CN"
-                          cssStyleCurrValue="font-size: 18px; font-weight: 400; width: 60px !important; text-align: right"
+                          cssStyleCurrValue="
+                            font-size: 18px;
+                            font-weight: 400;
+                            width: 80px !important;
+                            overflow: hidden;
+                            text-align: right
+                          "
                         />
                       </div>
                     </div>
