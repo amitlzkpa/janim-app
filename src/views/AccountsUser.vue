@@ -22,8 +22,7 @@
                 style="text-align: center"
               >
                 <div style="font-weight: 400; font-size: 20px">
-                  {{ rapydWalletData.first_name }}
-                  {{ rapydWalletData.last_name }}
+                  {{ rapydWalletData.name }}
                 </div>
                 <div style="font-weight: 300; font-style: italic">
                   {{ rapydWalletData.email }}
