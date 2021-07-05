@@ -32,7 +32,7 @@
                 <vs-tooltip text="Total earned">
                   <p>
                     <vs-icon icon="payments" size="15px" color="696969" />
-                    {{ hpAsset.totalEarned }}
+                    {{ hpAsset.totalEarned | currency }}
                     <span style="font-size: 12px; font-weight: 300"
                       >earned</span
                     >

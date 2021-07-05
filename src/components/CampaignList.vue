@@ -8,7 +8,7 @@
     <div v-else>
       <div v-for="(campaign, idx) of filteredCampaigns" :key="idx">
         <div
-          style="height: 70px"
+          style="height: 66px"
           class="soft-shadow-text py-8 pr-8 my-8 raiseOnHover"
           @click="updateSelectedCampaign(campaign)"
         >
@@ -18,7 +18,7 @@
                 v-if="campaign.id === currentlySelectedCampaign.id"
                 class="fade-in"
                 icon="chevron_right"
-                size="32px"
+                size="36px"
                 color="#ff0080"
               />
             </div>
@@ -30,7 +30,14 @@
               -
               {{ moment(campaign.endDate).format("MMM Do YYYY") }}
               <br />
-              ${{ campaign.totalBudget }}
+              {{ campaign.totalBudget | currency }}
+            </div>
+            <div style="height: 100%; width: 36px" class="flex-center mr-16">
+              <vs-tooltip text="Total earned from this campaign">
+                <p style="font-weight: 500; font-size: 36px">
+                  {{ campaign.totalEarned | currency }}
+                </p>
+              </vs-tooltip>
             </div>
           </div>
         </div>
