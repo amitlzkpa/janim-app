@@ -54,6 +54,9 @@
         </div>
         <vs-divider />
         <div>
+          <p class="full-width" style="text-align: center; font-style: italic">
+            {{ walletAddress }}
+          </p>
           <vs-button class="full-width my-4" :disabled="!isRapydVerified"
             >Withdraw</vs-button
           >
@@ -61,7 +64,7 @@
             class="full-width my-4"
             type="border"
             :disabled="!isRapydVerified"
-            >Fund</vs-button
+            >Deposit</vs-button
           >
         </div>
       </div>
@@ -73,6 +76,12 @@
 import CurrencyDropdown from "@/components/CurrencyDropdown";
 
 export default {
+  props: {
+    walletAddress: {
+      type: String,
+      default: "ewallet_532a14d92715f4238cdd75e04576b6ad",
+    },
+  },
   components: {
     CurrencyDropdown,
   },

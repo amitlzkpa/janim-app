@@ -223,7 +223,7 @@
               overflow-x: auto;
             "
           >
-            <RapydWalletCard />
+            <RapydWalletCard :walletAddress="userProfile.walletId" />
             <div>
               <h4 style="font-weight: 600">Campaigns Joined</h4>
             </div>
