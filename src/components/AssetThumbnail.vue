@@ -23,7 +23,7 @@
             <vs-row>
               <vs-col vs-w="12">
                 <CopyToClipboard
-                  :token="`${pageOrigin}/go?uuid=${campaign.id}_${asset.id}`"
+                  :token="`${pageOrigin}/go?uuid=${campaign.id}_${asset.id}&c=${campaign.id}&a=${asset.id}&u=${userProfile.id}`"
                   label="Hot Link"
                 />
 
@@ -118,7 +118,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["campaign"]),
+    ...mapState(["campaign", "userProfile"]),
     pageOrigin() {
       return window.location.origin;
     },
