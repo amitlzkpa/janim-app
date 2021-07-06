@@ -15,7 +15,10 @@
           <div style="display: flex">
             <div style="height: 100%; width: 36px">
               <vs-icon
-                v-if="campaign.id === currentlySelectedCampaign.id"
+                v-if="
+                  highlightActive &&
+                  campaign.id === currentlySelectedCampaign.id
+                "
                 class="fade-in"
                 icon="chevron_right"
                 size="36px"
@@ -82,9 +85,33 @@ let sampleCampaigns = [
     endDate: new Date("10/14/2020"),
     totalBudget: 8000,
   },
+  {
+    id: "ghi",
+    name: "Emporium Release",
+    totalHits: 182,
+    totalEarned: 12,
+    startDate: new Date("12/15/2021"),
+    endDate: new Date("12/31/2021"),
+    totalBudget: 3000,
+  },
+  {
+    id: "jkl",
+    name: "Billabong",
+    totalHits: 7412,
+    totalEarned: 88,
+    startDate: new Date("01/14/2020"),
+    endDate: new Date("12/31/2021"),
+    totalBudget: 6000,
+  },
 ];
 
 export default {
+  props: {
+    highlightActive: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       // allCampaigns: [],
