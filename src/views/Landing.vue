@@ -80,7 +80,6 @@
             />
             <h1
               style="
-                color: #ff0080;
                 font-weight: 200;
                 font-size: 48px;
                 max-width: 800px;
@@ -114,7 +113,6 @@
             />
             <h1
               style="
-                color: #ff0080;
                 font-weight: 200;
                 font-size: 48px;
                 max-width: 800px;
@@ -149,7 +147,6 @@
             />
             <h1
               style="
-                color: #ff0080;
                 font-weight: 200;
                 font-size: 48px;
                 max-width: 800px;
