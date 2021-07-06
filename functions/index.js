@@ -74,8 +74,9 @@ exports.go = functions.https.onRequest(async (req, res) => {
     let campaignId = req.query.c || "";
     let assetId = req.query.a || "";
     let userId = req.query.u || "";
-    dataPtsCollection.doc(`${campaignId}_${assetId}_${userId}`).set({
-      id: `${campaignId}_${assetId}_${userId}`,
+    let dpRef = dataPtsCollection.doc();
+    dpRef.set({
+      id: dpRef.id,
       campaignId,
       assetId,
       userId,
