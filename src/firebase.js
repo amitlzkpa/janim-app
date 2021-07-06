@@ -23,6 +23,7 @@ let usersCollection = db.collection("users");
 let campaignsCollection = db.collection("campaign");
 let campaignJoinsCollection = db.collection("campaignJoins");
 let hotLinksCollection = db.collection("hotLinks");
+let dataPtsCollection = db.collection("dataPts");
 let activityPostsCollection = db.collection("activityPosts");
 let organizationsCollection = db.collection("organization");
 let permissionsCollection = db.collection("permission");
@@ -36,6 +37,7 @@ export {
   campaignsCollection,
   campaignJoinsCollection,
   hotLinksCollection,
+  dataPtsCollection,
   activityPostsCollection,
   organizationsCollection,
   permissionsCollection,

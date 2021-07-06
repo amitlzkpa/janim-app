@@ -8,6 +8,7 @@ let app = admin.initializeApp();
 let db = app.firestore();
 let usersCollection = db.collection("users");
 let hotLinksCollection = db.collection("hotLinks");
+let dataPtsCollection = db.collection("dataPts");
 
 exports.test = functions.https.onRequest(async (req, res) => {
   functions.logger.info("Test success!", { structuredData: true });
@@ -70,6 +71,16 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
 
 exports.go = functions.https.onRequest(async (req, res) => {
   try {
+    let campaignId = req.query.c || "";
+    let assetId = req.query.a || "";
+    let userId = req.query.u || "";
+    dataPtsCollection.doc(`${campaignId}_${assetId}_${userId}`).set({
+      campaignId,
+      assetId,
+      userId,
+      createdOn: new Date(),
+    });
+
     let id = req.query.uuid;
     let hotLinkRef = hotLinksCollection.doc(id);
     let hl = await hotLinkRef.get();
