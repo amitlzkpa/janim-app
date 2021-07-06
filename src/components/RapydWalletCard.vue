@@ -22,7 +22,7 @@
               cssStyleCurrValue="font-size: 72px; font-weight: 200"
               cssStyleCurrCurrency="font-size: 18px; font-weight: 600; padding-bottom: 12px;"
             />
-            <div style="flex-grow: 1">
+            <div v-if="showMultipleCurrencies" style="flex-grow: 1">
               <CurrencyDropdown
                 :currValue="29.95"
                 currCurrency="MX$"
@@ -64,15 +64,17 @@
           <p class="full-width" style="text-align: center; font-style: italic">
             {{ walletAddress }}
           </p>
-          <vs-button class="full-width my-4" :disabled="!isRapydVerified"
-            >Withdraw</vs-button
-          >
-          <vs-button
-            class="full-width my-4"
-            type="border"
-            :disabled="!isRapydVerified"
-            >Deposit</vs-button
-          >
+          <div v-if="showButtons">
+            <vs-button class="full-width my-4" :disabled="!isRapydVerified"
+              >Withdraw</vs-button
+            >
+            <vs-button
+              class="full-width my-4"
+              type="border"
+              :disabled="!isRapydVerified"
+              >Deposit</vs-button
+            >
+          </div>
         </div>
       </div>
     </vs-card>
@@ -89,6 +91,14 @@ export default {
     walletAddress: {
       type: String,
       default: "ewallet_532a14d92715f4238cdd75e04576b6ad",
+    },
+    showMultipleCurrencies: {
+      type: Boolean,
+      default: true,
+    },
+    showButtons: {
+      type: Boolean,
+      default: true,
     },
   },
   components: {
