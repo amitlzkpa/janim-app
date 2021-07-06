@@ -48,7 +48,7 @@ h6 {
   font-weight: 400;
 }
 
-$spaceamounts: (2, 4, 6, 8, 10, 12, 16, 18, 20, 24, 30, 36, 48);
+$spaceamounts: (2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 30, 36, 48);
 
 $sides: (top, bottom, left, right);
 @each $space in $spaceamounts {
@@ -151,5 +151,15 @@ $sides: (top, bottom, left, right);
   100% {
     opacity: 1;
   }
+}
+
+.raiseOnHover {
+  position: relative;
+  top: 0;
+  transition: top ease 0.1s;
+  cursor: pointer;
+}
+.raiseOnHover:hover {
+  top: -4px;
 }
 </style>

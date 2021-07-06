@@ -249,8 +249,6 @@
                             class="py-8 full-width"
                             style="text-align: center; min-height: 140px"
                           >
-                            <vs-divider />
-
                             <div
                               style="font-weight: 300; font-size: 12px"
                               class="my-8"
@@ -285,10 +283,6 @@
                               </vs-tooltip>
                             </div>
                             <div v-else>
-                              <div style="font-weight: 300; font-size: 12px">
-                                Link a payment account to disburse funds to your
-                                campaigners.
-                              </div>
                               <vs-button
                                 type="filled"
                                 @click="connectRapydSenderAcct()"
@@ -297,12 +291,98 @@
                               >
                             </div>
                           </div>
-
-                          <vs-divider />
                         </div>
                       </div>
                     </vs-col>
-                    <vs-col vs-w="8"></vs-col>
+
+                    <vs-col vs-w="8" class="pa-32">
+                      <div v-if="!selectedOrg.senderAcctInfo">
+                        <div style="font-weight: 300">
+                          Please link a payment account to disburse funds to
+                          your campaigners.
+                        </div>
+                      </div>
+                      <div v-else>
+                        <div
+                          class="mx-30"
+                          v-for="campaign in selectedOrg.campaigns"
+                          :key="campaign.campaign.id"
+                        >
+                          <div
+                            style="height: 90px"
+                            class="soft-shadow-text py-8 pr-8 my-8"
+                          >
+                            <div style="display: flex">
+                              <div style="flex-grow: 1">
+                                <p style="font-weight: 500; font-size: 20px">
+                                  {{ campaign.campaign.title }}
+                                </p>
+                                {{
+                                  moment(campaign.campaign.endDate).format(
+                                    "MMM Do YYYY"
+                                  )
+                                }}
+                                <br />
+                                {{
+                                  userProfile.currencyPref
+                                    ? userProfile.currencyPref.symbol_native
+                                    : ""
+                                }}
+                                {{ campaign.campaign.totalBudget | currency }}
+                              </div>
+                              <div style="font-size: 14px" class="pt-24">
+                                <p>
+                                  <vs-icon
+                                    icon="ads_click"
+                                    size="12px"
+                                    color="#696969"
+                                  />
+                                  2,781
+                                </p>
+                                <p>
+                                  <vs-icon
+                                    icon="payments"
+                                    size="12px"
+                                    color="#696969"
+                                  />
+                                  $3166
+                                </p>
+                                <p>
+                                  <vs-icon
+                                    icon="person_outline"
+                                    size="12px"
+                                    color="#696969"
+                                  />
+                                  482
+                                </p>
+                              </div>
+                              <div
+                                style="width: 80px; font-size: 18px"
+                                class="pt-20 pl-20"
+                              >
+                                <div class="raiseOnHover">
+                                  <vs-icon
+                                    icon="send"
+                                    style="
+                                      font-size: 30px;
+                                      padding: 8px;
+                                      border-radius: 50%;
+                                      border: 4px solid #ff0080;
+                                      color: #ff0080;
+                                      cursor: pointer;
+                                    "
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <vs-divider
+                            style="box-shadow: 0 0px 2px #dedede"
+                            class="px-16"
+                          />
+                        </div>
+                      </div>
+                    </vs-col>
                   </vs-row>
                 </vs-tab>
               </vs-tabs>
