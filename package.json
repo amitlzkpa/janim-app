@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "node main.js"
+    "dev": "node main.js",
+    "deploy": "git push && firebase deploy"
   },
   "dependencies": {
     "@fontsource/lato": "^4.4.5",
