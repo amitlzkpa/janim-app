@@ -22,7 +22,7 @@
         <vs-divider class="pr-30" />
         <vs-row>
           <vs-col class="pa-10" vs-w="4">
-            <HighPerformerList />
+            <HighPerformerList :startIdx="1" />
           </vs-col>
           <vs-col class="pa-10" vs-w="4">
             <RapydWalletCard
@@ -30,10 +30,10 @@
               :showMultipleCurrencies="false"
               :showButtons="false"
             />
-            <HighPerformerList />
+            <HighPerformerList :startIdx="3" />
           </vs-col>
           <vs-col class="pa-10" vs-w="4">
-            <HighPerformerList />
+            <HighPerformerList :startIdx="4" />
           </vs-col>
         </vs-row>
       </vs-col>

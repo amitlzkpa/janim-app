@@ -4,7 +4,7 @@
       <span class="flex-center full-width country-label">No assets found</span>
     </div>
     <div v-else>
-      <div v-for="(hpAsset, idx) of hpAssets" :key="idx">
+      <div v-for="(hpAsset, idx) of assetsToShow" :key="idx">
         <vs-card actionable class="cardx my-24">
           <div slot="header">
             <p style="color: #696969; font-size: 20px; font-weight: 600">
@@ -89,9 +89,47 @@ let sampleHpAsset = [
     totalHits: 712,
     totalEarned: 48,
   },
+  {
+    id: "ghi",
+    name: "Spiral",
+    imgSrc: "/images/stock/03.jpg",
+    campaignName: "Vanilla Bay",
+    totalHits: 1482,
+    totalEarned: 52,
+  },
+  {
+    id: "jkl",
+    name: "magma.jpg",
+    imgSrc: "/images/stock/04.jpg",
+    campaignName: "NZ Open",
+    totalHits: 712,
+    totalEarned: 48,
+  },
+  {
+    id: "mno",
+    name: "brickk_bats",
+    imgSrc: "/images/stock/05.jpg",
+    campaignName: "Mezzini",
+    totalHits: 1482,
+    totalEarned: 52,
+  },
+  {
+    id: "pqr",
+    name: "backtrunk_0242.jpg",
+    imgSrc: "/images/stock/06.jpg",
+    campaignName: "Fendi Winter Drop",
+    totalHits: 712,
+    totalEarned: 48,
+  },
 ];
 
 export default {
+  props: {
+    startIdx: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       // hpAssets: [],
@@ -100,6 +138,9 @@ export default {
   },
   computed: {
     ...mapState(["userProfile"]),
+    assetsToShow() {
+      return this.hpAssets.slice(this.startIdx);
+    },
   },
 };
 </script>
