@@ -71,18 +71,6 @@ exports.rapyd = functions.https.onRequest(async (req, res) => {
 
 exports.go = functions.https.onRequest(async (req, res) => {
   try {
-    let campaignId = req.query.c || "";
-    let assetId = req.query.a || "";
-    let userId = req.query.u || "";
-    let dpRef = dataPtsCollection.doc();
-    dpRef.set({
-      id: dpRef.id,
-      campaignId,
-      assetId,
-      userId,
-      createdOn: new Date(),
-    });
-
     let id = req.query.uuid;
     let hotLinkRef = hotLinksCollection.doc(id);
     let hl = await hotLinkRef.get();
@@ -91,6 +79,17 @@ exports.go = functions.https.onRequest(async (req, res) => {
       let curHtCt = hlDoc.hits || 0;
       hlDoc.hits = curHtCt + 1;
       hotLinkRef.update(hlDoc);
+      let campaignId = req.query.c || "";
+      let assetId = req.query.a || "";
+      let userId = req.query.u || "";
+      let dpRef = dataPtsCollection.doc();
+      dpRef.set({
+        id: dpRef.id,
+        campaignId,
+        assetId,
+        userId,
+        createdOn: new Date(),
+      });
       return res.redirect(hlDoc.redirectPath);
     } else {
       return res.redirect("https://www.youtube.com/watch?v=iik25wqIuFo");

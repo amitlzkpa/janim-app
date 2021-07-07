@@ -115,7 +115,7 @@ let sampleHpAsset = [
   },
   {
     id: "pqr",
-    name: "backtrunk_0242.jpg",
+    name: "peaceb33r.jpg",
     imgSrc: "/images/stock/06.jpg",
     campaignName: "Fendi Winter Drop",
     totalHits: 712,

@@ -99,7 +99,7 @@
           </div>
 
           <div
-            class="py-4"
+            class="pa-10"
             style="
               min-height: 400px;
               display: flex;
@@ -109,20 +109,11 @@
             "
           >
             <h2>High Performers</h2>
-            <HighPerformerList />
+            <HighPerformerList :startIdx="5" />
           </div>
         </vs-col>
 
-        <vs-col vs-w="5">
-          <div
-            style="
-              border-right: 2px solid #ff0080;
-              min-height: 80vh;
-              height: 100%;
-              border-radius: 32px;
-            "
-          ></div>
-        </vs-col>
+        <vs-col vs-w="5"> </vs-col>
 
         <vs-col vs-w="4">
           <div
