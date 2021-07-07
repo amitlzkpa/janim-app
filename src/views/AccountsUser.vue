@@ -113,7 +113,10 @@
           </div>
         </vs-col>
 
-        <vs-col vs-w="5"> </vs-col>
+        <vs-col vs-w="5">
+          <LineChart :data="plotData" />
+          <div style="width: 100%; height: 100%" id="chart"></div>
+        </vs-col>
 
         <vs-col vs-w="4">
           <div
@@ -148,17 +151,20 @@ import * as rapydSvc from "@/services/rapydSvc";
 import HighPerformerList from "@/components/HighPerformerList";
 import RapydWalletCard from "@/components/RapydWalletCard";
 import CampaignList from "@/components/CampaignList";
+import LineChart from "@/components/LineChart";
 
 export default {
   components: {
     HighPerformerList,
     RapydWalletCard,
     CampaignList,
+    LineChart,
   },
   data() {
     return {
       rapydWalletLoading: false,
       rapydWalletData: {},
+      plotData: {},
     };
   },
   computed: {
