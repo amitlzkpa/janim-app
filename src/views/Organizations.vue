@@ -249,148 +249,93 @@
                     </vs-col>
 
                     <vs-col vs-w="4">
-                      <div class="py-8">
-                        <div>
+                      <div class="ml-20">
+                        <RapydSenderAcctCard
+                          :senderAcctInfo="selectedOrg.senderAcctInfo"
+                          :org="selectedOrg"
+                          @rapydSenderAcctLinkedToOrg="
+                            rapydSenderAcctLinkedToOrg
+                          "
+                        />
+
+                        <div v-if="selectedOrg.senderAcctInfo">
                           <div
-                            class="py-8 full-width"
-                            style="text-align: center; min-height: 140px"
+                            class="ml-20"
+                            v-for="campaign in selectedOrg.campaigns"
+                            :key="campaign.campaign.id"
                           >
                             <div
-                              style="font-weight: 300; font-size: 12px"
-                              class="my-8"
+                              style="height: 90px"
+                              class="soft-shadow-text py-8 pr-8 my-8"
                             >
-                              Payment Account
-                            </div>
-
-                            <div v-if="selectedOrg.senderAcctInfo">
-                              <div style="font-weight: 400; font-size: 20px">
-                                {{ selectedOrg.senderAcctInfo.name }}
-                              </div>
-                              <div style="font-weight: 300; font-style: italic">
-                                {{ selectedOrg.senderAcctInfo.city }},
-                                {{ selectedOrg.senderAcctInfo.country }}
-                              </div>
-                              <vs-tooltip
-                                text="You account is connected!"
-                                position="bottom"
-                              >
-                                <div class="mt-8">
-                                  <img
-                                    src="/images/rapyd-logo.png"
-                                    alt="Rapyd Logo"
-                                    style="height: 16px"
-                                  />
-                                  <vs-icon
-                                    icon="verified_user"
-                                    size="18px"
-                                    class="mr-2"
-                                  />
+                              <div style="display: flex">
+                                <div style="flex-grow: 1">
+                                  <p style="font-weight: 500; font-size: 20px">
+                                    {{ campaign.campaign.title }}
+                                  </p>
+                                  {{
+                                    moment(campaign.campaign.endDate).format(
+                                      "MMM Do YYYY"
+                                    )
+                                  }}
+                                  <br />
+                                  {{
+                                    userProfile.currencyPref
+                                      ? userProfile.currencyPref.symbol_native
+                                      : ""
+                                  }}
+                                  {{ campaign.campaign.totalBudget | currency }}
                                 </div>
-                              </vs-tooltip>
-                            </div>
-                            <div v-else>
-                              <vs-button
-                                type="filled"
-                                @click="connectRapydSenderAcct()"
-                                class="ma-4 full-width"
-                                >Create Sending Account</vs-button
-                              >
-                            </div>
-
-                            <div v-if="!selectedOrg.senderAcctInfo">
-                              <div style="font-weight: 300">
-                                Please link a payment account to disburse funds
-                                to your campaigners.
-                              </div>
-                            </div>
-                            <div v-else>
-                              <div
-                                class="mx-30"
-                                v-for="campaign in selectedOrg.campaigns"
-                                :key="campaign.campaign.id"
-                              >
+                                <div style="font-size: 14px" class="pt-24">
+                                  <p>
+                                    <vs-icon
+                                      icon="ads_click"
+                                      size="12px"
+                                      color="#696969"
+                                    />
+                                    2,781
+                                  </p>
+                                  <p>
+                                    <vs-icon
+                                      icon="payments"
+                                      size="12px"
+                                      color="#696969"
+                                    />
+                                    $3166
+                                  </p>
+                                  <p>
+                                    <vs-icon
+                                      icon="person_outline"
+                                      size="12px"
+                                      color="#696969"
+                                    />
+                                    482
+                                  </p>
+                                </div>
                                 <div
-                                  style="height: 90px"
-                                  class="soft-shadow-text py-8 pr-8 my-8"
+                                  style="width: 80px; font-size: 18px"
+                                  class="pt-20 pl-20"
                                 >
-                                  <div style="display: flex">
-                                    <div style="flex-grow: 1">
-                                      <p
-                                        style="
-                                          font-weight: 500;
-                                          font-size: 20px;
-                                        "
-                                      >
-                                        {{ campaign.campaign.title }}
-                                      </p>
-                                      {{
-                                        moment(
-                                          campaign.campaign.endDate
-                                        ).format("MMM Do YYYY")
-                                      }}
-                                      <br />
-                                      {{
-                                        userProfile.currencyPref
-                                          ? userProfile.currencyPref
-                                              .symbol_native
-                                          : ""
-                                      }}
-                                      {{
-                                        campaign.campaign.totalBudget | currency
-                                      }}
-                                    </div>
-                                    <div style="font-size: 14px" class="pt-24">
-                                      <p>
-                                        <vs-icon
-                                          icon="ads_click"
-                                          size="12px"
-                                          color="#696969"
-                                        />
-                                        2,781
-                                      </p>
-                                      <p>
-                                        <vs-icon
-                                          icon="payments"
-                                          size="12px"
-                                          color="#696969"
-                                        />
-                                        $3166
-                                      </p>
-                                      <p>
-                                        <vs-icon
-                                          icon="person_outline"
-                                          size="12px"
-                                          color="#696969"
-                                        />
-                                        482
-                                      </p>
-                                    </div>
-                                    <div
-                                      style="width: 80px; font-size: 18px"
-                                      class="pt-20 pl-20"
-                                    >
-                                      <div class="raiseOnHover">
-                                        <vs-icon
-                                          icon="send"
-                                          style="
-                                            font-size: 30px;
-                                            padding: 8px;
-                                            border-radius: 50%;
-                                            border: 4px solid #ff0080;
-                                            color: #ff0080;
-                                            cursor: pointer;
-                                          "
-                                        />
-                                      </div>
-                                    </div>
+                                  <div class="raiseOnHover">
+                                    <vs-icon
+                                      icon="send"
+                                      style="
+                                        font-size: 30px;
+                                        padding: 8px;
+                                        border-radius: 50%;
+                                        border: 4px solid #ff0080;
+                                        color: #ff0080;
+                                        cursor: pointer;
+                                      "
+                                    />
                                   </div>
                                 </div>
-                                <vs-divider
-                                  style="box-shadow: 0 0px 2px #dedede"
-                                  class="px-16"
-                                />
                               </div>
                             </div>
+                            <vs-divider
+                              style="box-shadow: 0 0px 2px #dedede"
+                              class="px-16"
+                            />
                           </div>
                         </div>
                       </div>
@@ -415,14 +360,15 @@
 import { mapState } from "vuex";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
-import * as rapydSvc from "@/services/rapydSvc";
 
 import ContentEditable from "@/components/ContentEditable";
+import RapydSenderAcctCard from "@/components/RapydSenderAcctCard";
 import BarChart from "@/components/BarChart";
 
 export default {
   components: {
     ContentEditable,
+    RapydSenderAcctCard,
     BarChart,
   },
   data() {
@@ -540,20 +486,7 @@ export default {
       this.fullOrgList[orgIdxInList] = updOrg;
       this.selectedOrg = updOrg;
     },
-    async connectRapydSenderAcct() {
-      let opts = {
-        currencyCode: this.userProfile.currencyPref
-          ? this.userProfile.currencyPref.code
-          : "USD",
-        name: this.selectedOrg.name,
-      };
-      let res = await rapydSvc.connectRapydSenderAcct(opts);
-      let senderAcctInfo = res;
-      let orgSaveData = {
-        orgId: this.selectedOrg.id,
-        senderAcctInfo: senderAcctInfo,
-      };
-      let updOrg = await orgSvc.saveOrgSenderAcct(orgSaveData);
+    async rapydSenderAcctLinkedToOrg(updOrg) {
       this.selectedOrg = updOrg;
     },
   },
