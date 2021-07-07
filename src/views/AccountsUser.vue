@@ -209,15 +209,6 @@ export default {
       });
       this.rapydWalletLoading = false;
     },
-    async createRapydPayout() {
-      await rapydSvc.createRapydPayout();
-    },
-    async createRapydTransfer() {
-      await rapydSvc.createRapydTransfer();
-    },
-    async connectRapydBeneficiaryAcct() {
-      await rapydSvc.connectRapydBeneficiaryAcct();
-    },
   },
 };
 </script>

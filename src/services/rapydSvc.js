@@ -42,6 +42,32 @@ export async function getRapydWallet(opts) {
   return res.data;
 }
 
+export async function connectRapydSenderAcct(opts) {
+  let currencyCode = opts.currencyCode;
+  let senderName = opts.name;
+  let newSenderInfo = {
+    country: "US",
+    currency: currencyCode,
+    entity_type: "company",
+    name: senderName,
+    identification_type: "identification_id",
+    identification_value: "987654321",
+    // Fields from 'sender_required_fields' in the response to 'Get Payout Method Type Required Fields'
+    date_of_birth: "12/12/2000",
+    address: "1 Second Street",
+    city: "New York",
+    state: "NY",
+    postcode: "11001",
+  };
+  let postBody = {
+    rapydQueryType: "post",
+    rapydQueryPath: `/v1/payouts/sender`,
+    rapydQueryBody: JSON.stringify(newSenderInfo),
+  };
+  let res = await api.post(rapypApiProxyEndpt, postBody);
+  return res.data;
+}
+
 export async function createRapydPayout(opts) {
   let u = await userSvc.currentUser();
   let newPayoutInfo = {
@@ -137,30 +163,4 @@ export async function connectRapydBeneficiaryAcct(opts) {
   let res = await api.post(rapypApiProxyEndpt, postBody);
   console.log(res.data);
   window.open(res.data.redirect_url, "_blank").focus();
-}
-
-export async function connectRapydSenderAcct(opts) {
-  let currencyCode = opts.currencyCode;
-  let senderName = opts.name;
-  let newSenderInfo = {
-    country: "US",
-    currency: currencyCode,
-    entity_type: "company",
-    name: senderName,
-    identification_type: "identification_id",
-    identification_value: "987654321",
-    // Fields from 'sender_required_fields' in the response to 'Get Payout Method Type Required Fields'
-    date_of_birth: "12/12/2000",
-    address: "1 Second Street",
-    city: "New York",
-    state: "NY",
-    postcode: "11001",
-  };
-  let postBody = {
-    rapydQueryType: "post",
-    rapydQueryPath: `/v1/payouts/sender`,
-    rapydQueryBody: JSON.stringify(newSenderInfo),
-  };
-  let res = await api.post(rapypApiProxyEndpt, postBody);
-  return res.data;
 }
