@@ -130,10 +130,27 @@
               overflow-x: auto;
             "
           >
-            <div class="pl-20 pr-10">
+            <div class="">
               <RapydWalletCard :walletAddress="userProfile.walletId" />
             </div>
-            <div>Boo</div>
+            <div
+              class="pa-30 inner-shadow"
+              style="
+                min-height: 400px;
+                max-height: 900px;
+                scroll-x: hidden;
+                border-radius: 32px;
+              "
+            >
+              <vs-images>
+                <vs-image
+                  :key="index"
+                  class="pa-4"
+                  :src="`https://picsum.photos/400/400?image=2${index}`"
+                  v-for="(image, index) in 9"
+                />
+              </vs-images>
+            </div>
           </div>
         </vs-col>
       </vs-row>
@@ -206,4 +223,9 @@ export default {
 </script>
 
 <style scoped>
+.inner-shadow {
+  -moz-box-shadow: inset 0 0 18px #888888;
+  -webkit-box-shadow: inset 0 0 18px #888888;
+  box-shadow: inset 0 0 18px #888888;
+}
 </style>
