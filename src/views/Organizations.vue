@@ -244,8 +244,10 @@
 
                 <vs-tab label="Accounts">
                   <vs-row>
-                    <vs-col vs-w="8" class="pa-32"> Apple </vs-col>
-                    
+                    <vs-col vs-w="8" class="pa-32">
+                      <BarChart />
+                    </vs-col>
+
                     <vs-col vs-w="4">
                       <div class="py-8">
                         <div>
@@ -416,10 +418,12 @@ import * as orgSvc from "@/services/orgSvc";
 import * as rapydSvc from "@/services/rapydSvc";
 
 import ContentEditable from "@/components/ContentEditable";
+import BarChart from "@/components/BarChart";
 
 export default {
   components: {
     ContentEditable,
+    BarChart,
   },
   data() {
     return {
