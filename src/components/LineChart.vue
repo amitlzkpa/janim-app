@@ -1,5 +1,5 @@
 <template>
-  <div class="apex-chart"></div>
+  <div style="width: 100%" id="apex-chart"></div>
 </template>
 
 <script>
@@ -20,8 +20,6 @@ export default {
   },
   methods: {
     refreshChart() {
-      console.log("foo");
-
       let that = this;
       let options = {
         chart: {
@@ -30,7 +28,7 @@ export default {
             show: false,
           },
         },
-        colors: ["#dedede", "#dedede"],
+        colors: ["#dedede", "#ff0080"],
         stroke: {
           curve: "smooth",
         },
@@ -90,7 +88,10 @@ export default {
         },
       };
 
-      let chart = new ApexCharts(document.querySelector("#chart"), options);
+      let chart = new ApexCharts(
+        document.querySelector("#apex-chart"),
+        options
+      );
 
       chart.render();
     },

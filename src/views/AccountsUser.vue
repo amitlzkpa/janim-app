@@ -115,7 +115,9 @@
 
         <vs-col vs-w="5">
           <LineChart :data="plotData" />
-          <div style="width: 100%; height: 100%" id="chart"></div>
+
+          <h2 class="pl-20 mt-20">Campaign Earnings</h2>
+          <CampaignList />
         </vs-col>
 
         <vs-col vs-w="4">
@@ -131,12 +133,7 @@
             <div class="pl-20 pr-10">
               <RapydWalletCard :walletAddress="userProfile.walletId" />
             </div>
-            <div>
-              <h2 class="pl-20">Campaign Earnings</h2>
-              <div class="mt-20">
-                <CampaignList />
-              </div>
-            </div>
+            <div>Boo</div>
           </div>
         </vs-col>
       </vs-row>
@@ -182,6 +179,7 @@ export default {
       this.getRapydWallet();
     },
   },
+  async mounted() {},
   methods: {
     async createRapydWallet() {
       await rapydSvc.createRapydWallet();
