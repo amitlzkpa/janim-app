@@ -49,13 +49,18 @@
                     />
                   </div>
                 </vs-tooltip>
-                <a
+                <p
                   v-if="!isRapydVerified"
-                  style="font-size: 12px; font-face: consolas"
-                  target="_blank"
-                  href="/rapyd/verify"
-                  >Click here to verify</a
+                  style="
+                    font-size: 12px;
+                    font-face: consolas;
+                    color: blue;
+                    cursor: pointer;
+                  "
+                  @click="connectRapydBeneficiaryAcct"
                 >
+                  Click here to verify
+                </p>
               </div>
 
               <vs-divider />
@@ -161,6 +166,7 @@
 <script>
 import { mapState } from "vuex";
 import * as rapydSvc from "@/services/rapydSvc";
+import * as userSvc from "@/services/userSvc";
 
 import HighPerformerList from "@/components/HighPerformerList";
 import RapydWalletCard from "@/components/RapydWalletCard";
@@ -208,6 +214,22 @@ export default {
         ewalletId: this.userProfile.walletId,
       });
       this.rapydWalletLoading = false;
+    },
+    async connectRapydBeneficiaryAcct() {
+      let u = await userSvc.currentUser();
+      let newBeneficiaryPageInfo = {
+        beneficiary_entity_type: "individual",
+        sender_country: "US",
+        sender_entity_type: "individual",
+        merchant_reference_id: u.id,
+        beneficiary_optional_fields: {
+          vyrall_user_id: u.id,
+        },
+      };
+      let res = await rapydSvc.connectRapydBeneficiaryAcct(
+        newBeneficiaryPageInfo
+      );
+      window.open(res.redirect_url, "_blank").focus();
     },
   },
 };

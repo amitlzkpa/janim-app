@@ -144,23 +144,12 @@ export async function createRapydTransfer(opts) {
 }
 
 export async function connectRapydBeneficiaryAcct(opts) {
-  let u = await userSvc.currentUser();
-  let newBeneficiaryPageInfo = {
-    beneficiary_entity_type: "individual",
-    sender_country: "US",
-    sender_entity_type: "individual",
-    merchant_reference_id: u.id,
-    beneficiary_optional_fields: {
-      vyrall_user_id: u.id,
-    },
-  };
+  let newBeneficiaryPageInfo = opts;
   let postBody = {
     rapydQueryType: "post",
     rapydQueryPath: `/v1/hosted/disburse/beneficiary`,
     rapydQueryBody: JSON.stringify(newBeneficiaryPageInfo),
   };
-  console.log(newBeneficiaryPageInfo);
   let res = await api.post(rapypApiProxyEndpt, postBody);
-  console.log(res.data);
-  window.open(res.data.redirect_url, "_blank").focus();
+  return res.data;
 }
