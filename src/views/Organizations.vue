@@ -254,7 +254,7 @@
                             subtitle="Tarcu id augue ultrices feugiat"
                           >
                             <template slot="avatar">
-                              <vs-avatar />
+                              <vs-avatar @click="sendPayout()" />
                             </template>
                           </vs-list-item>
                           <vs-list-item
@@ -389,6 +389,7 @@
 import { mapState } from "vuex";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
+import * as rapydSvc from "@/services/rapydSvc";
 
 import ContentEditable from "@/components/ContentEditable";
 import RapydSenderAcctCard from "@/components/RapydSenderAcctCard";
@@ -517,6 +518,58 @@ export default {
     },
     async rapydSenderAcctLinkedToOrg(updOrg) {
       this.selectedOrg = updOrg;
+    },
+    async sendPayout(user) {
+      let newPayoutInfo = {
+        beneficiary: {
+          id: "beneficiary_d3da30abd8cd2fb1da4f25e0db111970",
+          name: "Jane Doe",
+          address: "1 Main Street",
+          city: "New York",
+          state: "NY",
+          postcode: "10101",
+          country: "USA",
+          email: "jdoe.516@yahoo.com",
+          identification_type: "identification_id",
+          identification_value: "123456789",
+          bank_name: "NoBank Bank",
+          aba: "573675777",
+          account_number: "77711020345678",
+          bic_swift: "12345678",
+          ach_code: "123456789",
+        },
+        beneficiary_country: "US",
+        beneficiary_currency: "USD",
+        beneficiary_entity_type: "individual",
+        confirm_automatically: true,
+        payout_currency: "USD",
+        payout_method_type: "us_general_bank",
+        sender_amount: 36,
+        sender_country: "US",
+        sender_currency: "USD",
+        sender_entity_type: "company",
+        sender: {
+          id: "sender_ca6aad860aec43f5bc4a7c828647faaf",
+          name: "Mohawk Flyers",
+          address: "1 Second Street",
+          city: "New York",
+          state: "NY",
+          postcode: "11001",
+          country: "USA",
+          phonenumber: "9892989298",
+          identification_type: "License No",
+          identification_value: "987654321",
+          date_of_birth: "12/12/2000",
+          remitter_account_type: "Company",
+          source_of_income: "business",
+          purpose_code: "ABCDEFGHI",
+          account_number: "123456789",
+          beneficiary_relationship: "colleague",
+        },
+      };
+      console.log(newPayoutInfo);
+      let q = await rapydSvc.createRapydPayout(newPayoutInfo);
+      console.log(q);
     },
   },
 };

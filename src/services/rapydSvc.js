@@ -69,60 +69,14 @@ export async function connectRapydSenderAcct(opts) {
 }
 
 export async function createRapydPayout(opts) {
-  let u = await userSvc.currentUser();
-  let newPayoutInfo = {
-    beneficiary: {
-      payment_type: "regular",
-      address: "1 Main Street",
-      email: "annabanna@omail.com",
-      city: "Anytown",
-      country: "US",
-      first_name: "",
-      state: "NY",
-      postcode: "10101",
-      aba: "573675777",
-      account_number: "77711020345678",
-      bank_name: "US General Bank",
-      identification_type: "SSC",
-      identification_value: "123456789",
-      bic_swift: "BUINBGSF",
-      ach_code: "123456789",
-    },
-    beneficiary_country: "US",
-    beneficiary_currency: "USD",
-    beneficiary_entity_type: "individual",
-    confirm_automatically: true,
-    payout_currency: "USD",
-    payout_method_type: "us_general_bank",
-    sender_amount: 36,
-    sender: {
-      name: "Sherlock Holmes",
-      address: "123 First Street",
-      city: "Anytown",
-      state: "NY",
-      date_of_birth: "22/02/1980",
-      postcode: "12345",
-      phonenumber: "621212938122",
-      remitter_account_type: "Individual",
-      source_of_income: "salary",
-      identification_type: "License No",
-      identification_value: "123456789",
-      purpose_code: "ABCDEFGHI",
-      account_number: "123456789",
-      beneficiary_relationship: "client",
-    },
-    sender_country: "US",
-    sender_currency: "USD",
-    sender_entity_type: "individual",
-  };
+  let newPayoutInfo = opts;
   let postBody = {
     rapydQueryType: "post",
     rapydQueryPath: `/v1/payouts`,
     rapydQueryBody: JSON.stringify(newPayoutInfo),
   };
-  console.log(newPayoutInfo);
   let res = await api.post(rapypApiProxyEndpt, postBody);
-  console.log(res.data);
+  return res.data;
 }
 
 export async function createRapydTransfer(opts) {
