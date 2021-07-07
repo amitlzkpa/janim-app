@@ -144,10 +144,10 @@
             >
               <vs-images>
                 <vs-image
-                  :key="index"
+                  :key="idx"
                   class="pa-4"
                   :src="`/images/stock/1${idx}.jpg`"
-                  v-for="(image, idx) in 9"
+                  v-for="(i, idx) in 9"
                 />
               </vs-images>
             </div>
