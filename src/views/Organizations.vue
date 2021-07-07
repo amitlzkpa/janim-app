@@ -244,8 +244,37 @@
 
                 <vs-tab label="Accounts">
                   <vs-row>
-                    <vs-col vs-w="8" class="pa-32">
+                    <vs-col vs-w="8" class="pr-36">
                       <BarChart />
+                      <div>
+                        <h2>Top Earners</h2>
+                        <vs-list>
+                          <vs-list-item
+                            title="Steve Jobes"
+                            subtitle="Tarcu id augue ultrices feugiat"
+                          >
+                            <template slot="avatar">
+                              <vs-avatar />
+                            </template>
+                          </vs-list-item>
+                          <vs-list-item
+                            title="Matt"
+                            subtitle="Oligula at mollis egestas."
+                          >
+                            <template slot="avatar">
+                              <vs-avatar />
+                            </template>
+                          </vs-list-item>
+                          <vs-list-item
+                            title="Wilfred Menzes"
+                            subtitle="Rendrerit sapien vitae felis viverra, quis efficitur velit blandit."
+                          >
+                            <template slot="avatar">
+                              <vs-avatar />
+                            </template>
+                          </vs-list-item>
+                        </vs-list>
+                      </div>
                     </vs-col>
 
                     <vs-col vs-w="4">
