@@ -76,13 +76,16 @@ export default {
       type: Number,
       default: 0,
     },
+    usersList: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       // allUsers: [],
-      allUsers: sampleUsersArray[this.sampleUserIdx],
+      allUsers: this.usersList || sampleUsersArray[this.sampleUserIdx],
       filteredUsers: [],
-      filterSettings: {},
       currentlySelectedUser: {},
     };
   },

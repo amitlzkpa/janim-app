@@ -265,7 +265,6 @@
                         />
 
                         <div v-if="selectedOrg.senderAcctInfo">
-                          <h2>Campaigns</h2>
                           <div
                             class="ml-20"
                             v-for="campaign in selectedOrg.campaigns"
