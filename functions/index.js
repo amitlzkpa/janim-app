@@ -15,6 +15,11 @@ exports.test = functions.https.onRequest(async (req, res) => {
   res.send("Hello from Vyrall!");
 });
 
+exports.getStats = functions.https.onRequest(async (req, res) => {
+  console.log("foo");
+  return res.json({ foo: "bar" });
+});
+
 exports.rapyd = functions.https.onRequest(async (req, res) => {
   try {
     let rapyd_baseuri = `https://sandboxapi.rapyd.net`;

@@ -27,6 +27,10 @@
         "function": "test"
       },
       {
+        "source": "/api/get-stats",
+        "function": "getStats"
+      },
+      {
         "source": "/api/rapyd",
         "function": "rapyd"
       },
