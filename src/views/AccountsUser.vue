@@ -146,8 +146,8 @@
                 <vs-image
                   :key="index"
                   class="pa-4"
-                  :src="`https://picsum.photos/400/400?image=2${index}`"
-                  v-for="(image, index) in 9"
+                  :src="`/images/stock/1${idx}.jpg`"
+                  v-for="(image, idx) in 9"
                 />
               </vs-images>
             </div>
