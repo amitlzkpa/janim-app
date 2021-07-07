@@ -248,32 +248,9 @@
                       <BarChart />
                       <div>
                         <h2>Top Earners</h2>
-                        <vs-list>
-                          <vs-list-item
-                            title="Steve Jobes"
-                            subtitle="Tarcu id augue ultrices feugiat"
-                          >
-                            <template slot="avatar">
-                              <vs-avatar @click="sendPayout()" />
-                            </template>
-                          </vs-list-item>
-                          <vs-list-item
-                            title="Matt"
-                            subtitle="Oligula at mollis egestas."
-                          >
-                            <template slot="avatar">
-                              <vs-avatar />
-                            </template>
-                          </vs-list-item>
-                          <vs-list-item
-                            title="Wilfred Menzes"
-                            subtitle="Rendrerit sapien vitae felis viverra, quis efficitur velit blandit."
-                          >
-                            <template slot="avatar">
-                              <vs-avatar />
-                            </template>
-                          </vs-list-item>
-                        </vs-list>
+                        <div class="mt-20">
+                          <UserList :sampleUserIdx="1" />
+                        </div>
                       </div>
                     </vs-col>
 
@@ -288,6 +265,7 @@
                         />
 
                         <div v-if="selectedOrg.senderAcctInfo">
+                          <h2>Campaigns</h2>
                           <div
                             class="ml-20"
                             v-for="campaign in selectedOrg.campaigns"
@@ -392,11 +370,12 @@ import * as orgSvc from "@/services/orgSvc";
 import * as rapydSvc from "@/services/rapydSvc";
 
 import ContentEditable from "@/components/ContentEditable";
+import UserList from "@/components/UserList";
 import RapydSenderAcctCard from "@/components/RapydSenderAcctCard";
 import BarChart from "@/components/BarChart";
 
 let defaultBenInfo = {
-  id: "beneficiary_d3da30abd8cd2fb1da4f25e0db111970",
+  // id: "beneficiary_d3da30abd8cd2fb1da4f25e0db111970",
   name: "unknown",
   address: "1 Main Street",
   city: "New York",
@@ -435,6 +414,7 @@ let defaultSenInfo = {
 export default {
   components: {
     ContentEditable,
+    UserList,
     RapydSenderAcctCard,
     BarChart,
   },

@@ -130,21 +130,8 @@
                   <ActivityListViewer :campaignId="campaign.id" />
                 </vs-tab>
                 <vs-tab label="Members">
-                  <div>
-                    <vs-list>
-                      <vs-list-item
-                        v-for="j in campaign.campaignJoins"
-                        :key="j.id"
-                        :title="j.user.name"
-                        :subtitle="
-                          moment(j.createdOn.toDate()).format('MMM Do YYYY')
-                        "
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                    </vs-list>
+                  <div class="mt-20">
+                    <UserList :sampleUserIdx="2" :highlightActive="false" />
                   </div>
                 </vs-tab>
               </vs-tabs>
@@ -216,6 +203,7 @@ import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
 import AssetGallery from "@/components/AssetGallery";
+import UserList from "@/components/UserList";
 import ActivityListViewer from "@/components/ActivityListViewer";
 
 export default {
@@ -224,6 +212,7 @@ export default {
     CountryListViewer,
     KeywordsViewer,
     AssetGallery,
+    UserList,
     ActivityListViewer,
   },
   data() {

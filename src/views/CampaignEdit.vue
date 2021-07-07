@@ -310,33 +310,8 @@
                   </div>
                 </vs-tab>
                 <vs-tab label="Members">
-                  <div>
-                    <vs-list>
-                      <vs-list-item
-                        title="Steve Jobes"
-                        subtitle="Tarcu id augue ultrices feugiat"
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                      <vs-list-item
-                        title="Matt"
-                        subtitle="Oligula at mollis egestas."
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                      <vs-list-item
-                        title="Wilfred Menzes"
-                        subtitle="Rendrerit sapien vitae felis viverra, quis efficitur velit blandit."
-                      >
-                        <template slot="avatar">
-                          <vs-avatar />
-                        </template>
-                      </vs-list-item>
-                    </vs-list>
+                  <div class="mt-20">
+                    <UserList :sampleUserIdx="2" :highlightActive="false" />
                   </div>
                 </vs-tab>
               </vs-tabs>
@@ -656,6 +631,7 @@ import DateRangeViewer from "@/components/DateRangeViewer";
 import CountryListViewer from "@/components/CountryListViewer";
 import KeywordsViewer from "@/components/KeywordsViewer";
 import AssetGallery from "@/components/AssetGallery";
+import UserList from "@/components/UserList";
 import ActivityListViewer from "@/components/ActivityListViewer";
 
 import countryCodesList from "@/assets/countryCodesList.json";
@@ -674,6 +650,7 @@ export default {
     CountryListViewer,
     KeywordsViewer,
     AssetGallery,
+    UserList,
     ActivityListViewer,
   },
   data() {
