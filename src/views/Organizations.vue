@@ -395,6 +395,43 @@ import ContentEditable from "@/components/ContentEditable";
 import RapydSenderAcctCard from "@/components/RapydSenderAcctCard";
 import BarChart from "@/components/BarChart";
 
+let defaultBenInfo = {
+  id: "beneficiary_d3da30abd8cd2fb1da4f25e0db111970",
+  name: "unknown",
+  address: "1 Main Street",
+  city: "New York",
+  state: "NY",
+  postcode: "10101",
+  country: "USA",
+  email: "unknown@gmail.com",
+  identification_type: "identification_id",
+  identification_value: "123456789",
+  bank_name: "NoBank Bank",
+  aba: "777777777",
+  account_number: "77711777777777",
+  bic_swift: "12345678",
+  ach_code: "123456789",
+};
+
+let defaultSenInfo = {
+  // id: "sender_ca6aad860aec43f5bc4a7c828647faaf",
+  name: "unknown",
+  address: "1 Second Street",
+  city: "New York",
+  state: "NY",
+  postcode: "11001",
+  country: "USA",
+  phonenumber: "9892989298",
+  identification_type: "License No",
+  identification_value: "987654321",
+  date_of_birth: "12/12/2000",
+  remitter_account_type: "Company",
+  source_of_income: "business",
+  purpose_code: "ABCDEFGHI",
+  account_number: "123456789",
+  beneficiary_relationship: "colleague",
+};
+
 export default {
   components: {
     ContentEditable,
@@ -519,25 +556,22 @@ export default {
     async rapydSenderAcctLinkedToOrg(updOrg) {
       this.selectedOrg = updOrg;
     },
-    async sendPayout(user) {
+    async sendPayout(recvUser) {
+      let recvUserBenInfo =
+        recvUser && recvUser.beneficiaryAcct ? recvUser.beneficiaryAcct : {};
+      let benInfo = {
+        ...defaultBenInfo,
+        ...recvUserBenInfo,
+      };
+      let senInfo = {
+        ...defaultSenInfo,
+        ...this.selectedOrg.senderAcctInfo,
+      };
+      // quick hack start: rapyd API errors on the real value
+      senInfo.identification_type = "License No";
+      // quick hack end: rapyd API errors on the real value
       let newPayoutInfo = {
-        beneficiary: {
-          id: "beneficiary_d3da30abd8cd2fb1da4f25e0db111970",
-          name: "Jane Doe",
-          address: "1 Main Street",
-          city: "New York",
-          state: "NY",
-          postcode: "10101",
-          country: "USA",
-          email: "jdoe.516@yahoo.com",
-          identification_type: "identification_id",
-          identification_value: "123456789",
-          bank_name: "NoBank Bank",
-          aba: "573675777",
-          account_number: "77711020345678",
-          bic_swift: "12345678",
-          ach_code: "123456789",
-        },
+        beneficiary: benInfo,
         beneficiary_country: "US",
         beneficiary_currency: "USD",
         beneficiary_entity_type: "individual",
@@ -548,26 +582,8 @@ export default {
         sender_country: "US",
         sender_currency: "USD",
         sender_entity_type: "company",
-        sender: {
-          id: "sender_ca6aad860aec43f5bc4a7c828647faaf",
-          name: "Mohawk Flyers",
-          address: "1 Second Street",
-          city: "New York",
-          state: "NY",
-          postcode: "11001",
-          country: "USA",
-          phonenumber: "9892989298",
-          identification_type: "License No",
-          identification_value: "987654321",
-          date_of_birth: "12/12/2000",
-          remitter_account_type: "Company",
-          source_of_income: "business",
-          purpose_code: "ABCDEFGHI",
-          account_number: "123456789",
-          beneficiary_relationship: "colleague",
-        },
+        sender: senInfo,
       };
-      console.log(newPayoutInfo);
       let q = await rapydSvc.createRapydPayout(newPayoutInfo);
       console.log(q);
     },
