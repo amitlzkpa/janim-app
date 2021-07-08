@@ -11,15 +11,42 @@
           class="raiseOnHover"
           @click="updateSelectedUser(user)"
         >
-          <h3
-            :style="`color:${
-              highlightActive && currentlySelectedUser.id === user.id
-                ? '#ff0080'
-                : ''
-            }`"
-          >
-            {{ user.name }}
-          </h3>
+          <div style="display: flex">
+            <div style="flex-grow: 1">
+              <h3
+                :style="`
+                font-weight: 600;
+                color: ${
+                  highlightActive && currentlySelectedUser.id === user.id
+                    ? '#ff0080'
+                    : ''
+                }`"
+              >
+                {{ user.name }}
+              </h3>
+            </div>
+            <div style="cursor: pointer">
+              <div style="color: #696969; font-weight: 600; font-size: 18px">
+                <vs-tooltip text="Total earned">
+                  <p>
+                    <vs-icon icon="payments" size="15px" color="696969" />
+                    {{
+                      userProfile.currencyPref
+                        ? userProfile.currencyPref.symbol_native
+                        : ""
+                    }}
+                    {{ utils.getHash(user.name, 47) | currency }}
+                  </p>
+                </vs-tooltip>
+                <vs-tooltip text="Total clicks">
+                  <p>
+                    <vs-icon icon="ads_click" size="15px" color="696969" />
+                    {{ utils.getHash(user.name, 877) }}
+                  </p>
+                </vs-tooltip>
+              </div>
+            </div>
+          </div>
           <vs-divider />
         </div>
       </div>
@@ -29,6 +56,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as utils from "@/utils";
 
 let sampleUsers1 = [];
 let sampleUsers2 = [
@@ -87,6 +115,7 @@ export default {
       allUsers: this.usersList || sampleUsersArray[this.sampleUserIdx],
       filteredUsers: [],
       currentlySelectedUser: {},
+      utils: utils,
     };
   },
   computed: {

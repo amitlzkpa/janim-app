@@ -163,7 +163,6 @@ $sides: (top, bottom, left, right);
   position: relative;
   top: 0;
   transition: top ease 0.1s;
-  cursor: pointer;
 }
 .raiseOnHover:hover {
   top: -4px;

@@ -21,3 +21,17 @@ export function arrayUnion(arrA, arrB, fn) {
   let ret = [...new Set([...arrA, ...arrB])].filter((i) => !!i);
   return ret;
 }
+
+// ref: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+export function getHash(inp, mod = 1) {
+  var hash = 0,
+    i,
+    chr;
+  if (inp.length === 0) return hash;
+  for (i = 0; i < inp.length; i++) {
+    chr = inp.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash % mod);
+}
