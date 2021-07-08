@@ -268,7 +268,7 @@
                                 (j) => j.user
                               )
                             "
-                            @userSelected="userSelected"
+                            @onPayClicked="sendPayout"
                           />
                         </div>
                       </div>
@@ -319,7 +319,7 @@
                                       size="12px"
                                       color="#696969"
                                     />
-                                    2,781
+                                    {{ utils.getHash(campaign.id, 9497) }}
                                   </p>
                                   <p>
                                     <vs-icon
@@ -327,7 +327,10 @@
                                       size="12px"
                                       color="#696969"
                                     />
-                                    $3166
+                                    {{
+                                      utils.getHash(campaign.id, 1283)
+                                        | currency
+                                    }}
                                   </p>
                                   <p>
                                     <vs-icon
@@ -335,26 +338,8 @@
                                       size="12px"
                                       color="#696969"
                                     />
-                                    482
+                                    {{ utils.getHash(campaign.id, 359) }}
                                   </p>
-                                </div>
-                                <div
-                                  style="width: 80px; font-size: 18px"
-                                  class="pt-20 pl-20"
-                                >
-                                  <div class="raiseOnHover">
-                                    <vs-icon
-                                      icon="send"
-                                      style="
-                                        font-size: 30px;
-                                        padding: 8px;
-                                        border-radius: 50%;
-                                        border: 4px solid #ff0080;
-                                        color: #ff0080;
-                                        cursor: pointer;
-                                      "
-                                    />
-                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -384,6 +369,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as utils from "@/utils";
 import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
 import * as rapydSvc from "@/services/rapydSvc";
@@ -446,6 +432,7 @@ export default {
       fullOrgList: [],
       selectedOrg: {},
       newUserEmail: "",
+      utils: utils,
     };
   },
   watch: {
@@ -488,17 +475,6 @@ export default {
     }
   },
   methods: {
-    async userSelected(user) {
-      if (!user.beneficiaryAcct) {
-        this.$vs.notify({
-          title: "Failed",
-          text: `Failed to send payout to ${user.name} since they don't have a linked receiving account.`,
-          color: "warning",
-        });
-        return;
-      }
-      await this.sendPayout(user);
-    },
     async updateSelectedOrg(org) {
       this.selectedOrg = org;
     },
@@ -578,7 +554,20 @@ export default {
     async rapydSenderAcctLinkedToOrg(updOrg) {
       this.selectedOrg = updOrg;
     },
-    async sendPayout(recvUser) {
+    async sendPayout(payoutDetails) {
+      console.log(payoutDetails);
+      return;
+      let recvUser = payoutDetails.user;
+      let amount = payoutDetails.amount;
+      if (!recvUser.beneficiaryAcct) {
+        this.$vs.notify({
+          title: "Failed",
+          text: `Failed to send payout to ${recvUser.name} since they don't have a linked receiving account.`,
+          color: "warning",
+        });
+        return;
+      }
+
       let recvUserBenInfo =
         recvUser && recvUser.beneficiaryAcct ? recvUser.beneficiaryAcct : {};
       let benInfo = {
@@ -600,7 +589,7 @@ export default {
         confirm_automatically: true,
         payout_currency: "USD",
         payout_method_type: "us_general_bank",
-        sender_amount: 36,
+        sender_amount: amount,
         sender_country: "US",
         sender_currency: "USD",
         sender_entity_type: "company",
@@ -611,7 +600,7 @@ export default {
       console.log(q);
       this.$vs.notify({
         title: "Success",
-        text: `Sending payout to ${user.name} has been initiated.`,
+        text: `Sending payout to ${recvUser.name} has been initiated.`,
         color: "success",
       });
     },

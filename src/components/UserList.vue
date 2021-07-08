@@ -5,12 +5,7 @@
     </div>
     <div v-else>
       <div>
-        <div
-          v-for="(user, idx) of filteredUsers"
-          :key="idx"
-          class="raiseOnHover"
-          @click="updateSelectedUser(user)"
-        >
+        <div v-for="(user, idx) of filteredUsers" :key="idx">
           <div style="display: flex">
             <div style="flex-grow: 1">
               <h3
@@ -25,8 +20,16 @@
                 {{ user.name }}
               </h3>
             </div>
-            <div style="cursor: pointer">
-              <div style="color: #696969; font-weight: 600; font-size: 18px">
+
+            <div style="display: flex">
+              <div
+                style="
+                  color: #696969;
+                  font-weight: 600;
+                  font-size: 18px;
+                  width: 80px;
+                "
+              >
                 <vs-tooltip text="Total earned">
                   <p>
                     <vs-icon icon="payments" size="15px" color="696969" />
@@ -44,6 +47,18 @@
                     {{ utils.getHash(user.name, 877) }}
                   </p>
                 </vs-tooltip>
+              </div>
+
+              <div style="width: 80px; font-size: 18px; cursor: pointer">
+                <div class="raiseOnHover" @click="updateSelectedUser(user)">
+                  <vs-icon
+                    icon="paid"
+                    :style="`
+                      font-size: 30px;
+                      padding: 8px;
+                    `"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -130,7 +145,12 @@ export default {
     },
     async updateSelectedUser(updUser) {
       this.currentlySelectedUser = updUser;
-      this.$emit("userSelected", updUser);
+      // lets use this event to trigger the payment
+      let payoutDetails = {
+        user: updUser,
+        amount: utils.getHash(updUser.name, 47),
+      };
+      this.$emit("onPayClicked", payoutDetails);
     },
   },
 };

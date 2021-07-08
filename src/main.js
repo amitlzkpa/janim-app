@@ -3,6 +3,7 @@ import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
 import api from "@/api";
+import utils from "@/utils";
 import { auth } from "@/firebase";
 
 import Vuesax from "vuesax";
@@ -26,6 +27,7 @@ Vue.use(VueCurrencyFilter, {
 Vue.use(vueFilterPrettyBytes);
 
 Vue.prototype.$api = api;
+Vue.prototype.$utils = utils;
 
 Vue.config.productionTip = false;
 
