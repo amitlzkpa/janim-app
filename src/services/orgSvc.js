@@ -1,7 +1,8 @@
 import * as fb from "@/firebase";
+import * as utils from "@/utils";
 import * as dbMethods from "@/services/dbMethods";
+import * as campaignSvc from "@/services/campaignSvc";
 import * as userSvc from "@/services/userSvc";
-import _ from "lodash";
 
 export async function createNewOrg(newOrgData) {
   let u = await userSvc.currentUser();
@@ -84,13 +85,30 @@ export async function getFullOrg(opts) {
   let org = await dbMethods.getOrg({ orgId });
   let owner = await dbMethods.getUser({ userId: org.owner });
   let perms = await dbMethods.getPerms({ rsrcId: `org_${orgId}` });
-  let campaigns = await dbMethods.getCampaigns({ orgId: orgId });
+  let campaigns = await campaignSvc.getCampaignsOfOrg({ orgId: orgId });
+
+  let campaignsData = {
+    memberJoins: [],
+    totalHitsGoal: 0,
+    totalBudgetOnLine: 0,
+  };
+
+  for (let c of campaigns) {
+    campaignsData.memberJoins = utils.arrayUnion(
+      campaignsData.memberJoins,
+      c.campaign.campaignJoins,
+      (a, b) => a.user.id === b.user.id
+    );
+    campaignsData.totalHitsGoal += parseFloat(c.campaign.hitsGoal);
+    campaignsData.totalBudgetOnLine += parseFloat(c.campaign.totalBudget);
+  }
 
   org.currUserPerm = perms.find((p) => p.holder.id === u.id);
 
   org.owner = owner;
   org.perms = perms;
   org.campaigns = campaigns;
+  org.campaignsData = campaignsData;
   return org;
 }
 

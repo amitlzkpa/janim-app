@@ -105,6 +105,13 @@ export async function unjoinCampaign(opts) {
 
 export async function getCampaignsOfOrg(opts) {
   let { orgId } = opts;
-  let retArr = await dbMethods.getCampaigns({ orgId: orgId });
+  let ccs = await dbMethods.getCampaigns({ orgId: orgId });
+  let retArr = [];
+  for (let cc of ccs) {
+    cc.campaign.campaignJoins = await dbMethods.getJoins({
+      campaignId: cc.campaign.id,
+    });
+    retArr.push(cc);
+  }
   return retArr;
 }
