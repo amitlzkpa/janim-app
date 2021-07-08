@@ -108,6 +108,12 @@
               </div>
             </vs-prompt>
           </div>
+
+          <div
+            style="height: 300px"
+            id="div-with-loading"
+            class="flex-center full-width vs-con-loading__container"
+          />
         </vs-col>
         <vs-col vs-w="9">
           <div class="pa-36 mt-10">
@@ -451,10 +457,18 @@ export default {
   },
   async mounted() {
     let u = await userSvc.currentUser();
+    this.$vs.loading({
+      container: "#div-with-loading",
+      scale: 1,
+      color: "#ff0080",
+      background: "transparent",
+    });
     this.fullOrgList = await orgSvc.getOrgsUserCanAccess({
       userId: u.id,
     });
+    await this.wait(1000);
     this.filteredOrgList = this.fullOrgList.map((o) => o);
+    this.$vs.loading.close("#div-with-loading > .con-vs-loading");
 
     let orgId = this.$route.params.orgId;
     let orgIdxInList = this.fullOrgList.findIndex((o) => o.id === orgId);
