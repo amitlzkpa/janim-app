@@ -6,6 +6,45 @@ import * as orgSvc from "@/services/orgSvc";
 import * as hotlinksSvc from "@/services/hotLinksSvc";
 import campaignSchema from "@/schemas/campaign";
 
+async function hydrateCampaignInfo(campaignData, opts) {
+  let {
+    hydrateHls = true,
+    hydrateOrg = true,
+    hydrateJoins = true,
+    hydrateCurrUser = true,
+  } = opts || {};
+
+  let campaignId = campaignData.id;
+
+  if (hydrateHls) {
+    // get hotlinks
+    let hls = await hotlinksSvc.getCampaignHotLinks({ campaignId });
+    campaignData.assets.forEach((a) => {
+      a.hotLinkData = hls.find((h) => h.assetId === a.id);
+    });
+  }
+
+  if (hydrateOrg) {
+    campaignData.organization = await orgSvc.getFullOrg({
+      orgId: campaignData.organization,
+    });
+  }
+
+  if (hydrateJoins) {
+    campaignData.campaignJoins = await dbMethods.getJoins({
+      campaignId,
+    });
+  }
+
+  if (hydrateCurrUser) {
+    let usr = await userSvc.currentUser();
+    campaignData.currUserHasJoined =
+      campaignData.campaignJoins.filter((j) => j.user.id === usr.id).length > 0;
+  }
+
+  return campaignData;
+}
+
 export async function saveCampaign(campaignData) {
   if (!campaignData.campaign.id || campaignData.campaign.id === "new") {
     delete campaignData.campaign.id;
@@ -56,23 +95,7 @@ export async function getCampaign(campaignId) {
   // quick-hack end
 
   if (!isNew) {
-    // get hotlinks
-    let hls = await hotlinksSvc.getCampaignHotLinks({ campaignId });
-    campaignData.assets.forEach((a) => {
-      a.hotLinkData = hls.find((h) => h.assetId === a.id);
-    });
-
-    campaignData.organization = await orgSvc.getFullOrg({
-      orgId: campaignData.organization,
-    });
-
-    campaignData.campaignJoins = await dbMethods.getJoins({
-      campaignId,
-    });
-
-    let usr = await userSvc.currentUser();
-    campaignData.currUserHasJoined =
-      campaignData.campaignJoins.filter((j) => j.user.id === usr.id).length > 0;
+    campaignData = hydrateCampaignInfo(campaignData);
   }
 
   return campaignData;
@@ -108,9 +131,7 @@ export async function getCampaignsOfOrg(opts) {
   let ccs = await dbMethods.getCampaigns({ orgId: orgId });
   let retArr = [];
   for (let cc of ccs) {
-    cc.campaign.campaignJoins = await dbMethods.getJoins({
-      campaignId: cc.campaign.id,
-    });
+    cc.campaign = await hydrateCampaignInfo(cc.campaign, { hydrateOrg: false });
     retArr.push(cc);
   }
   return retArr;
