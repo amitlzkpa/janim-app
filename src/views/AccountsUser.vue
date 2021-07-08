@@ -236,9 +236,4 @@ export default {
 </script>
 
 <style scoped>
-.inner-shadow {
-  -moz-box-shadow: inset 0 0 18px #888888;
-  -webkit-box-shadow: inset 0 0 18px #888888;
-  box-shadow: inset 0 0 18px #888888;
-}
 </style>

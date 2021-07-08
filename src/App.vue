@@ -132,6 +132,12 @@ $sides: (top, bottom, left, right);
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
 }
 
+.inner-shadow {
+  -moz-box-shadow: inset 0 0 18px #888888;
+  -webkit-box-shadow: inset 0 0 18px #888888;
+  box-shadow: inset 0 0 18px #888888;
+}
+
 .vs-image--img {
   background-size: cover !important;
 }

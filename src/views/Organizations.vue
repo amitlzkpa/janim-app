@@ -9,7 +9,7 @@
         </vs-col>
       </vs-row>
       <vs-row>
-        <vs-col vs-w="3">
+        <vs-col vs-w="4">
           <ContentEditable
             tag="span"
             v-model="orgFilterTerm"
@@ -23,61 +23,75 @@
               display: inline-block;
             "
           />
-          <div class="mt-8">
-            <div
-              v-for="org in filteredOrgList"
-              :key="org.id"
-              @click="updateSelectedOrg(org)"
-              class="flex-center"
-            >
-              <vs-card
-                actionable
-                :style="
-                  selectedOrg.id === org.id ? 'border: 1px solid #DEDEDE' : ''
-                "
+          <div
+            class="ma-8 pa-20"
+            style="
+              height: 600px;
+              overflow-x: hidden;
+              direction: rtl;
+            "
+          >
+            <div style="direction: ltr;">
+              <div
+                v-for="org in filteredOrgList"
+                :key="org.id"
+                @click="updateSelectedOrg(org)"
               >
-                <div
-                  style="height: 100px; overflow-x: hidden; overflow-y: auto"
+                <vs-card
+                  actionable
+                  :style="
+                    selectedOrg.id === org.id ? 'border: 1px solid #DEDEDE' : ''
+                  "
                 >
-                  <span>
-                    <i> {{ org.id }} </i>
-                  </span>
-                  <br />
-                  <span style="font-weight: 600; font-size: 24px">
-                    {{ org.name }}
-                    <vs-icon
-                      v-if="userProfile.id === org.owner.id"
-                      icon="verified_user"
-                      size="16px"
-                    />
-                  </span>
-                  <p
-                    :style="`
-                      margin-left: ${
-                        [20, 40, 80][Math.floor(Math.random() * 3)]
-                      }px;
-                      width: ${
-                        [180, 240, 300][Math.floor(Math.random() * 3)]
-                      }px;
-                      ${
-                        selectedOrg.id === org.id
-                          ? 'border-bottom: 1px solid #DEDEDE'
-                          : ''
-                      };
-                  `"
-                  />
-                  <br />
-                  <div>
-                    <vs-icon icon="person" size="12px" />
-                    <span style="font-size: 18px">
-                      {{ org.perms.length }}
+                  <div
+                    style="height: 100px; overflow-x: hidden; overflow-y: auto"
+                  >
+                    <span>
+                      <i> {{ org.id }} </i>
                     </span>
-                    <span class="mx-8" />
-                    <vs-icon icon="campaign" size="12px" />
-                    <span style="font-size: 18px"> 4 </span>
+                    <br />
+                    <span style="font-weight: 600; font-size: 24px">
+                      {{ org.name }}
+                      <vs-icon
+                        v-if="userProfile.id === org.owner.id"
+                        icon="verified_user"
+                        size="16px"
+                      />
+                    </span>
+                    <p
+                      :style="`
+                        margin-left: ${
+                          [20, 40, 80][Math.floor(Math.random() * 3)]
+                        }px;
+                        width: ${
+                          [180, 240, 300][Math.floor(Math.random() * 3)]
+                        }px;
+                        ${
+                          selectedOrg.id === org.id
+                            ? 'border-bottom: 1px solid #DEDEDE'
+                            : ''
+                        };
+                    `"
+                    />
+                    <br />
+                    <div>
+                      <vs-icon icon="person" size="12px" />
+                      <span style="font-size: 18px">
+                        {{ org.perms.length }}
+                      </span>
+                      <span class="mx-8" />
+                      <vs-icon icon="campaign" size="12px" />
+                      <span style="font-size: 18px"> 4 </span>
+                    </div>
                   </div>
-                </div>
-              </vs-card>
+                </vs-card>
+              </div>
+
+              <div
+                style="height: 300px"
+                id="div-with-loading"
+                class="flex-center full-width vs-con-loading__container"
+              />
             </div>
           </div>
           <div @click="showNewOrgPopup = true">
@@ -108,14 +122,8 @@
               </div>
             </vs-prompt>
           </div>
-
-          <div
-            style="height: 300px"
-            id="div-with-loading"
-            class="flex-center full-width vs-con-loading__container"
-          />
         </vs-col>
-        <vs-col vs-w="9">
+        <vs-col vs-w="8">
           <div class="pa-36 mt-10">
             <div v-if="selectedOrg.id">
               <p style="font-size: 40px; font-weight: 600">
