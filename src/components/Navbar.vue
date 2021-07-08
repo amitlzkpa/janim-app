@@ -25,7 +25,8 @@
             <vs-dropdown-item to="/campaign/new">
               New Campaign
             </vs-dropdown-item>
-            <vs-dropdown-item to="/organizations" divider>
+            <vs-dropdown-item to="/home" divider> Home </vs-dropdown-item>
+            <vs-dropdown-item to="/organizations">
               Organizations
             </vs-dropdown-item>
             <vs-dropdown-item to="/settings"> Settings </vs-dropdown-item>
