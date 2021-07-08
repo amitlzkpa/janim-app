@@ -4,7 +4,7 @@
       <span class="flex-center full-width country-label">No assets found</span>
     </div>
     <div v-else>
-      <div v-for="(hpAsset, idx) of assetsToShow" :key="idx">
+      <div v-for="(hpAsset, idx) of assetsToShow" :key="idx" class="fade-in">
         <vs-card actionable class="cardx my-24">
           <div slot="header">
             <p style="color: #696969; font-size: 20px; font-weight: 600">
@@ -134,12 +134,22 @@ export default {
     return {
       // hpAssets: [],
       hpAssets: sampleHpAsset,
+      assetsToShow: [],
     };
   },
   computed: {
     ...mapState(["userProfile"]),
-    assetsToShow() {
-      return this.hpAssets.slice(this.startIdx);
+  },
+  async mounted() {
+    await this.updateList();
+  },
+  methods: {
+    async updateList() {
+      this.assetsToShow = [];
+      for (let i = this.startIdx; i < this.hpAssets.length; i++) {
+        this.assetsToShow.push(this.hpAssets[i]);
+        await this.wait(Math.abs(Math.random() * 200 + 100));
+      }
     },
   },
 };
