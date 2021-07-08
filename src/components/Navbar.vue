@@ -31,9 +31,8 @@
             </vs-dropdown-item>
             <vs-dropdown-item to="/settings"> Settings </vs-dropdown-item>
             <vs-dropdown-item to="/accounts-user"> Accounts </vs-dropdown-item>
-            <vs-dropdown-item @click="logout()" divider>
-              Logout
-            </vs-dropdown-item>
+            <vs-dropdown-item to="/help" divider> Help </vs-dropdown-item>
+            <vs-dropdown-item @click="logout()"> Logout </vs-dropdown-item>
           </vs-dropdown-menu>
         </vs-dropdown>
       </vs-navbar-item>

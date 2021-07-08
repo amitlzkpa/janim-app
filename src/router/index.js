@@ -46,6 +46,14 @@ let routes = [
     },
   },
   {
+    path: "/help",
+    name: "help",
+    component: () => import(/* webpackChunkName: "help" */ "@/views/Help.vue"),
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
     path: "/accounts-user",
     name: "accounts-user",
     component: () =>
