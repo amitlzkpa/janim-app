@@ -71,6 +71,10 @@ export async function saveCampaign(campaignData) {
     hotlinksSvc.updateOrAddHotLink(opts);
     delete asset.hotLinkData;
   }
+
+  // remove the joins info from campaign
+  delete campaignData.campaign.campaignJoins;
+  delete campaignData.campaign.currUserHasJoined;
   // quick-hack end
   await fb.campaignsCollection
     .doc(campaignData.campaign.id)
