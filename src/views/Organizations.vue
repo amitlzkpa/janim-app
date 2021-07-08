@@ -249,7 +249,14 @@
                       <div>
                         <h2>Top Earners</h2>
                         <div class="mt-20">
-                          <UserList :sampleUserIdx="1" />
+                          <UserList
+                            :sampleUserIdx="1"
+                            :usersList="
+                              selectedOrg.campaignsData.memberJoins.map(
+                                (j) => j.user
+                              )
+                            "
+                          />
                         </div>
                       </div>
                     </vs-col>
