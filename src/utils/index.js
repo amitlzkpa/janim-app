@@ -35,3 +35,7 @@ export function getHash(inp, mod = 1) {
   }
   return Math.abs(hash % mod);
 }
+
+export function randomNumber(min, max) {
+  return Math.abs(Math.round(Math.random() * (max - min) + min));
+}

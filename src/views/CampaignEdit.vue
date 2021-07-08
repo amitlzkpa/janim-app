@@ -326,7 +326,11 @@
                         <UserList
                           :sampleUserIdx="2"
                           :highlightActive="false"
-                          :usersList="campaign.campaignJoins.map((j) => j.user)"
+                          :usersList="
+                            campaign.campaignJoins
+                              ? campaign.campaignJoins.map((j) => j.user)
+                              : []
+                          "
                         />
                       </div>
                     </vs-tab>
@@ -663,10 +667,6 @@ import ActivityListViewer from "@/components/ActivityListViewer";
 
 import countryCodesList from "@/assets/countryCodesList.json";
 
-function randomNumber(min, max) {
-  return Math.abs(Math.round(Math.random() * (max - min) + min));
-}
-
 let campaignUpdateSub;
 
 export default {
@@ -726,7 +726,7 @@ export default {
     this.pseudoHitsCount = "2,073";
 
     this.$store.dispatch("refreshCampaign", this.$route.params.campaignId);
-    await this.wait(1200);
+    await this.wait(600);
     this.isFetchingCampaignData = false;
   },
   methods: {
