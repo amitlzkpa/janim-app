@@ -555,8 +555,6 @@ export default {
       this.selectedOrg = updOrg;
     },
     async sendPayout(payoutDetails) {
-      console.log(payoutDetails);
-      return;
       let recvUser = payoutDetails.user;
       let amount = payoutDetails.amount;
       if (!recvUser.beneficiaryAcct) {
