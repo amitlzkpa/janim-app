@@ -25,13 +25,9 @@
           />
           <div
             class="ma-8 pa-20"
-            style="
-              height: 600px;
-              overflow-x: hidden;
-              direction: rtl;
-            "
+            style="height: 600px; overflow-x: hidden; direction: rtl"
           >
-            <div style="direction: ltr;">
+            <div style="direction: ltr">
               <div
                 v-for="org in filteredOrgList"
                 :key="org.id"
@@ -266,6 +262,7 @@
                         <div class="mt-20">
                           <UserList
                             :sampleUserIdx="1"
+                            :highlightActive="false"
                             :usersList="
                               selectedOrg.campaignsData.memberJoins.map(
                                 (j) => j.user
@@ -478,7 +475,7 @@ export default {
     await this.wait(1000);
     this.$vs.loading.close("#div-with-loading > .con-vs-loading");
     this.filteredOrgList = [];
-    for(let o of this.fullOrgList) {
+    for (let o of this.fullOrgList) {
       this.filteredOrgList.push(o);
       await this.wait(200);
     }
