@@ -35,6 +35,7 @@
               <div
                 v-for="org in filteredOrgList"
                 :key="org.id"
+                class="fade-in"
                 @click="updateSelectedOrg(org)"
               >
                 <vs-card
@@ -125,7 +126,7 @@
         </vs-col>
         <vs-col vs-w="8">
           <div class="pa-36 mt-10">
-            <div v-if="selectedOrg.id">
+            <div v-if="selectedOrg.id" class="fade-in">
               <p style="font-size: 40px; font-weight: 600">
                 {{ selectedOrg.name }}
               </p>
@@ -475,8 +476,12 @@ export default {
       userId: u.id,
     });
     await this.wait(1000);
-    this.filteredOrgList = this.fullOrgList.map((o) => o);
     this.$vs.loading.close("#div-with-loading > .con-vs-loading");
+    this.filteredOrgList = [];
+    for(let o of this.fullOrgList) {
+      this.filteredOrgList.push(o);
+      await this.wait(200);
+    }
 
     let orgId = this.$route.params.orgId;
     let orgIdxInList = this.fullOrgList.findIndex((o) => o.id === orgId);
