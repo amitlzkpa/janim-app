@@ -5,7 +5,6 @@ import * as userSvc from "@/services/userSvc";
 import * as orgSvc from "@/services/orgSvc";
 import * as hotlinksSvc from "@/services/hotLinksSvc";
 import campaignSchema from "@/schemas/campaign";
-import _ from "lodash";
 
 export async function saveCampaign(campaignData) {
   if (!campaignData.campaign.id || campaignData.campaign.id === "new") {
@@ -102,4 +101,10 @@ export async function unjoinCampaign(opts) {
     await fb.campaignJoinsCollection.doc(j.id).delete();
   }
   return joinRefs;
+}
+
+export async function getCampaignsOfOrg(opts) {
+  let { orgId } = opts;
+  let retArr = await dbMethods.getCampaigns({ orgId: orgId });
+  return retArr;
 }
