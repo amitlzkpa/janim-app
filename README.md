@@ -5,7 +5,7 @@ An online platform for marketing managers to create targeted campaigns and use t
 ## Links
 
 Demo: [vyrall.web.app](https://vyrall.web.app)  
-Main Video: [youtu.be/ynTcf4USRlY](https://youtu.be/ynTcf4USRlY)  
+Main Video: [youtu.be/E-tR7jIf4gI](https://youtu.be/E-tR7jIf4gI)  
 Short Explainer: [youtu.be/Ty6BKykVQaw](https://youtu.be/Ty6BKykVQaw)  
 Connect and Verify Influencer Account: [youtu.be/PlEIk2Z9SBs](https://youtu.be/PlEIk2Z9SBs)  
 Connect a Sending Account for Campaign: [youtu.be/WiE_UWXAcYg](https://youtu.be/WiE_UWXAcYg)  

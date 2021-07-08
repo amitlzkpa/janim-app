@@ -19,6 +19,7 @@
                   height: 100%;
                   justify-content: center;
                   align-items: center;
+                  text-align: center;
                 "
               >
                 <p
@@ -34,6 +35,15 @@
                 <h1 class="soft-shadow-text" style="font-weight: 300">
                   The gig economy for influencers.
                 </h1>
+                <vs-button
+                  class="ma-10"
+                  radius
+                  color="#ff0080"
+                  type="filled"
+                  icon="play_circle_filled"
+                  href="https://youtu.be/E-tR7jIf4gI"
+                  target="_blank"
+                ></vs-button>
               </div>
             </div>
           </div>
