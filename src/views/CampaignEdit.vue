@@ -311,7 +311,11 @@
                 </vs-tab>
                 <vs-tab label="Members">
                   <div class="mt-20">
-                    <UserList :sampleUserIdx="2" :highlightActive="false" />
+                    <UserList
+                      :sampleUserIdx="2"
+                      :highlightActive="false"
+                      :usersList="campaign.campaignJoins.map((j) => j.user)"
+                    />
                   </div>
                 </vs-tab>
               </vs-tabs>
