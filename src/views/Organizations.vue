@@ -268,6 +268,7 @@
                                 (j) => j.user
                               )
                             "
+                            @userSelected="userSelected"
                           />
                         </div>
                       </div>
@@ -487,6 +488,17 @@ export default {
     }
   },
   methods: {
+    async userSelected(user) {
+      if (!user.beneficiaryAcct) {
+        this.$vs.notify({
+          title: "Failed",
+          text: `Failed to send payout to ${user.name} since they don't have a linked receiving account.`,
+          color: "warning",
+        });
+        return;
+      }
+      await this.sendPayout(user);
+    },
     async updateSelectedOrg(org) {
       this.selectedOrg = org;
     },
@@ -594,8 +606,14 @@ export default {
         sender_entity_type: "company",
         sender: senInfo,
       };
+      console.log(newPayoutInfo);
       let q = await rapydSvc.createRapydPayout(newPayoutInfo);
       console.log(q);
+      this.$vs.notify({
+        title: "Success",
+        text: `Sending payout to ${user.name} has been initiated.`,
+        color: "success",
+      });
     },
   },
 };

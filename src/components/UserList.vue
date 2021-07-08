@@ -101,6 +101,7 @@ export default {
     },
     async updateSelectedUser(updUser) {
       this.currentlySelectedUser = updUser;
+      this.$emit("userSelected", updUser);
     },
   },
 };
