@@ -3,13 +3,13 @@ import "firebase/auth";
 import "firebase/firestore";
 
 let firebaseConfig = {
-  apiKey: "AIzaSyATv80DF3VOgJSB-COX4vLhsC4cESE2OJQ",
-  authDomain: "vyrall.firebaseapp.com",
-  projectId: "vyrall",
-  storageBucket: "vyrall.appspot.com",
-  messagingSenderId: "429094377009",
-  appId: "1:429094377009:web:19364668bb00df5fb52710",
-  measurementId: "G-SB0E11C90Y",
+  apiKey: "AIzaSyBJ7gxAK4s0iZCyVsWC7ThZrgPe96GpgEA",
+  authDomain: "bidfriday-vyrall.firebaseapp.com",
+  projectId: "bidfriday-vyrall",
+  storageBucket: "bidfriday-vyrall.appspot.com",
+  messagingSenderId: "454872732540",
+  appId: "1:454872732540:web:04d3649ca12f63e2a84af9",
+  measurementId: "G-8EE3KC8CND"
 };
 firebase.initializeApp(firebaseConfig);
 
