@@ -1,1 +1,1 @@
-# vyrall
+# bidfriday-vyrall
