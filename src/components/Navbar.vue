@@ -1,47 +1,27 @@
 <template>
-  <div>
-    <vs-navbar class="pa-20">
-      <div slot="title">
-        <router-link
-          :to="isLoggedIn ? '/home' : '/'"
-          style="text-decoration: none"
-        >
-          <vs-navbar-title>
-            <h1 style="color: #9900ff">starter-firebase-emul-vuetify</h1>
-          </vs-navbar-title>
-        </router-link>
-      </div>
+  <v-app-bar app>
+    <v-btn :to="isLoggedIn ? '/home' : '/'" width="180" text tile>
+      starter-firebase-emul-vuetify
+    </v-btn>
 
-      <vs-navbar-item v-if="isLoggedIn">
-        <vs-dropdown>
-          <a class="a-icon" href.prevent>
-            <span>
-              {{ userProfile.name }}
-            </span>
-            <vs-icon size="12px" icon="expand_more"></vs-icon>
-          </a>
+    <v-spacer></v-spacer>
 
-          <vs-dropdown-menu style="width: 200px">
-            <vs-dropdown-item to="/campaign/new">
-              New Campaign
-            </vs-dropdown-item>
-            <vs-dropdown-item to="/home" divider> Home </vs-dropdown-item>
-            <vs-dropdown-item to="/organizations">
-              Organizations
-            </vs-dropdown-item>
-            <vs-dropdown-item to="/settings"> Settings </vs-dropdown-item>
-            <vs-dropdown-item to="/accounts-user"> Accounts </vs-dropdown-item>
-            <vs-dropdown-item to="/help" divider> Help </vs-dropdown-item>
-            <vs-dropdown-item @click="logout()"> Logout </vs-dropdown-item>
-          </vs-dropdown-menu>
-        </vs-dropdown>
-      </vs-navbar-item>
-
-      <vs-navbar-item v-if="!isLoggedIn">
-        <vs-button type="flat" to="/login" class="mx-4">Login</vs-button>
-      </vs-navbar-item>
-    </vs-navbar>
-  </div>
+    <v-menu v-if="isLoggedIn" offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text tile v-bind="attrs" v-on="on">
+          {{ userProfile.name }}
+          <v-icon right small> mdi-chevron-down </v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item to="/settings"> Settings </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-title> Logout </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    <v-btn v-else text to="/login"> Login </v-btn>
+  </v-app-bar>
 </template>
 
 <script>

@@ -1,111 +1,116 @@
 <template>
   <div>
-    <vs-row>
-      <vs-col vs-w="6" vs-offset="3">
-        <div class="mt-20 pa-10">
-          <vs-card v-if="currentlyOpenForm === 'login'">
-            <div slot="header">
-              <h3>Welcome Back</h3>
-              <p>Sign in to continue</p>
-            </div>
-            <div>
-              <vs-input
-                label="Email"
-                placeholder="you@email.com"
-                v-model="loginForm.email"
-                class="full-width py-8"
-              />
-              <vs-input
-                type="password"
-                label="Password"
-                placeholder="*******"
-                v-model="loginForm.password"
-                class="full-width py-8"
-              />
-              <vs-divider />
-              <div class="full-width" style="display: flex">
-                <vs-button type="flat" @click="openForm('reset')" class="mx-4"
-                  >Forgot Password</vs-button
-                >
-                <div style="flex-grow: 1"></div>
-                <vs-button
-                  type="border"
-                  @click="openForm('signup')"
-                  class="mx-4"
-                  >Sign Up</vs-button
-                >
-                <vs-button type="filled" @click="login()" class="mx-4"
-                  >Sign In</vs-button
-                >
-              </div>
-            </div>
-          </vs-card>
+    <div>
+      <v-form v-if="currentlyOpenForm === 'login'">
+        <p class="text-h4 font-weight-light">Welcome Back</p>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+              class="my-2"
+              outlined
+              hide-details
+              label="Email"
+              placeholder="you@email.com"
+              v-model.trim="loginForm.email"
+            ></v-text-field>
+            <v-text-field
+              class="my-2"
+              type="password"
+              outlined
+              hide-details
+              label="Password"
+              placeholder="******"
+              v-model.trim="loginForm.password"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <v-btn color="primary" dark block @click="login()">Log In</v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6">
+            <v-btn outlined plain text block @click="openForm('reset')"
+              >Forgot Password</v-btn
+            >
+          </v-col>
+          <v-col cols="6">
+            <v-btn outlined plain text block @click="openForm('signup')"
+              >Create an Account</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-form>
 
-          <vs-card v-if="currentlyOpenForm === 'signup'">
-            <div slot="header">
-              <h3>Get Started</h3>
-              <p>Sign up to get started</p>
-            </div>
-            <div>
-              <vs-input
-                label="Name"
-                placeholder="Full Name"
-                v-model="signupForm.name"
-                class="full-width py-8"
-              />
-              <vs-input
-                label="Email"
-                placeholder="you@email.com"
-                v-model="signupForm.email"
-                class="full-width py-8"
-              />
-              <vs-input
-                type="password"
-                label="Password"
-                placeholder="*******"
-                v-model="signupForm.password"
-                class="full-width py-8"
-              />
-              <vs-divider />
-              <div class="full-width" style="display: flex">
-                <vs-button type="flat" @click="openForm('login')"
-                  >Back to Log In</vs-button
-                >
-                <div style="flex-grow: 1"></div>
-                <vs-button type="filled" @click="signup()" class="mx-4"
-                  >Sign Up</vs-button
-                >
-              </div>
-            </div>
-          </vs-card>
+      <v-form v-else-if="currentlyOpenForm === 'signup'">
+        <p class="text-h4 font-weight-light">Get Started</p>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+              class="my-2"
+              outlined
+              hide-details
+              label="Name"
+              placeholder="John Doe"
+              v-model.trim="signupForm.name"
+            ></v-text-field>
+            <v-text-field
+              class="my-2"
+              outlined
+              hide-details
+              label="Email"
+              placeholder="you@email.com"
+              v-model.trim="signupForm.email"
+            ></v-text-field>
+            <v-text-field
+              class="my-2"
+              type="password"
+              outlined
+              hide-details
+              label="Password"
+              placeholder="******"
+              v-model.trim="signupForm.password"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
-          <vs-card v-if="currentlyOpenForm === 'reset'">
-            <div slot="header">
-              <h3>Reset Password</h3>
-              <p>Submit and check your email for reset instructions</p>
-            </div>
-            <div>
-              <vs-input
-                label="Email"
-                placeholder="you@email.com"
-                v-model="resetForm.email"
-                class="full-width py-8"
-              />
-              <vs-divider />
-              <div class="full-width" style="display: flex">
-                <vs-button type="flat" @click="openForm('login')"
-                  >Back to Log In</vs-button
-                >
-                <div style="flex-grow: 1"></div>
-                <vs-button type="filled" @click="resetPassword()" class="mx-4"
-                  >Reset</vs-button
-                >
-              </div>
-            </div>
-          </vs-card>
-        </div>
-      </vs-col>
-    </vs-row>
+        <v-row>
+          <v-col cols="12">
+            <v-btn color="primary" dark block @click="signup()">Sign Up</v-btn>
+          </v-col>
+          <v-col cols="12">
+            <v-btn outlined plain text block @click="openForm('login')"
+              >Back to Log In</v-btn
+            ></v-col
+          >
+        </v-row>
+      </v-form>
+
+      <v-form v-else-if="currentlyOpenForm === 'reset'">
+        <p class="text-h4 font-weight-light">Reset Password</p>
+        <v-text-field
+          class="my-2"
+          outlined
+          hide-details
+          label="Email"
+          placeholder="you@email.com"
+          v-model.trim="resetForm.email"
+        ></v-text-field>
+        <v-row>
+          <v-col cols="12">
+            <v-btn color="primary" dark block @click="resetPassword()"
+              >Reset</v-btn
+            >
+          </v-col>
+          <v-col cols="12">
+            <v-btn outlined plain text block @click="openForm('login')"
+              >Back to Log In</v-btn
+            ></v-col
+          >
+        </v-row>
+      </v-form>
+    </div>
   </div>
 </template>
 

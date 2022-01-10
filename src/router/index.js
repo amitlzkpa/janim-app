@@ -4,98 +4,46 @@ import { auth } from "@/firebase";
 
 Vue.use(VueRouter);
 
-let routes = [
+const routes = [
   {
     path: "/",
-    name: "landing",
+    name: "Landing",
     component: () =>
       import(/* webpackChunkName: "landing" */ "@/views/Landing.vue"),
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: () =>
       import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
   },
   {
     path: "/home",
-    name: "home",
+    name: "Home",
     component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/organizations/:orgId?",
-    name: "organizations",
-    component: () =>
-      import(
-        /* webpackChunkName: "organizations" */ "@/views/Organizations.vue"
-      ),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: "/settings",
-    name: "settings",
+    name: "Settings",
     component: () =>
       import(/* webpackChunkName: "settings" */ "@/views/Settings.vue"),
     meta: {
       requiresAuth: true,
     },
   },
-  {
-    path: "/help",
-    name: "help",
-    component: () => import(/* webpackChunkName: "help" */ "@/views/Help.vue"),
-    meta: {
-      requiresAuth: false,
-    },
-  },
-  {
-    path: "/accounts-user",
-    name: "accounts-user",
-    component: () =>
-      import(
-        /* webpackChunkName: "accounts-user" */ "@/views/AccountsUser.vue"
-      ),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
-    path: "/campaign/view/:campaignId",
-    name: "campaign-view",
-    component: () =>
-      import(
-        /* webpackChunkName: "campaign-view" */ "@/views/CampaignView.vue"
-      ),
-  },
-  {
-    path: "/campaign/edit/:campaignId",
-    name: "campaign-edit",
-    component: () =>
-      import(
-        /* webpackChunkName: "campaign-edit" */ "@/views/CampaignEdit.vue"
-      ),
-  },
-  {
-    path: "/campaign/new",
-    name: "campaign-new",
-    component: () =>
-      import(/* webpackChunkName: "campaign-new" */ "@/views/CampaignEdit.vue"),
-  },
 ];
 
-let router = new VueRouter({
+const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
 });
 
 router.beforeEach((to, from, next) => {
-  let requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
+  const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
 
   if (requiresAuth && !auth.currentUser) {
     next("/login");

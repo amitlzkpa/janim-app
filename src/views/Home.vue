@@ -1,76 +1,100 @@
 <template>
   <div>
-    <vs-row class="pt-30 px-10">
-      <vs-col vs-w="4">
-        <h2>Your Feed</h2>
-        <ActivityListViewer campaignId="QWx9DmwlkQRbCK2aXbj4" />
-      </vs-col>
-      <vs-col vs-w="6">
-        <ContentEditable
-          tag="span"
-          v-model="cardFilterTerm"
-          placeholderValue="search"
-          styleText="
-            cursor: select;
-            font-size: 30px;
-            font-weight: 100;
-            min-height: 40px;
-            width: 100%;
-            display: inline-block;
-          "
-        />
-        <vs-divider class="pr-30" />
-        <vs-row>
-          <vs-col class="pa-10" vs-w="4">
-            <HighPerformerList :startIdx="1" />
-          </vs-col>
-          <vs-col class="pa-10" vs-w="4">
-            <RapydWalletCard
-              :walletAddress="userProfile.walletId"
-              :showMultipleCurrencies="false"
-              :showButtons="false"
-            />
-            <HighPerformerList :startIdx="3" />
-          </vs-col>
-          <vs-col class="pa-10" vs-w="4">
-            <HighPerformerList :startIdx="4" />
-          </vs-col>
-        </vs-row>
-      </vs-col>
-      <vs-col vs-w="2">
-        <h2>Rising Campaigns</h2>
-        <CampaignList :highlightActive="false" />
-      </vs-col>
-    </vs-row>
+    <div class="my-2">
+      <v-textarea
+        class="my-2"
+        label="Post Body"
+        placeholder="Start typing..."
+        filled
+        clearable
+        hide-details
+        auto-grow
+        v-model.trim="post.content"
+      ></v-textarea>
+      <v-btn
+        color="primary"
+        block
+        x-large
+        :disabled="post.content === ''"
+        @click="createPost()"
+      >
+        Post
+      </v-btn>
+    </div>
+
+    <v-divider class="my-2" />
+
+    <div>
+      <div v-if="posts.length">
+        <v-card v-for="post in posts" :key="post.id" class="my-2">
+          <v-card-title>
+            <span class="text-h6 font-weight-light">{{ post.userName }}</span>
+          </v-card-title>
+
+          <v-card-text class="text-h5 font-weight-bold">
+            {{ post.content | trimLength }}
+          </v-card-text>
+
+          <v-card-actions>
+            <v-list-item class="grow">
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  moment(post.createdOn.toDate()).fromNow()
+                }}</v-list-item-title>
+              </v-list-item-content>
+
+              <v-row align="center" justify="end">
+                <v-btn icon @click="likePost(post.id, post.likes)">
+                  <v-icon class="ma-1"> mdi-heart </v-icon>
+                </v-btn>
+                <span class="subheading mr-2">{{ post.likes }}</span>
+              </v-row>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
+      </div>
+      <div v-else>
+        <v-card outlined>
+          <v-card-text class="text-h5 font-weight-light">
+            There are currently no posts
+          </v-card-text>
+        </v-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
-import HighPerformerList from "@/components/HighPerformerList";
-import ActivityListViewer from "@/components/ActivityListViewer";
-import RapydWalletCard from "@/components/RapydWalletCard";
-import CampaignList from "@/components/CampaignList";
-import ContentEditable from "@/components/ContentEditable";
-
 export default {
-  components: {
-    HighPerformerList,
-    ActivityListViewer,
-    RapydWalletCard,
-    CampaignList,
-    ContentEditable,
+  filters: {
+    trimLength(val) {
+      if (val.length < 200) {
+        return val;
+      }
+      return `${val.substring(0, 200)}...`;
+    },
   },
   data() {
     return {
-      cardFilterTerm: "",
+      post: {
+        content: "",
+      },
     };
   },
   computed: {
-    ...mapState(["userProfile"]),
+    ...mapState(["userProfile", "posts"]),
   },
-  methods: {},
+  methods: {
+    createPost() {
+      this.$store.dispatch("createPost", { content: this.post.content });
+      this.post.content = "";
+    },
+    likePost(id, likesCount) {
+      this.$store.dispatch("likePost", { id, likesCount });
+    },
+  },
 };
 </script>
 

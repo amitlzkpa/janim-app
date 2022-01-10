@@ -3,4 +3,8 @@ module.exports = {
     progress: false,
     // https: true,
   },
+
+  transpileDependencies: [
+    'vuetify'
+  ]
 };

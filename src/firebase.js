@@ -2,7 +2,7 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
-let firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAEhgnKq4qlk5pxDFVwzOFb6G9UroAsQww",
   authDomain: "starter-firebase-emul-vuetify.firebaseapp.com",
   projectId: "starter-firebase-emul-vuetify",
@@ -14,31 +14,13 @@ let firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // utils
-let db = firebase.firestore();
-let auth = firebase.auth();
-let storage = firebase.storage();
+const db = firebase.firestore();
+const auth = firebase.auth();
 
 // collection references
-let usersCollection = db.collection("users");
-let campaignsCollection = db.collection("campaign");
-let campaignJoinsCollection = db.collection("campaignJoins");
-let hotLinksCollection = db.collection("hotLinks");
-let dataPtsCollection = db.collection("dataPts");
-let activityPostsCollection = db.collection("activityPosts");
-let organizationsCollection = db.collection("organization");
-let permissionsCollection = db.collection("permission");
+const usersCollection = db.collection("users");
+const postsCollection = db.collection("posts");
+const likesCollection = db.collection("likes");
 
 // export utils/refs
-export {
-  db,
-  auth,
-  storage,
-  usersCollection,
-  campaignsCollection,
-  campaignJoinsCollection,
-  hotLinksCollection,
-  dataPtsCollection,
-  activityPostsCollection,
-  organizationsCollection,
-  permissionsCollection,
-};
+export { db, auth, usersCollection, postsCollection, likesCollection };
