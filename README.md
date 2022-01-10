@@ -1,1 +1,1 @@
-# bidfriday-vyrall
+# starter-firebase-emul-vuetify

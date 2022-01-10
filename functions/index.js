@@ -12,7 +12,7 @@ let dataPtsCollection = db.collection("dataPts");
 
 exports.test = functions.https.onRequest(async (req, res) => {
   functions.logger.info("Test success!", { structuredData: true });
-  res.send("Hello from bidfriday-vyrall!");
+  res.send("Hello from starter-firebase-emul-vuetify!");
 });
 
 exports.getStats = functions.https.onRequest(async (req, res) => {

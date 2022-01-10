@@ -7,7 +7,7 @@
           style="text-decoration: none"
         >
           <vs-navbar-title>
-            <h1 style="color: #9900ff">bidfriday-vyrall</h1>
+            <h1 style="color: #9900ff">starter-firebase-emul-vuetify</h1>
           </vs-navbar-title>
         </router-link>
       </div>
