@@ -33,7 +33,7 @@
                   starter-firebase-emul-vuetify
                 </p>
                 <h1 class="soft-shadow-text" style="font-weight: 300">
-                  The gig economy for influencers.
+                  foooo
                 </h1>
                 <vs-button
                   class="ma-10"
