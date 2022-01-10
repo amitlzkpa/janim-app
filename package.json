@@ -1,7 +1,12 @@
 {
   "name": "starter-firebase-emul-vuetify",
   "version": "0.1.0",
-  "private": true,
+  "description": "",
+  "author": "amitlzkpa",
+  "license": "GPLV3",
+  "engines": {
+    "node": "~14.18.1"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
