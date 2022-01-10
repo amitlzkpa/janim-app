@@ -5,8 +5,8 @@
   "author": "amitlzkpa",
   "license": "GPLV3",
   "engines": {
-    "node": "~14.18.1",
-    "npm": "~8.3.0"
+    "node": "~16.13.1",
+    "npm": "~8.1.2"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
