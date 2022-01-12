@@ -1,48 +1,9 @@
 <template>
-  <div>
-    <p class="text-h4 font-weight-light">Update your profile</p>
-
-    <v-form>
-      <v-row>
-        <v-col cols="12">
-          <v-text-field
-            class="my-2"
-            outlined
-            persistent-placeholder
-            hide-details
-            label="Name"
-            :placeholder="userProfile.name"
-            v-model.trim="name"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-btn color="primary" block dark @click="updateProfile()">Update</v-btn>
-    </v-form>
-  </div>
+  <div>Settingss</div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
-export default {
-  data() {
-    return {
-      name: "",
-    };
-  },
-  computed: {
-    ...mapState(["userProfile"]),
-  },
-  methods: {
-    updateProfile() {
-      this.$store.dispatch("updateProfile", {
-        name: this.name !== "" ? this.name : this.userProfile.name,
-      });
-      this.name = "";
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped></style>

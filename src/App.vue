@@ -1,12 +1,9 @@
 <template>
-  <v-app>
+  <div id="app">
     <Navbar />
-    <v-main>
-      <v-container fluid>
-        <router-view />
-      </v-container>
-    </v-main>
-  </v-app>
+    <hr />
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -19,6 +16,5 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '../node_modules/typeface-roboto/index.css'
+<style>
 </style>

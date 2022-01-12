@@ -1,20 +1,9 @@
 <template>
-  <div>
-    <p class="text-h2 font-weight-light">starter-firebase-emul-vuetify</p>
-  </div>
+  <div>Landingg</div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
-export default {
-  computed: {
-    ...mapState(["userProfile"]),
-    isLoggedIn() {
-      return Object.keys(this.userProfile).length > 0;
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped></style>

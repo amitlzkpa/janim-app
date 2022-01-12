@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: "starter-firebase-emul-vuetify.appspot.com",
   messagingSenderId: "381798323659",
   appId: "1:381798323659:web:837ca1ec008b15bf0d124e",
-  measurementId: "G-5E6BB52HXH"
+  measurementId: "G-5E6BB52HXH",
 };
 firebase.initializeApp(firebaseConfig);
 
@@ -19,8 +19,6 @@ const auth = firebase.auth();
 
 // collection references
 const usersCollection = db.collection("users");
-const postsCollection = db.collection("posts");
-const likesCollection = db.collection("likes");
 
 // export utils/refs
-export { db, auth, usersCollection, postsCollection, likesCollection };
+export { db, auth, usersCollection };
