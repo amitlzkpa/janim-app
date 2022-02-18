@@ -19,11 +19,7 @@
   },
   "hosting": {
     "public": "./dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "/api/test",
@@ -34,16 +30,8 @@
         "function": "getStats"
       },
       {
-        "source": "/api/rapyd",
-        "function": "rapyd"
-      },
-      {
         "source": "/go**",
         "function": "go"
-      },
-      {
-        "source": "/webhook/beneficiary_created",
-        "function": "wh_beneficiary_created"
       },
       {
         "source": "**",
