@@ -16,8 +16,11 @@
       "host": "localhost",
       "port": "5000"
     },
+    "storage": {
+      "port": "7000"
+    },
     "database": {
-      "port": 9000
+      "port": "9000"
     },
     "ui": {
       "enabled": true
@@ -62,5 +65,8 @@
   },
   "functions": {
     "source": "functions"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }
