@@ -39,14 +39,6 @@
         "function": "test"
       },
       {
-        "source": "/api/get-stats",
-        "function": "getStats"
-      },
-      {
-        "source": "/go**",
-        "function": "go"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

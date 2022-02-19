@@ -1,5 +1,5 @@
 import * as fb from "@/firebase";
-import * as dbMethods from "@/services/dbMethods";
+import * as fb_dbMethods from "@/services/fb_dbMethods";
 import _ from "lodash";
 
 let _currentUser;
@@ -61,6 +61,6 @@ export async function updateUser(opts) {
 
 export async function getUser(opts) {
   let { userId } = opts;
-  let user = await dbMethods.getUser({ userId });
+  let user = await fb_dbMethods.getUser({ userId });
   return user;
 }
