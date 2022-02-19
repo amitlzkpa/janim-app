@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import * as fb from "@/firebase";
 import router from "@/router/index";
+
+import * as userSvc from "@/services/userSvc";
 
 Vue.use(Vuex);
 
@@ -16,45 +17,34 @@ const store = new Vuex.Store({
   },
   actions: {
     async login({ dispatch }, form) {
-      const { user } = await fb.auth.signInWithEmailAndPassword(
-        form.email,
-        form.password
-      );
-      dispatch("fetchUserProfile", user);
-    },
-    async fetchUserProfile({ commit }, user) {
-      const userProfile = await fb.usersCollection.doc(user.uid).get();
-      commit("setUserProfile", userProfile.data());
-      if (router.currentRoute.path === "/login") {
-        router.push("/home");
-      }
+      let u = await userSvc.currentUser();
+      if (u && u.id) await userSvc.signOut();
+      let user = await userSvc.signIn(form);
+      dispatch("refreshUserProfile", user);
     },
     async signup({ dispatch }, form) {
-      const { user } = await fb.auth.createUserWithEmailAndPassword(
-        form.email,
-        form.password
-      );
-      await fb.usersCollection.doc(user.uid).set({
-        name: form.name,
-      });
-      dispatch("fetchUserProfile", user);
+      let user = await userSvc.createUser(form);
+      dispatch("refreshUserProfile", user);
     },
     async reset({ dispatch }, form) {
-      await fb.auth.sendPasswordResetEmail(form.email);
+      await userSvc.resetPassword(form);
     },
     async logout({ commit }) {
-      await fb.auth.signOut();
+      await userSvc.signOut();
       commit("setUserProfile", {});
       router.push("/login");
     },
 
-    async updateProfile({ dispatch }, user) {
-      const userId = fb.auth.currentUser.uid;
-      const userRef = await fb.usersCollection.doc(userId).update({
-        name: user.name,
-      });
-
-      dispatch("fetchUserProfile", { uid: userId });
+    async refreshUserProfile({ commit }, userObj) {
+      let user = await userSvc.getUser({ userId: userObj.id });
+      commit("setUserProfile", user);
+      if (router.currentRoute.path === "/login") {
+        router.push("/home");
+      }
+    },
+    async saveUserProfile({ dispatch }, valsForUpdatedUser) {
+      let user = await userSvc.updateUser(valsForUpdatedUser);
+      dispatch("refreshUserProfile", user);
     },
   },
 });

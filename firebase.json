@@ -15,23 +15,28 @@
     "hosting": {
       "host": "localhost",
       "port": "5000"
+    },
+    "storage": {
+      "port": "7000"
+    },
+    "database": {
+      "port": "9000"
+    },
+    "ui": {
+      "enabled": true
     }
   },
   "hosting": {
     "public": "./dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "/api/test",
         "function": "test"
-      },
-      {
-        "source": "/api/get-stats",
-        "function": "getStats"
-      },
-      {
-        "source": "/go**",
-        "function": "go"
       },
       {
         "source": "**",
@@ -52,5 +57,8 @@
   },
   "functions": {
     "source": "functions"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }
