@@ -1,5 +1,9 @@
 <template>
-  <div>Homee</div>
+  <div>
+    <v-container>
+      <p class="text-h2 font-weight-light">Home</p>
+    </v-container>
+  </div>
 </template>
 
 <script>
