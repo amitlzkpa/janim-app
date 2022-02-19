@@ -18,7 +18,7 @@
           </v-col>
         </v-row>
 
-        <v-btn color="primary" block dark @click="updateProfile()"
+        <v-btn color="primary" block dark @click="saveUserProfile()"
           >Update</v-btn
         >
       </v-form>
@@ -39,9 +39,9 @@ export default {
     ...mapState(["userProfile"]),
   },
   methods: {
-    updateProfile() {
-      this.$store.dispatch("updateProfile", {
-        name: this.name !== "" ? this.name : this.userProfile.name,
+    saveUserProfile() {
+      this.$store.dispatch("saveUserProfile", {
+        name: this.name || this.userProfile.name,
       });
       this.name = "";
     },

@@ -1,6 +1,8 @@
 <template>
   <v-app-bar app>
-    <a :to="isLoggedIn ? '/home' : '/'"> starter-firebase-emul-vuetify </a>
+    <v-btn text :to="isLoggedIn ? '/home' : '/'">
+      starter-firebase-emul-vuetify
+    </v-btn>
 
     <v-spacer></v-spacer>
 
@@ -12,6 +14,7 @@
         </v-btn>
       </template>
       <v-list>
+        <v-list-item to="/home"> Home </v-list-item>
         <v-list-item to="/settings"> Settings </v-list-item>
         <v-list-item @click="logout">
           <v-list-item-title> Logout </v-list-item-title>
