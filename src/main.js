@@ -27,9 +27,7 @@ Vue.use(vueFilterPrettyBytes);
 Vue.prototype.$api = api;
 Vue.prototype.$utils = utils;
 
-Vue.prototype.wait = async function (ms) {
-  return new Promise((resolve) => setTimeout(() => resolve(), ms));
-};
+Vue.prototype.wait = utils.wait;
 
 let app;
 auth.onAuthStateChanged((user) => {
