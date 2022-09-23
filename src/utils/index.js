@@ -1,5 +1,9 @@
 import moment from "moment";
 
+export async function wait(ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms));
+};
+
 export function convertToArray(refs) {
   let regArr = [];
   refs.forEach((r) => {
@@ -20,6 +24,39 @@ export function arrayUnion(arrA, arrB, fn) {
   arrB = arrB || [];
   let ret = [...new Set([...arrA, ...arrB])].filter((i) => !!i);
   return ret;
+}
+
+/**
+
+  let readFn = async (url) => {
+    let resp = await this.$api.get(url);
+    return resp;
+  }
+
+  let parallelReads = await utils.getResultsInParallel(urls, readFn);
+
+*/
+
+export async function getResultsInParallel(arr, fn) {
+  let promisesArr = arr.map((item) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let res;
+        if (Array.isArray(item)) {
+          res = await fn(...item);
+        } else {
+          res = await fn(item);
+        }
+        resolve(res);
+        return res;
+      } catch(ex) {
+        console.error(ex);
+        reject(ex);
+      }
+    });
+  });
+  let promiseResults = await Promise.allSettled(promisesArr);
+  return promiseResults;
 }
 
 // ref: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
