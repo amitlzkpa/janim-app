@@ -3,6 +3,18 @@ export async function wait(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
 };
 
+// ref: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+export function getHash(inp, mod = 1) {
+  inp = inp || "";
+  let hash = 28213, i, chr;
+  for (i = 0; i < inp.length; i++) {
+    chr = inp.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash % mod);
+}
+
 /**
 
   let readFn = async (url) => {
@@ -36,17 +48,21 @@ export async function getResultsInParallel(arr, fn) {
   return promiseResults;
 }
 
-// ref: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
-export function getHash(inp, mod = 1) {
-  inp = inp || "";
-  let hash = 28213, i, chr;
-  for (i = 0; i < inp.length; i++) {
-    chr = inp.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return Math.abs(hash % mod);
-}
+/**
+
+                              888                             888    888      d8b                            
+                              888                             888    888      Y8P                            
+                              888                             888    888                                     
+888d888 8888b.  88888b.   .d88888  .d88b.  88888b.d88b.       888888 88888b.  888 88888b.   .d88b.  .d8888b  
+888P"      "88b 888 "88b d88" 888 d88""88b 888 "888 "88b      888    888 "88b 888 888 "88b d88P"88b 88K      
+888    .d888888 888  888 888  888 888  888 888  888  888      888    888  888 888 888  888 888  888 "Y8888b. 
+888    888  888 888  888 Y88b 888 Y88..88P 888  888  888      Y88b.  888  888 888 888  888 Y88b 888      X88 
+888    "Y888888 888  888  "Y88888  "Y88P"  888  888  888       "Y888 888  888 888 888  888  "Y88888  88888P' 
+                                                                                                888          
+                                                                                           Y8b d88P          
+                                                                                            "Y88P"           
+
+*/
 
 export function randomNumber(min, max) {
   return Math.abs(Math.round(Math.random() * (max - min) + min));
