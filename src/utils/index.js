@@ -15,7 +15,7 @@ export function getHash(inp, mod = 1) {
   return Math.abs(hash % mod);
 }
 
-/**
+/** example
 
   let readFn = async (url) => {
     let resp = await this.$api.get(url);
@@ -48,6 +48,8 @@ export async function getResultsInParallel(arr, fn) {
   return promiseResults;
 }
 
+// ----------------------------------------------------------------------------
+
 /**
 
                               888                             888    888      d8b                            
@@ -76,6 +78,8 @@ export function getRandomItems(arr, num = 1, changeEverytime = false) {
   let shuffled = [...arr].sort(sortFn);
   return shuffled.slice(0, num);
 }
+
+// ----------------------------------------------------------------------------
 
 /** 
                                                                                   
