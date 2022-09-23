@@ -1,5 +1,5 @@
 import * as fb from "@/firebase";
-import * as utils from "@/utils";
+import * as firebaseUtils from "@/utils/firebaseUtils";
 import _ from "lodash";
 
 export async function getUser(opts) {
@@ -14,7 +14,7 @@ export async function getUser(opts) {
   } else if (email) {
     res = fb.usersCollection.where("email", "==", email);
     res = await res.get();
-    res = utils.convertToArray(res);
+    res = firebaseUtils.convertToArray(res);
     res = res[0];
   }
   res = _.omit(res, omitKeys);

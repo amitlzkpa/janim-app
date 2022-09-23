@@ -3,16 +3,6 @@ export async function wait(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
 };
 
-export function convertToArray(refs) {
-  let regArr = [];
-  refs.forEach((r) => {
-    let rD = r.data();
-    rD.id = r.id;
-    regArr.push(rD);
-  });
-  return regArr;
-}
-
 /**
 
   let readFn = async (url) => {
