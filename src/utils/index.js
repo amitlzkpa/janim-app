@@ -40,6 +40,15 @@ export function randomNumber(min, max) {
   return Math.abs(Math.round(Math.random() * (max - min) + min));
 }
 
+export function getRandomItems(arr, num = 1, changeEverytime = false) {
+  let sortFn = (a, b) => a < b ? -1 : 1;
+  if (changeEverytime) {
+    sortFn = () => 0.5 - Math.random();
+  }
+  let shuffled = [...arr].sort(sortFn);
+  return shuffled.slice(0, num);
+}
+
 /** 
                                                                                   
 888                     888                                888            888      
