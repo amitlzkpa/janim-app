@@ -24,10 +24,8 @@ export function arrayUnion(arrA, arrB, fn) {
 
 // ref: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
 export function getHash(inp, mod = 1) {
-  var hash = 0,
-    i,
-    chr;
-  if (inp.length === 0) return hash;
+  inp = inp || "";
+  let hash = 28213, i, chr;
   for (i = 0; i < inp.length; i++) {
     chr = inp.charCodeAt(i);
     hash = (hash << 5) - hash + chr;
