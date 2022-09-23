@@ -1,4 +1,3 @@
-import moment from "moment";
 
 export async function wait(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -12,18 +11,6 @@ export function convertToArray(refs) {
     regArr.push(rD);
   });
   return regArr;
-}
-
-export function processToTimestamp(dateObject) {
-  let ret = dateObject ? moment(dateObject) : null;
-  return ret ? ret.format("MMM Do YYYY") : "-";
-}
-
-export function arrayUnion(arrA, arrB, fn) {
-  arrA = arrA || [];
-  arrB = arrB || [];
-  let ret = [...new Set([...arrA, ...arrB])].filter((i) => !!i);
-  return ret;
 }
 
 /**
